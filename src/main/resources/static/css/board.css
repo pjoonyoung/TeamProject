@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+th.board_title {
+	background-color: #FE8761;
+	border: 1px solid #462600;
+	font-size: 20px;
+	color: #f1f1f1;
+	font-family: malgun;
+	font-weight: bold;
+}
+
+td.board_content01 {
+	background-color: #ffe9e1;
+	border: 1px solid #462600;
+	font-size: 18px;
+	color: #535353;
+	font-family: malgun;
+	text-align: center;
+}
+
+td.board_content02 {
+	background-color: #ffe9e1;
+	border: 1px solid #462600;
+	font-size: 18px;
+	color: #535353;
+	font-family: malgun;
+	text-align: left;
+}

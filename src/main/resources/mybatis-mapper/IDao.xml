@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.joonyoung.home.dao.IDao">
+	<!-- 회원관련 SQL -->
+	<insert id="memberJoin">
+		INSERT INTO 
+				profile_member (mid, mpw, mname, mgender, mphone, memail) 
+			VALUES
+			 	(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6})
+	</insert>
+	<select id="checkId" resultType="int">
+		SELECT COUNT(*) FROM profile_member WHERE mid = #{param1}
+	</select>
+	
+	<select id="checkIdAndPw" resultType="int">
+		SELECT COUNT(*) FROM profile_member WHERE mid = #{param1} AND mpw = #{param2}
+	</select>
+	
+	<select id="getMemberInfo" resultType="com.joonyoung.home.dto.MemberDto">
+		SELECT * FROM profile_member WHERE mid = #{param1}
+	</select>
+	
+	<update id="memberModify">
+		UPDATE profile_member SET mpw = #{param2}, mname = #{param3}, memail = #{param4} WHERE mid = #{param1}
+	</update>
+	
+	<!-- 질문게시판관련 SQL -->
+	<insert id="writeQuestion">
+		INSERT INTO 
+				profile_board (qnum, qid, qname, qcontent, qemail) 
+			VALUES
+			 	(profile_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+	<select id="question" resultType="com.joonyoung.home.dto.MemberDto">
+		SELECT mid, mname, memail FROM profile_member WHERE mid = #{param1}
+	</select>	
+	
+	<select id="questionList" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM profile_board ORDER BY qnum DESC
+	</select>
+	
+	<select id="questionView" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM profile_board WHERE qnum = #{param1}
+	</select>
+	
+	<update id="questionModify">
+		UPDATE profile_board SET qname = #{param2}, qcontent = #{param3}, qemail = #{param4} WHERE qnum = #{param1}
+	</update>
+	
+	<delete id="questionDelete">
+		DELETE FROM profile_board WHERE qnum = #{param1}
+	</delete>
+	
+	<!-- 댓글관련 SQL -->
+	<insert id="writeAnswer">
+		INSERT INTO 
+				profile_answer (anum, acontent, aid, aqid) 
+			VALUES
+			 	(answer_seq.nextval, #{param1}, #{param2}, #{param3})
+	</insert>
+	
+	<select id="answerlist" resultType="com.joonyoung.home.dto.AnswerDto">
+		SELECT * FROM profile_answer WHERE aqid=#{param1}
+	</select>
+</mapper>
