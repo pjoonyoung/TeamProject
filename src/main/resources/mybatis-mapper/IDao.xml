@@ -67,4 +67,8 @@
 	<select id="answerlist" resultType="com.joonyoung.home.dto.AnswerDto">
 		SELECT * FROM profile_answer WHERE aqid=#{param1}
 	</select>
+	
+	<delete id="answerDelete">
+		DELETE FROM profile_answer WHERE anum = #{param1}
+	</delete>
 </mapper>

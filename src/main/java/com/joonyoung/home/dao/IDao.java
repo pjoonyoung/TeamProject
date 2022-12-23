@@ -26,5 +26,6 @@ public interface IDao {
 	//댓글
 	public void writeAnswer(String acontent, String aid, String aqid);//댓글작성 insert
 	public ArrayList<AnswerDto> answerlist(String aqid);//해당글의 댓글 리스트 select
+	public void answerDelete(String anum);
 	
 }

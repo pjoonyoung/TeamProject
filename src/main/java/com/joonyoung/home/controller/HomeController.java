@@ -242,6 +242,14 @@ public class HomeController {
 		model.addAttribute("view", qBoardDtos);
 		model.addAttribute("qid", qBoardDtos.getQid());//글쓴 유저의 아이디값 전송
 		
+		ArrayList<AnswerDto> answerDtos = dao.answerlist(qnum);
+		
+		if(answerDtos == null) {
+			model.addAttribute("answer","댓글이 없습니다.");
+		} else {
+			model.addAttribute("answer",answerDtos);
+		}
+		
 		return "questionView";
 	}
 	
@@ -276,7 +284,7 @@ public class HomeController {
 	
 	@RequestMapping ("/questionAnswerOk")
 	public String answer(HttpServletRequest request, HttpSession session, Model model) {
-		
+		//댓글 insert 시키기
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		String aqid = request.getParameter("qnum");
@@ -284,21 +292,17 @@ public class HomeController {
 		
 		String sessionId = (String) session.getAttribute("memberId");//현재 로그인한 유저의 아이디
 		
-		System.out.println(aqid);
-		System.out.println(acontent);
-		System.out.println(sessionId);
-		
-		
 		dao.writeAnswer(acontent, sessionId, aqid);//댓글 쓰기
 		
-		
-		
-		String qnum = request.getParameter("qnum");
-		
-		QBoardDto qBoardDtos = dao.questionView(qnum);
+		//원글 및 댓글 불러오기
+		QBoardDto qBoardDtos = dao.questionView(aqid);
 		
 		model.addAttribute("view", qBoardDtos);
 		model.addAttribute("qid", qBoardDtos.getQid());//글쓴 유저의 아이디값 전송
+		
+		ArrayList<AnswerDto> answerDtos = dao.answerlist(aqid);
+		
+		model.addAttribute("answer",answerDtos);
 		
 		return "questionView";
 	}
@@ -313,6 +317,30 @@ public class HomeController {
 		dao.questionDelete(qnum);
 		
 		return "redirect:list";
+	}
+	
+	@RequestMapping ("/answerDelete")
+	public String answerDelete(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String anum = request.getParameter("anum");// 댓글의 고유번호
+		String aqid = request.getParameter("qnum");// 게시글의 고유번호
+		
+		System.out.println(anum);
+		System.out.println(aqid);
+		
+		dao.answerDelete(anum);
+		
+		QBoardDto qBoardDtos = dao.questionView(aqid);
+		ArrayList<AnswerDto> answerDtos = dao.answerlist(aqid);
+		
+		model.addAttribute("view", qBoardDtos);
+		model.addAttribute("qid", qBoardDtos.getQid());//글쓴 유저의 아이디값 전송
+		
+		model.addAttribute("answer",answerDtos);
+		
+		return "questionView";
 	}
 	
 }

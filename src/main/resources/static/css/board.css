@@ -26,3 +26,7 @@ td.board_content02 {
 	font-family: malgun;
 	text-align: left;
 }
+
+hr.line {
+	border: 1px solid #ff8040;
+}
