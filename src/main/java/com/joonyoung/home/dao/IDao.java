@@ -32,4 +32,9 @@ public interface IDao {
 	public void answercountMinus(String aqid);//댓글 등록시 해당글의 댓글갯수 1감소
 	public void answerDelete(String anum);//댓글삭제
 	
+	//게시판 검색 관련
+	public ArrayList<QBoardDto> proSearchTitleList(String searchKey);
+	public ArrayList<QBoardDto> proSearchContentList(String searchKey);
+	public ArrayList<QBoardDto> proSearchWriterList(String searchKey);
+	
 }

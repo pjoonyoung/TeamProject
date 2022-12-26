@@ -40,6 +40,10 @@ input.input_type02 {
 	color: #2A2A2A;
 }
 
+input.input_type03 {
+	width: 100px;
+}
+
 input.button_type01 {
 	background-color: #FE8761;
 	border: 2px solid #FFFFFF;

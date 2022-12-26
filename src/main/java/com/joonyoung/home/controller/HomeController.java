@@ -347,4 +347,28 @@ public class HomeController {
 		return "questionView";
 	}
 	
+	@RequestMapping(value = "search_list")
+	public String search_list(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<QBoardDto> qboardDto = null;
+		
+		String searchOption = request.getParameter("searchOption");
+		String searchKey = request.getParameter("searchKey");
+		
+		if(searchOption.equals("title")) {
+			qboardDto = dao.proSearchTitleList(searchKey);
+		} else if(searchOption.equals("content")) {
+			qboardDto = dao.proSearchContentList(searchKey);
+		} else if(searchOption.equals("writer")) {
+			qboardDto = dao.proSearchWriterList(searchKey);
+		}
+		
+		model.addAttribute("qdtos", qboardDto);
+		model.addAttribute("qproboardCount", qboardDto.size());//검색 결과 게시물의 개수 반환
+		
+		return "questionlist";
+	}
+	
 }

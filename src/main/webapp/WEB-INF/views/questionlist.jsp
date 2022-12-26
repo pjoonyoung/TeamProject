@@ -34,7 +34,17 @@
 							<center>
 							<table width="80%" border="0" cellspacing="0" cellpadding="10">
 								<tr>
-									<td colspan="6">▷ 총 ${qproboardCount }개의 게시물이 있습니다.</td>
+									<td colspan="7" align="left">▷ 총 ${qproboardCount }개의 게시물이 있습니다.
+										<form action="search_list">
+											<select name="searchOption" >
+								                <option value="title">제목</option>
+								                <option value="content">내용</option>
+								                <option value="writer">글쓴이</option>
+								            </select>
+								            <input class="input_type03" type="text" name="searchKey">
+								            <input type="submit" value="검색">
+										</form>
+									</td>
 								</tr>
 								<tr>
 									<th class="board_title">NO</th>
