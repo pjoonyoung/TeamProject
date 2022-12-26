@@ -31,15 +31,18 @@
 				<table width="80%" border="0" cellspacing="0" cellpadding="10">
 					<tr class="contentbox">
 						<td class="content">
-							<br><br>
 							<center>
 							<table width="80%" border="0" cellspacing="0" cellpadding="10">
 								<tr>
+									<td colspan="6">▷ 총 ${qproboardCount }개의 게시물이 있습니다.</td>
+								</tr>
+								<tr>
 									<th class="board_title">NO</th>
 									<th class="board_title">ID</th>
-									<th class="board_title" width="50%">QUESTION</th>
+									<th class="board_title" width="50%">TITLE</th>
 									<th class="board_title">NAME</th>
 									<th class="board_title">DATE</th>
+									<th class="board_title">HIT</th>
 								</tr>
 								<c:forEach items="${qdtos }" var="list">	
 								<tr>
@@ -48,19 +51,23 @@
 									<td class="board_content02">
 									<a href="questionView?qnum=${list.qnum }">
 									<c:choose>
-										<c:when test="${fn:length(list.qcontent) > 23 }">
-											<c:out value="${fn:substring(list.qcontent,0,22) }"></c:out>...
+										<c:when test="${fn:length(list.qtitle) > 23 }">
+											<c:out value="${fn:substring(list.qtitle,0,22) }">sss</c:out>...
 										</c:when>
 										<c:otherwise>
-											<c:out value="${list.qcontent }"></c:out>
+											<c:out value="${list.qtitle }"></c:out>
 										</c:otherwise>
 									</c:choose>
+									<c:if test="${list.qanswercount != 0 }">              
+             		 				&nbsp;&nbsp;[${list.qanswercount }]
+              						</c:if>
 									</a>
 									</td>
 									<td class="board_content01">${list.qname }</td>
 									<td class="board_content01">
 										<c:out value="${fn:substring(list.qdate ,0,10) }"></c:out>
 									</td>
+									<td class="board_content01">${list.qhit }</td>
 								</tr>
 								</c:forEach>
 								<tr>
@@ -80,7 +87,7 @@
 								<%
 									} else {
 								%>
-									<td colspan="5" align="right">
+									<td colspan="6" align="right">
 										<input type="button" value="질문하기" class="button_type01" onclick="script:window.location='question'">
 									</td>
 								<%

@@ -16,16 +16,20 @@ public interface IDao {
 	public void memberModify(String mid, String mpw, String mname, String mgender, String mphone, String memail, String mdate);//회원정보 수정 update
 	
 	//질문 게시판
-	public void writeQuestion(String qid, String qname, String qcontent, String qemail);//질문하기 insert
+	public void writeQuestion(String qid, String qname, String qtitle, String qcontent, String qemail);//질문하기 insert
 	public MemberDto question(String mid);//질문작성시 아이디, 이름, 이메일 정보 가져오기 select
 	public List<QBoardDto> questionList();//질문게시판 리스트 가져오기 select
+	public int proboardAllCount();
 	public QBoardDto questionView(String qnum);//선택한 글 번호의 정보 가져오기 select
-	public void questionModify(String qnum, String qname, String qcontent, String qemail);//해당 글 번호로 조회하여 질문수정 update
+	public void questionModify(String qnum, String qname, String qtitle, String qcontent, String qemail);//해당 글 번호로 조회하여 질문수정 update
 	public void questionDelete(String qnum);//해당 글 번호로 조회하여 글 삭제 delete
+	public void qhit(String qnum);//조회수
 	
 	//댓글
 	public void writeAnswer(String acontent, String aid, String aqid);//댓글작성 insert
 	public ArrayList<AnswerDto> answerlist(String aqid);//해당글의 댓글 리스트 select
-	public void answerDelete(String anum);
+	public void answercountPlus(String aqid);//댓글 등록시 해당글의 댓글갯수 1증가
+	public void answercountMinus(String aqid);//댓글 등록시 해당글의 댓글갯수 1감소
+	public void answerDelete(String anum);//댓글삭제
 	
 }

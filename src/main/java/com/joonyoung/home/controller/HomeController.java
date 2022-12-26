@@ -89,10 +89,11 @@ public class HomeController {
 		
 		String qid = request.getParameter("qid");//글쓴 유저 아이디
 		String qname = request.getParameter("qname");//글쓴 유저 이름
+		String qtitle = request.getParameter("qtitle");//글쓴 제목
 		String qcontent = request.getParameter("qcontent");//글쓴 내용
 		String qemail = request.getParameter("qemail");//글쓴 유저 이메일
 		
-		dao.writeQuestion(qid, qname, qcontent, qemail);
+		dao.writeQuestion(qid, qname, qtitle, qcontent, qemail);
 		
 		return "redirect:list";
 	}
@@ -223,9 +224,12 @@ public class HomeController {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
+		
 		List<QBoardDto> qboardDto = dao.questionList();
+		int qproboardCount = dao.proboardAllCount();
 		
 		model.addAttribute("qdtos", qboardDto);
+		model.addAttribute("qproboardCount", qproboardCount);
 		
 		return "questionlist";
 	}
@@ -237,17 +241,18 @@ public class HomeController {
 		
 		String qnum = request.getParameter("qnum");
 		
+		dao.qhit(qnum);//조회수 증가
+		
 		QBoardDto qBoardDtos = dao.questionView(qnum);
+		ArrayList<AnswerDto> answerDtos = dao.answerlist(qnum);
 		
 		model.addAttribute("view", qBoardDtos);
 		model.addAttribute("qid", qBoardDtos.getQid());//글쓴 유저의 아이디값 전송
 		
-		ArrayList<AnswerDto> answerDtos = dao.answerlist(qnum);
-		
 		if(answerDtos == null) {
 			model.addAttribute("answer","댓글이 없습니다.");
 		} else {
-			model.addAttribute("answer",answerDtos);
+		model.addAttribute("answer",answerDtos);//해당 글에 달린 댓글 리스트
 		}
 		
 		return "questionView";
@@ -274,10 +279,11 @@ public class HomeController {
 		
 		String qnum = request.getParameter("qnum");
 		String qname = request.getParameter("qname");
+		String qtitle = request.getParameter("qtitle");
 		String qcontent = request.getParameter("qcontent");
 		String qemail = request.getParameter("qemail");
 		
-		dao.questionModify(qnum, qname, qcontent, qemail);
+		dao.questionModify(qnum, qname, qtitle, qcontent, qemail);
 		
 		return "redirect:list";
 	}
@@ -287,20 +293,20 @@ public class HomeController {
 		//댓글 insert 시키기
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		String aqid = request.getParameter("qnum");
-		String acontent = request.getParameter("acontent");
+		String aqid = request.getParameter("qnum");//댓글의 원글번호
+		String acontent = request.getParameter("acontent");//댓글 내용
 		
 		String sessionId = (String) session.getAttribute("memberId");//현재 로그인한 유저의 아이디
 		
 		dao.writeAnswer(acontent, sessionId, aqid);//댓글 쓰기
+		dao.answercountPlus(aqid);//해당글의 댓글 총 개수 증가
 		
 		//원글 및 댓글 불러오기
 		QBoardDto qBoardDtos = dao.questionView(aqid);
+		ArrayList<AnswerDto> answerDtos = dao.answerlist(aqid);
 		
 		model.addAttribute("view", qBoardDtos);
 		model.addAttribute("qid", qBoardDtos.getQid());//글쓴 유저의 아이디값 전송
-		
-		ArrayList<AnswerDto> answerDtos = dao.answerlist(aqid);
 		
 		model.addAttribute("answer",answerDtos);
 		
@@ -327,18 +333,16 @@ public class HomeController {
 		String anum = request.getParameter("anum");// 댓글의 고유번호
 		String aqid = request.getParameter("qnum");// 게시글의 고유번호
 		
-		System.out.println(anum);
-		System.out.println(aqid);
-		
 		dao.answerDelete(anum);
+		dao.answercountMinus(aqid);//댓글개수 -1
 		
 		QBoardDto qBoardDtos = dao.questionView(aqid);
 		ArrayList<AnswerDto> answerDtos = dao.answerlist(aqid);
 		
-		model.addAttribute("view", qBoardDtos);
+		model.addAttribute("view", qBoardDtos);//게시판 전체내용 전송
 		model.addAttribute("qid", qBoardDtos.getQid());//글쓴 유저의 아이디값 전송
 		
-		model.addAttribute("answer",answerDtos);
+		model.addAttribute("answer",answerDtos);//댓글 전체리스트 전송
 		
 		return "questionView";
 	}

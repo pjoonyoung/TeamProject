@@ -31,10 +31,14 @@
 	<!-- 질문게시판관련 SQL -->
 	<insert id="writeQuestion">
 		INSERT INTO 
-				profile_board (qnum, qid, qname, qcontent, qemail) 
+				profile_board (qnum, qid, qname, qtitle, qcontent, qemail, qhit, qanswercount) 
 			VALUES
-			 	(profile_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4})
+			 	(profile_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, 0, 0)
 	</insert>
+	
+	<select id="proboardAllCount" resultType="int">
+		SELECT COUNT(*) FROM profile_board
+	</select>
 	
 	<select id="question" resultType="com.joonyoung.home.dto.MemberDto">
 		SELECT mid, mname, memail FROM profile_member WHERE mid = #{param1}
@@ -49,12 +53,16 @@
 	</select>
 	
 	<update id="questionModify">
-		UPDATE profile_board SET qname = #{param2}, qcontent = #{param3}, qemail = #{param4} WHERE qnum = #{param1}
+		UPDATE profile_board SET qname = #{param2}, qtitle = #{param3}, qcontent = #{param4}, qemail = #{param5} WHERE qnum = #{param1}
 	</update>
 	
 	<delete id="questionDelete">
 		DELETE FROM profile_board WHERE qnum = #{param1}
 	</delete>
+	
+	<update id="qhit">
+		UPDATE profile_board SET qhit = qhit+1 WHERE qnum=#{param1}
+	</update>
 	
 	<!-- 댓글관련 SQL -->
 	<insert id="writeAnswer">
@@ -65,8 +73,16 @@
 	</insert>
 	
 	<select id="answerlist" resultType="com.joonyoung.home.dto.AnswerDto">
-		SELECT * FROM profile_answer WHERE aqid=#{param1}
+		SELECT * FROM profile_answer WHERE aqid=#{param1} ORDER BY anum ASC
 	</select>
+	
+	<update id="answercountPlus">
+		UPDATE profile_board SET qanswercount=qanswercount+1 WHERE qnum=#{param1}
+	</update>
+	
+	<update id="answercountMinus">
+		UPDATE profile_board SET qanswercount=qanswercount-1 WHERE qnum=#{param1}
+	</update>
 	
 	<delete id="answerDelete">
 		DELETE FROM profile_answer WHERE anum = #{param1}

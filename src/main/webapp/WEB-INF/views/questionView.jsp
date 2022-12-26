@@ -49,6 +49,10 @@
 										<input class="input_type01" type="text" name="qdate" value="${view.qdate }" readonly="readonly"></td>
 									</tr>
 									<tr>
+										<td><span class="content_text01">TITLE</span></td>
+										<td><input class="input_type02" type="text" name="qtitle" value="${view.qtitle }" readonly="readonly"></td>
+									</tr>
+									<tr>
 										<td><span class="content_text01">QUESTION</span></td>
 										<td>
 											<textarea class="textarea_text01" rows="5" cols="30" name="qcontent" readonly="readonly">${view.qcontent }</textarea>

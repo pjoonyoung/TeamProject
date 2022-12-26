@@ -30,6 +30,16 @@ input.input_type01 {
 	color: #2A2A2A;
 }
 
+input.input_type02 {
+	background-color: #FFFFFF;
+	border: 1px solid #FED39F;
+	width: 400px;
+	padding: 5px;
+	font-family: Arial;
+	font-size: 20px;
+	color: #2A2A2A;
+}
+
 input.button_type01 {
 	background-color: #FE8761;
 	border: 2px solid #FFFFFF;

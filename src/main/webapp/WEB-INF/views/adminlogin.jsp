@@ -38,6 +38,7 @@
 									<tr>
 										<td colspan="2" align="center">
 											<input class="button_type01" type="submit" value="로그인">&nbsp;&nbsp;
+											<input class="button_type02" type="button" value="회원" onclick="script:window.location='login'">
 										</td>
 									</tr>
 								</form>
