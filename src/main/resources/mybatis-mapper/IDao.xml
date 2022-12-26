@@ -40,12 +40,20 @@
 		SELECT COUNT(*) FROM profile_board
 	</select>
 	
+	<select id="proboardMyCount" resultType="int">
+		SELECT COUNT(*) FROM profile_board WHERE qid = #{param1}
+	</select>
+	
 	<select id="question" resultType="com.joonyoung.home.dto.MemberDto">
 		SELECT mid, mname, memail FROM profile_member WHERE mid = #{param1}
 	</select>	
 	
 	<select id="questionList" resultType="com.joonyoung.home.dto.QBoardDto">
 		SELECT * FROM profile_board ORDER BY qnum DESC
+	</select>
+	
+	<select id="myquestionList" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM profile_board WHERE qid = #{param1} ORDER BY qnum DESC
 	</select>
 	
 	<select id="questionView" resultType="com.joonyoung.home.dto.QBoardDto">
@@ -89,15 +97,15 @@
 	</delete>
 	
 	<!-- 게시판 검색 SQL -->	
-	<select id="proSearchTitleList" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board WHERE qtitle LIKE '%' || #{param1} || '%' ORDER BY qnum DESC	
+	<select id="mySearchTitleList" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM profile_board where qid = #{param1} and qtitle LIKE '%' || #{param2} || '%' ORDER BY qnum DESC	
 	</select>
 	
-	<select id="proSearchContentList" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board WHERE qcontent LIKE '%' || #{param1} || '%' ORDER BY qnum DESC	
+	<select id="mySearchContentList" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM profile_board where qid = #{param1} and qcontent LIKE '%' || #{param2} || '%' ORDER BY qnum DESC	
 	</select>
 	
-	<select id="proSearchWriterList" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board WHERE qname LIKE '%' || #{param1} || '%' ORDER BY qnum DESC	
+	<select id="mySearchWriterList" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM profile_board where qid = #{param1} and qname LIKE '%' || #{param2} || '%' ORDER BY qnum DESC	
 	</select>
 </mapper>

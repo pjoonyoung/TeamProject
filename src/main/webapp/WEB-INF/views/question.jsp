@@ -52,7 +52,7 @@
 									
 									<tr>
 										<td colspan="2" align="center">
-											<input class="button_type01" type="button" value="질문하기" onclick="boardCheck()">&nbsp;&nbsp;
+											<input class="button_type01" type="button" value="문의하기" onclick="boardCheck()">&nbsp;&nbsp;
 											<input class="button_type01" type="button" value="글목록" onclick="script:window.location='list'">
 										</td>
 									</tr>

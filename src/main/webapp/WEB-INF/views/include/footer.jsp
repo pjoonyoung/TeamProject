@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
 </head>
 <body>
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%" class="footer" border="0" cellspacing="0" cellpadding="0">
 		<tr class="footerline01">
 			<td>&nbsp;</td>
 		</tr>

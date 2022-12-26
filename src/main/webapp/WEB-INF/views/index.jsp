@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>** 병원예약관리 프로젝트 **</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/title.css">
-
 </head>
 <body>
 <%@ include file="include/header.jsp" %>
@@ -17,11 +16,7 @@
 				<span class="title01">병원 예약관리 프로그램</span>
 			</td>
 		</tr>
-		<tr>
-			<td class="titlebox">
-				<span class="title02"></span>	
-			</td>
-		</tr>
+		
 		<tr>
 			<td>
 				<center>

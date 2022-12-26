@@ -61,6 +61,11 @@ public class HomeController {
 		return "join";
 	}
 	
+	@RequestMapping("/mypage")
+	public String mypage() {
+		return "mypage";
+	}
+	
 	@RequestMapping("/question")
 	public String question(HttpSession session, HttpServletResponse response, Model model) throws IOException {
 		IDao dao = sqlSession.getMapper(IDao.class);
@@ -369,6 +374,50 @@ public class HomeController {
 		model.addAttribute("qproboardCount", qboardDto.size());//검색 결과 게시물의 개수 반환
 		
 		return "questionlist";
+	}
+	
+	@RequestMapping(value = "mysearch_list")
+	public String mysearch_list(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<QBoardDto> qboardDto = null;
+		
+		String searchOption = request.getParameter("searchOption");
+		String searchKey = request.getParameter("searchKey");
+		String qid = request.getParameter("qid");
+		
+		System.out.println(qid);
+		System.out.println(searchKey);
+		
+		if(searchOption.equals("title")) {
+			qboardDto = dao.mySearchTitleList(qid, searchKey);
+		} else if(searchOption.equals("content")) {
+			qboardDto = dao.mySearchContentList(qid, searchKey);
+		} else if(searchOption.equals("writer")) {
+			qboardDto = dao.mySearchWriterList(qid, searchKey);
+		}
+		
+		model.addAttribute("qdtos", qboardDto);
+		model.addAttribute("qproboardCount", qboardDto.size());//검색 결과 게시물의 개수 반환
+		
+		return "myquestionlist";
+	}
+	
+	@RequestMapping("/myquestionlist")
+	public String myquestionView(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String qid = request.getParameter("qid");
+		
+		List<QBoardDto> qboardDto = dao.myquestionList(qid);
+		int qproboardMyCount = dao.proboardMyCount(qid);
+		
+		model.addAttribute("qdtos", qboardDto);
+		model.addAttribute("qproboardMyCount", qproboardMyCount);
+		
+		return "myquestionlist";
 	}
 	
 }

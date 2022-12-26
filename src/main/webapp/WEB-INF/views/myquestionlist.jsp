@@ -17,7 +17,7 @@
 	<table width="75%" border="0" cellspacing="0" cellpadding="20">
 		<tr>
 			<td class="titlebox">
-				<span class="title01">질문 리스트</span>
+				<span class="title01">나의 문의내역</span>
 			</td>
 		</tr>
 		<tr>
@@ -34,8 +34,9 @@
 							<center>
 							<table width="80%" border="0" cellspacing="0" cellpadding="10">
 								<tr>
-									<td colspan="7" align="left">▷ 총 ${qproboardCount }개의 게시물이 있습니다.
-										<form action="search_list">
+									<td colspan="7" align="left">▷ ${memberId } 님 총 ${qproboardMyCount }개의 문의가 있습니다.
+										<form action="mysearch_list">
+										<input type="hidden" value="${memberId }" name="qid">
 											<select name="searchOption" >
 								                <option value="title">제목</option>
 								                <option value="content">내용</option>
@@ -81,28 +82,9 @@
 								</tr>
 								</c:forEach>
 								<tr>
-								<%
-									String boardId = (String) request.getAttribute("qid");
-									
-									if(sessionId == null) {
-								%>
-								<script type="text/javascript">
-									alert("로그인이 필요한 기능입니다. 로그인 여부를 확인하여주세요.");
-									history.go(-1);
-								</script>
-								<%
-									} else if (sessionId.equals("ADMIN")) {
-								%>
-								
-								<%
-									} else {
-								%>
 									<td colspan="6" align="right">
 										<input type="button" value="문의하기" class="button_type01" onclick="script:window.location='question'">
 									</td>
-								<%
-									}
-								%>
 								</tr>
 							</table>
 							</center>

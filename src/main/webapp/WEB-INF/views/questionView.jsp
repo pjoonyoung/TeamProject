@@ -117,7 +117,7 @@
 											<td colspan="2" align="center">
 												<input class="button_type01" type="submit" value="수정">&nbsp;&nbsp;
 												<input class="button_type01" type="button" value="삭제" onclick="script:window.location='questionDelete?qnum=${view.qnum}'">&nbsp;&nbsp;
-												<input class="button_type01" type="button" value="글목록" onclick="script:window.location='list'">
+												<input class="button_type01" type="button" value="문의목록" onclick="script:window.location='list'">
 											</td>
 										</tr>
 										<%

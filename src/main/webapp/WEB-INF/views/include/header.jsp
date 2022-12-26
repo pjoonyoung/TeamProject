@@ -14,7 +14,21 @@
 	%>
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr class="headline01">
-			<td width="65%" class="menu01">&nbsp;</td>
+			<%
+				if(sessionId == null){
+			%>
+			<%
+				} else if ((sessionId != null) && (sessionId.equals("ADMIN"))){
+			%>
+			<td width="8%" class="menu02" >관리자님 로그인중...</td>
+			<%
+				} else {
+			%>
+			<td width="7%" class="menu02" >${memberId }님 로그인중...</td>
+			<%
+				}
+			%>
+			<td width="58%" class="menu01">&nbsp;</td>
 			<td width="5%" class="menu01"><a href="index">HOME</a></td>
 			<td width="5%" class="menu01">
 			<%
@@ -39,13 +53,23 @@
 			<%
 				} else {
 			%>
-				<a href="memberModify">MODIFY</a>
+				<a href="mypage">MYPAGE</a>
 			<%
 				}
 			%>
 			</td>
 			<td width="7%" class="menu01"><a href="list">QUESTION</a></td>
-			<td width="7%" class="menu01"><a href="reservation">RESERVATION</a></td>
+			<%
+				if(sessionId != null){
+					
+			%>
+				<td width="7%" class="menu01"><a href="reservation">RESERVATION</a></td>
+			<%
+				} else {
+			%>
+			<%
+				}
+			%>
 			<td width="6%" class="menu01"><a href="contact">CONTACT</a></td>
 			<td width="2%">&nbsp;</td>
 		</tr>
