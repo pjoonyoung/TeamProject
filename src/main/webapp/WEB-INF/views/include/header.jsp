@@ -12,6 +12,7 @@
 	<%
 		String sessionId = (String) session.getAttribute("memberId");
 	%>
+	
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr class="headline01">
 			<%
@@ -63,7 +64,7 @@
 				if(sessionId != null){
 					
 			%>
-				<td width="7%" class="menu01"><a href="reservation">RESERVATION</a></td>
+				<td width="7%" class="menu01"><a href="reservationlist">RESERVATION</a></td>
 			<%
 				} else {
 			%>

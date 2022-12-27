@@ -96,7 +96,21 @@
 		DELETE FROM profile_answer WHERE anum = #{param1}
 	</delete>
 	
-	<!-- 게시판 검색 SQL -->	
+	<!-- 게시판 검색 SQL -->
+	<!-- 전체게시판 -->
+	<select id="proSearchTitleList" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM profile_board where qtitle LIKE '%' || #{param1} || '%' ORDER BY qnum DESC	
+	</select>
+	
+	<select id="proSearchContentList" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM profile_board where qcontent LIKE '%' || #{param1} || '%' ORDER BY qnum DESC	
+	</select>
+	
+	<select id="proSearchWriterList" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM profile_board where qname LIKE '%' || #{param1} || '%' ORDER BY qnum DESC	
+	</select>
+	
+	<!-- 개인게시판 -->
 	<select id="mySearchTitleList" resultType="com.joonyoung.home.dto.QBoardDto">
 		SELECT * FROM profile_board where qid = #{param1} and qtitle LIKE '%' || #{param2} || '%' ORDER BY qnum DESC	
 	</select>

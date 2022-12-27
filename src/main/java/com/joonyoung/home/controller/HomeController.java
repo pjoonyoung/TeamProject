@@ -66,6 +66,11 @@ public class HomeController {
 		return "mypage";
 	}
 	
+	@RequestMapping("/reservationlist")
+	public String reservation() {
+		return "reservationlist";
+	}
+	
 	@RequestMapping("/question")
 	public String question(HttpSession session, HttpServletResponse response, Model model) throws IOException {
 		IDao dao = sqlSession.getMapper(IDao.class);
@@ -387,9 +392,6 @@ public class HomeController {
 		String searchKey = request.getParameter("searchKey");
 		String qid = request.getParameter("qid");
 		
-		System.out.println(qid);
-		System.out.println(searchKey);
-		
 		if(searchOption.equals("title")) {
 			qboardDto = dao.mySearchTitleList(qid, searchKey);
 		} else if(searchOption.equals("content")) {
@@ -420,4 +422,23 @@ public class HomeController {
 		return "myquestionlist";
 	}
 	
+	@RequestMapping("/reservation")
+	public String reservationOk(HttpSession session, HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String sessionId = (String) session.getAttribute("memberId");
+
+		MemberDto mdto = dao.question(sessionId);
+			
+		model.addAttribute("member", mdto);
+		
+		//rlist값 빼오기
+		
+		String check = request.getParameter("check");
+		
+		model.addAttribute("check",check);
+		
+		return "reservation";
+	}
 }
