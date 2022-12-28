@@ -19,6 +19,7 @@ import com.joonyoung.home.dao.IDao;
 import com.joonyoung.home.dto.AnswerDto;
 import com.joonyoung.home.dto.MemberDto;
 import com.joonyoung.home.dto.QBoardDto;
+import com.joonyoung.home.dto.ReservationDto;
 
 @Controller
 public class HomeController {
@@ -428,17 +429,99 @@ public class HomeController {
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		String sessionId = (String) session.getAttribute("memberId");
-
 		MemberDto mdto = dao.question(sessionId);
-			
 		model.addAttribute("member", mdto);
 		
 		//rlist값 빼오기
-		
 		String check = request.getParameter("check");
-		
 		model.addAttribute("check",check);
 		
 		return "reservation";
+	}
+	@RequestMapping("reservationOk")
+	public String reservationOk(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws IOException {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String rid = request.getParameter("rid");//예약 유저 아이디
+		String rname = request.getParameter("rname");//예약 유저 이름
+		String rphone = request.getParameter("rphone");//예약 유저번호
+		String ranimal = request.getParameter("ranimal");//예약자 반려동물
+		String rlist = request.getParameter("rlist");//예약 희망항목
+		String rcontent = request.getParameter("rcontent");//예약 유저 요청사항
+		String rday = request.getParameter("rday");//예약 날짜
+		String rtime = request.getParameter("selectOption");//예약 시간
+		
+		//중복체크
+		int checktimeFlag = dao.checkTime(rday, rtime);
+		//예약 하려는 날짜와 시간이 존재시 1, 존재하지않으면 0 
+		
+		int checkList = dao.checkList(rid, rlist);
+		//예약 하려는 아이디와 접수list가 존재시 1, 존재하지않으면 0 
+		
+		model.addAttribute("checktimeFlag", checktimeFlag);
+		model.addAttribute("checkList", checkList);
+		
+		if (checktimeFlag != 0){
+		
+			response.setContentType("text/html; charset=UTF-8");      
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('해당시간은 예약이 불가합니다. 다른날짜를 선택해주세요'); history.go(-1);</script>");
+	        out.flush(); 
+	        
+	        return "reservation";
+			
+		} else if (checkList != 0){
+		
+			response.setContentType("text/html; charset=UTF-8");      
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('동일접수를 중복으로 예약할수 없습니다. 다시 확인해주세요!'); history.go(-1);</script>");
+	        out.flush(); 
+			
+	        return "reservation";
+	        
+		} else {//예약 실행
+			
+			dao.reservation(rid, rname, rphone, ranimal, rlist, rcontent, rday, rtime);//예약정보 insert
+			
+			ReservationDto reservationDto = dao.getReservation(rid, rlist);//예약완료된 정보 다시 가져오기 
+			model.addAttribute("reservationDto", reservationDto);
+			
+			return "reservationOk";
+		}
+	}
+	
+	@RequestMapping("/reservescreen")
+	public String reservescreen(HttpServletRequest request) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<ReservationDto> rlistDto = dao.reservationList(null, null);
+		
+		return "reservescreen";
+	}
+	
+	@RequestMapping("/reservationView")
+	public String reservationView() {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ReservationDto rDto = dao.reservationView(null);
+		
+		return "reservationView";
+	}
+	
+	@RequestMapping("/reserveModify")
+	public String reserveModify(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String qnum = request.getParameter("qnum");
+		
+		QBoardDto qBoardDtos = dao.questionView(qnum);
+		
+		model.addAttribute("view", qBoardDtos); 
+		
+		return "reserveModify";
 	}
 }

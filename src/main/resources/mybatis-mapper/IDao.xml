@@ -122,4 +122,36 @@
 	<select id="mySearchWriterList" resultType="com.joonyoung.home.dto.QBoardDto">
 		SELECT * FROM profile_board where qid = #{param1} and qname LIKE '%' || #{param2} || '%' ORDER BY qnum DESC	
 	</select>
+	
+	<!-- 예약 SQL -->
+	<insert id="reservation">
+		INSERT INTO 
+				profile_reservation (rnum, rid, rname, rphone, ranimal, rlist, rcontent, rday, rtime) 
+			VALUES
+			 	(reservation_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8})
+	</insert>
+	
+	<select id="getReservation" resultType="com.joonyoung.home.dto.ReservationDto">
+		SELECT * FROM profile_reservation where rid = #{param1} and rlist = #{param2}
+	</select>
+	
+	<select id="checkTime" resultType="int">
+		SELECT COUNT(*) FROM profile_reservation WHERE rday = #{param1} and rtime = #{param2}
+	</select>
+	
+	<select id="checkList" resultType="int">
+		SELECT COUNT(*) FROM profile_reservation WHERE rid = #{param1} and rlist = #{param2}
+	</select>
+	
+	<select id="reservationList" resultType="com.joonyoung.home.dto.ReservationDto">
+		SELECT * FROM profile_reservation WHERE rnum = #{param1} AND rid = #{param} ORDER BY qnum DESC
+	</select>
+	
+	<select id="reservationView" resultType="com.joonyoung.home.dto.ReservationDto">
+		SELECT * FROM profile_reservation where rnum = #{param1}
+	</select>
+	
+	<update id="reserveModify">
+		UPDATE profile_reservation SET rid = #{param2}, rname = #{param3}, rphone = #{param4}, ranimal = #{param5}, rlist = #{param6}, rcontent = #{param7}, rday = #{param8}, rtime = #{param9} WHERE qnum = #{param1}
+	</update>
 </mapper>

@@ -25,7 +25,7 @@
 						<td rowspan="3" class="picbox1">
 							<img src="${pageContext.request.contextPath}/resources/img/reservationLogo.png">
 						<br><br>
-						<input type="button" value="나의예약확인" onclick="script:window.location='reservation'"></td>
+						<input type="button" value="나의예약확인" onclick="script:window.location='myreservation?rid=${memberId }'"></td>
 					</tr>
 					<tr>
 						<td rowspan="3" class="picbox1">

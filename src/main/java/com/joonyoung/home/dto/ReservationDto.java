@@ -15,5 +15,6 @@ public class ReservationDto {
 	private String ranimal;
 	private String rlist;
 	private String rcontent;
-	private String rdate;
+	private String rday;
+	private String rtime;
 }

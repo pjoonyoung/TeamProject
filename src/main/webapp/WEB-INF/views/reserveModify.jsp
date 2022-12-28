@@ -17,7 +17,7 @@
 	<table width="75%" border="0" cellspacing="0" cellpadding="20">
 		<tr>
 			<td class="titlebox">
-				<span class="title01">예약 페이지</span>
+				<span class="title01">예약 수정</span>
 			</td>
 		</tr>
 		<tr>
@@ -28,7 +28,7 @@
 						<td class="content">
 							<center>
 							<table border="0" cellspacing="0" cellpadding="10">
-								<form action="reservationOk" method="post" name="reservation_frm">
+								<form action="reservModifyOk" method="post" name="reservation_frm">
 								<input type="hidden" value="${view.qnum }" name="qnum">
 									<tr>
 										<td><span class="content_text01">MEMBER ID</span></td>
@@ -73,8 +73,8 @@
 									</tr>
 									<tr>
 										<td colspan="3" align="center">
-											<input class="button_type01" type="button" value="예약완료" onclick="reservationCheck()">&nbsp;&nbsp;
-											<input class="button_type01" type="button" value="예약취소" onclick="script:window.location='index'">
+											<input class="button_type01" type="button" value="수정완료" onclick="reservationCheck()">&nbsp;&nbsp;
+											<input class="button_type01" type="button" value="수정취소" onclick="script:window.location='index'">
 										</td>
 									</tr>
 								</form>
