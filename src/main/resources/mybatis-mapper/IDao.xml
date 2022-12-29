@@ -144,7 +144,11 @@
 	</select>
 	
 	<select id="reservationList" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation WHERE rnum = #{param1} AND rid = #{param} ORDER BY qnum DESC
+		SELECT * FROM profile_reservation WHERE rid = #{param} ORDER BY rnum DESC
+	</select>
+	
+	<select id="reservationCount" resultType="int">
+		SELECT COUNT(*) FROM profile_reservation WHERE rid = #{param1} ORDER BY rnum ASC
 	</select>
 	
 	<select id="reservationView" resultType="com.joonyoung.home.dto.ReservationDto">
@@ -154,4 +158,11 @@
 	<update id="reserveModify">
 		UPDATE profile_reservation SET rid = #{param2}, rname = #{param3}, rphone = #{param4}, ranimal = #{param5}, rlist = #{param6}, rcontent = #{param7}, rday = #{param8}, rtime = #{param9} WHERE qnum = #{param1}
 	</update>
+	
+	<!-- 예약검색 sql -->
+	
+	<select id="rSearchList" resultType="com.joonyoung.home.dto.ReservationDto">
+		SELECT * FROM profile_reservation where rid = #{param1} and rlist = #{param2} ORDER BY rnum DESC	
+	</select>
+	
 </mapper>

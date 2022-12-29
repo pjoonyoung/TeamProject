@@ -402,7 +402,7 @@ public class HomeController {
 		}
 		
 		model.addAttribute("qdtos", qboardDto);
-		model.addAttribute("qproboardCount", qboardDto.size());//검색 결과 게시물의 개수 반환
+		model.addAttribute("qproboardMyCount", qboardDto.size());//검색 결과 게시물의 개수 반환
 		
 		return "myquestionlist";
 	}
@@ -491,14 +491,44 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping("/reservescreen")
-	public String reservescreen(HttpServletRequest request) {
+	@RequestMapping("/myreservation")
+	public String myreservation(HttpServletRequest request, Model model) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		ArrayList<ReservationDto> rlistDto = dao.reservationList(null, null);
+		String rid = request.getParameter("rid");
 		
-		return "reservescreen";
+		ArrayList<ReservationDto> rlistDto = dao.reservationList(rid);
+		int reservationCount = dao.reservationCount(rid);
+		
+		model.addAttribute("rlistDto", rlistDto);
+		model.addAttribute("reservationCount", reservationCount);
+		
+		return "myreservation";
+	}
+	
+	@RequestMapping(value = "rsearch_list")
+	public String rsearch_list(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<ReservationDto> reservationDto = null;
+		
+		String searchOption = request.getParameter("searchOption");
+		String rid = request.getParameter("rid");
+		
+		if(searchOption.equals("진료")) {
+			reservationDto = dao.rSearchList(rid, searchOption);
+		} else if(searchOption.equals("예방접종")) {
+			reservationDto = dao.rSearchList(rid, searchOption);
+		} else if(searchOption.equals("미용")) {
+			reservationDto = dao.rSearchList(rid, searchOption);
+		}
+		
+		model.addAttribute("rlistDto", reservationDto);
+		model.addAttribute("reservationCount", reservationDto.size());//검색 결과 예약 개수 반환
+		
+		return "myreservation";
 	}
 	
 	@RequestMapping("/reservationView")

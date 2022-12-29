@@ -44,12 +44,15 @@ public interface IDao {
 	public ArrayList<QBoardDto> mySearchContentList(String qid, String searchKey);//나의 게시글 내용으로검색
 	public ArrayList<QBoardDto> mySearchWriterList(String qid, String searchKey);//나의 게시글 아이디(글쓴이)로검색
 	
+	public ArrayList<ReservationDto> rSearchList(String qid, String searchOption);//나의 예약 접수항목별 검색
+	
 	//예약관련
 	public void reservation(String rid, String rname, String rphone, String ranimal, String rlist, String rcontent, String rday, String rtime);//예약 insert
 	public ReservationDto getReservation(String rid, String rlist);//예약정보가져오기 select
 	public int checkTime(String rday, String rtime);//예약날짜, 시간 중복체크 select
 	public int checkList(String rid, String rlist);//동일예약자의 중복접수체크 select
-	public ArrayList<ReservationDto> reservationList(String rnum, String rid);//본인 예약정보 리스트 select
+	public ArrayList<ReservationDto> reservationList(String rid);//본인 예약정보 리스트 select
 	public ReservationDto reservationView(String rnum);//선택한 예약 번호의 정보 가져오기 select
+	public int reservationCount(String rid);//나의 예약 개수 가져오기 select
 	public void reserveModify(String rnum, String rid, String rname, String rphone, String ranimal, String rlist, String rcontent, String rday, String rtime);//해당 예약 번호로 조회하여 질문수정 update 
 }
