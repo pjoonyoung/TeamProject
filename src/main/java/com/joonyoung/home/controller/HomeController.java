@@ -456,11 +456,11 @@ public class HomeController {
 		int checktimeFlag = dao.checkTime(rday, rtime);
 		//예약 하려는 날짜와 시간이 존재시 1, 존재하지않으면 0 
 		
-		int checkList = dao.checkList(rid, rlist);
+		//int checkList = dao.checkList(rid, rlist);
 		//예약 하려는 아이디와 접수list가 존재시 1, 존재하지않으면 0 
 		
 		model.addAttribute("checktimeFlag", checktimeFlag);
-		model.addAttribute("checkList", checkList);
+		//model.addAttribute("checkList", checkList);
 		
 		if (checktimeFlag != 0){
 		
@@ -471,23 +471,20 @@ public class HomeController {
 	        
 	        return "reservation";
 			
-		} else if (checkList != 0){
-		
-			response.setContentType("text/html; charset=UTF-8");      
-	        PrintWriter out = response.getWriter();
-	        out.println("<script>alert('동일접수를 중복으로 예약할수 없습니다. 다시 확인해주세요!'); history.go(-1);</script>");
-	        out.flush(); 
-			
-	        return "reservation";
+//		} else if (checkList != 0){
+//		
+//			response.setContentType("text/html; charset=UTF-8");      
+//	        PrintWriter out = response.getWriter();
+//	        out.println("<script>alert('동일접수를 중복으로 예약할수 없습니다. 다시 확인해주세요!'); history.go(-1);</script>");
+//	        out.flush(); 
+//			
+//	        return "reservation";
 	        
 		} else {//예약 실행
 			
 			dao.reservation(rid, rname, rphone, ranimal, rlist, rcontent, rday, rtime);//예약정보 insert
 			
-			ReservationDto reservationDto = dao.getReservation(rid, rlist);//예약완료된 정보 다시 가져오기 
-			model.addAttribute("reservationDto", reservationDto);
-			
-			return "reservationOk";
+			return "redirect:mypage";
 		}
 	}
 	
@@ -523,6 +520,8 @@ public class HomeController {
 			reservationDto = dao.rSearchList(rid, searchOption);
 		} else if(searchOption.equals("미용")) {
 			reservationDto = dao.rSearchList(rid, searchOption);
+		} else if (searchOption.equals("전체")) {
+			reservationDto = dao.rAllSearchList(rid);
 		}
 		
 		model.addAttribute("rlistDto", reservationDto);
@@ -532,11 +531,16 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/reservationView")
-	public String reservationView() {
+	public String reservationView(HttpServletRequest request, Model model) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		ReservationDto rDto = dao.reservationView(null);
+		String rnum = request.getParameter("rnum");
+		
+		ReservationDto rDto = dao.reservationView(rnum);
+		
+		ReservationDto reservationDto = dao.getReservation(rnum);//예약완료된 정보 다시 가져오기 
+		model.addAttribute("reservationDto", reservationDto);
 		
 		return "reservationView";
 	}

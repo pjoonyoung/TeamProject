@@ -132,17 +132,17 @@
 	</insert>
 	
 	<select id="getReservation" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation where rid = #{param1} and rlist = #{param2}
+		SELECT * FROM profile_reservation where rnum = #{param1}
 	</select>
 	
 	<select id="checkTime" resultType="int">
 		SELECT COUNT(*) FROM profile_reservation WHERE rday = #{param1} and rtime = #{param2}
 	</select>
-	
+	<!-- 
 	<select id="checkList" resultType="int">
 		SELECT COUNT(*) FROM profile_reservation WHERE rid = #{param1} and rlist = #{param2}
 	</select>
-	
+ 	-->
 	<select id="reservationList" resultType="com.joonyoung.home.dto.ReservationDto">
 		SELECT * FROM profile_reservation WHERE rid = #{param} ORDER BY rnum DESC
 	</select>
@@ -163,6 +163,10 @@
 	
 	<select id="rSearchList" resultType="com.joonyoung.home.dto.ReservationDto">
 		SELECT * FROM profile_reservation where rid = #{param1} and rlist = #{param2} ORDER BY rnum DESC	
+	</select>
+	
+	<select id="rAllSearchList" resultType="com.joonyoung.home.dto.ReservationDto">
+		SELECT * FROM profile_reservation where rid = #{param1} ORDER BY rnum DESC	
 	</select>
 	
 </mapper>

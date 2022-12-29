@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +17,6 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 <fmt:formatDate value="${now}" pattern="HH:mm" var="todaytime" />
-<fmt:parseDate value="${rlistDto.rday.time }" pattern="yyyy-MM-dd" var="rday" />
-<fmt:parseDate value="${rlistDto.rtime.time }" pattern="HH:mm" var="rtime" />
-<fmt:formatDate value="${rday}" pattern="yyyy-MM-dd" var="reday" />
-<fmt:formatDate value="${rtime}" pattern="HH:mm" var="retime" />
-
-
 	<center>
 	<table width="75%" border="0" cellspacing="0" cellpadding="20">
 		<tr>
@@ -47,6 +42,7 @@
 										<form action="rsearch_list">
 										<input type="hidden" value="${memberId }" name="rid">
 											<select name="searchOption" >
+												<option value="전체">전체</option>
 								                <option value="진료">진료</option>
 								                <option value="예방접종">예방접종</option>
 								                <option value="미용">미용</option>
@@ -76,14 +72,17 @@
 									<td class="board_content01">
 										${list.rday } ${list.rtime }
 									</td>
+									<fmt:parseDate value="${list.rday }" pattern="yyyy-mm-dd" var="rday" />
+									<fmt:parseDate value="${list.rtime }" pattern="hh:mm" var="rtime" />
+									<fmt:formatDate value="${rday}" pattern="yyyy-MM-dd" var="reday" />
+									<fmt:formatDate value="${rtime}" pattern="hh:mm" var="retime" />
 									<c:choose>
-										<c:when test="${today ge reday && todaytime lt retime }">
+										<c:when test="${today le reday || todaytime lt retime }">
 											<td class="board_content01">예약중</td>
 										</c:when>
 										<c:when test="${today ge reday && todaytime gt retime }">
 											<td class="board_content01">처리완료</td>
 										</c:when>
-										
 									</c:choose>
 								</tr>
 								</c:forEach>
