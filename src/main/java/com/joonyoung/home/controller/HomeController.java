@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,11 @@ public class HomeController {
 	@RequestMapping("/mypage")
 	public String mypage() {
 		return "mypage";
+	}
+	
+	@RequestMapping("/adminpage")
+	public String adminpage() {
+		return "adminpage";
 	}
 	
 	@RequestMapping("/reservationlist")
@@ -216,12 +222,10 @@ public class HomeController {
 		String mid = request.getParameter("mid");
 		String mpw = request.getParameter("mpw");
 		String mname = request.getParameter("mname");
-		String mgender = request.getParameter("mgender");
 		String mphone = request.getParameter("mphone");
 		String memail = request.getParameter("memail");
-		String mdate = request.getParameter("mdate");
 		
-		dao.memberModify(mid, mpw, mname, mgender, mphone, memail, mdate);
+		dao.memberModify(mid, mpw, mname, mphone, memail);
 		
 		MemberDto memberdto = dao.getMemberInfo(mid);//수정된 회원정보 다시 가져오기 
 		
@@ -459,7 +463,7 @@ public class HomeController {
 		//int checkList = dao.checkList(rid, rlist);
 		//예약 하려는 아이디와 접수list가 존재시 1, 존재하지않으면 0 
 		
-		model.addAttribute("checktimeFlag", checktimeFlag);
+		//model.addAttribute("checktimeFlag", checktimeFlag);
 		//model.addAttribute("checkList", checkList);
 		
 		if (checktimeFlag != 0){
@@ -530,6 +534,32 @@ public class HomeController {
 		return "myreservation";
 	}
 	
+	@RequestMapping(value = "adsearch_list")
+	public String adsearch_list(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<ReservationDto> reservationDto = null;
+		
+		String searchOption = request.getParameter("searchOption");
+		
+		if(searchOption.equals("진료")) {
+			reservationDto = dao.adSearchList(searchOption);
+		} else if(searchOption.equals("예방접종")) {
+			reservationDto = dao.adSearchList(searchOption);
+		} else if(searchOption.equals("미용")) {
+			reservationDto = dao.adSearchList(searchOption);
+		} else if (searchOption.equals("전체")) {
+			reservationDto = dao.reservationAll();
+		}
+		
+		model.addAttribute("reAlldto", reservationDto);//검색 결과값을 반환
+		model.addAttribute("relistDto",searchOption);//옵션선택값을 반환
+		model.addAttribute("reAllCount", reservationDto.size());//검색 결과 예약 개수 반환
+		
+		return "reservationAll";
+	}
+	
 	@RequestMapping("/reservationView")
 	public String reservationView(HttpServletRequest request, Model model) {
 		
@@ -550,12 +580,130 @@ public class HomeController {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		String qnum = request.getParameter("qnum");
+		String rnum = request.getParameter("rnum");
 		
-		QBoardDto qBoardDtos = dao.questionView(qnum);
+		ReservationDto reservationDto = dao.getReservation(rnum);//예약번호로 정보 불러오기
 		
-		model.addAttribute("view", qBoardDtos); 
+		model.addAttribute("view", reservationDto); 
 		
 		return "reserveModify";
+	}
+	
+	@RequestMapping("/reserveModifyOk")
+	public String reserveModifyOk(HttpServletRequest request,HttpServletResponse response, Model model) throws IOException {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String rnum = request.getParameter("rnum");//예약 번호
+		String rid = request.getParameter("rid");//예약 유저 아이디
+		String rname = request.getParameter("rname");//예약 유저 이름
+		String rphone = request.getParameter("rphone");//예약 유저번호
+		String ranimal = request.getParameter("ranimal");//예약자 반려동물
+		String rlist = request.getParameter("rlist");//예약 희망항목
+		String rcontent = request.getParameter("rcontent");//예약 유저 요청사항
+		String rday = request.getParameter("rday");//예약 날짜
+		String rtime = request.getParameter("selectOption");//예약 시간
+		
+		ReservationDto reservecheckDto = dao.getReservation(rnum);//예약번호로 정보 불러오기
+		
+		//중복체크
+		int checktimeFlag = dao.checkTime(rday, rtime);
+		//예약 하려는 날짜와 시간이 존재시 1, 존재하지않으면 0 
+	
+		if (rtime.equals(reservecheckDto.getRtime()) && rday.equals(reservecheckDto.getRday())) {
+			
+			dao.reserveModifyOk(rnum, rid, rname, rphone, ranimal, rlist, rcontent, rday, rtime);//정보수정 실행
+			
+			ReservationDto reservationDto = dao.getReservation(rnum);//예약번호로 정보 불러오기
+			model.addAttribute("reserveview", reservationDto);
+			
+			return "reserveModifyOk";
+			
+		} else if (checktimeFlag != 0){
+				
+			response.setContentType("text/html; charset=UTF-8");      
+			PrintWriter out = response.getWriter();
+	        out.println("<script>alert('해당시간은 예약이 불가합니다. 다른날짜를 선택해주세요'); history.go(-1);</script>");
+	        out.flush(); 
+		        
+	        return "reserveModify";
+	
+		} else {//예약 실행
+			
+			dao.reserveModifyOk(rnum, rid, rname, rphone, ranimal, rlist, rcontent, rday, rtime);//정보수정 실행
+					
+			ReservationDto reservationDto = dao.getReservation(rnum);//예약번호로 정보 불러오기
+			model.addAttribute("reserveview", reservationDto);
+			
+			return "reserveModifyOk";
+		}
+	}
+	
+	@RequestMapping("/reserveDelete")
+	public String reserveDelete(HttpServletRequest request,HttpSession session, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String rnum = request.getParameter("rnum");
+		dao.reserveDelete(rnum);//예약 삭제하기
+		
+		String sessionId = (String) session.getAttribute("memberId");//세션에 저장된 아이디값 가져오기
+		
+		ArrayList<ReservationDto> rlistDto = dao.reservationList(sessionId);
+		int reservationCount = dao.reservationCount(sessionId);
+		
+		model.addAttribute("rlistDto", rlistDto);
+		model.addAttribute("reservationCount", reservationCount);
+		
+		return "myreservation";
+	}
+	
+	@RequestMapping("/reservationAll")
+	public String reservationAll(Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<ReservationDto> reAlldto = dao.reservationAll();
+		int reAllCount = dao.reAllCount();// 전체 예약개수 가져오기
+		
+		model.addAttribute("reAlldto", reAlldto);
+		model.addAttribute("reAllCount", reAllCount);
+		
+		return "reservationAll";
+	}
+	
+	@RequestMapping("/adrDelete")
+	public String adrDelete(HttpServletRequest request,HttpSession session, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String rnum = request.getParameter("rnum");
+		dao.reserveDelete(rnum);//예약 삭제하기
+		
+		ArrayList<ReservationDto> reAlldto = dao.reservationAll();
+		int reAllCount = dao.reAllCount();// 전체 예약개수 가져오기
+		
+		model.addAttribute("reAlldto", reAlldto);
+		model.addAttribute("reAllCount", reAllCount);
+		
+		return "reservationAll";
+	}
+	
+	@RequestMapping(value = "day_search")
+	public String day_search(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<ReservationDto> reservationDto = null;
+		
+		String startday = request.getParameter("startday");
+		String endday = request.getParameter("endday");
+		
+		ArrayList<ReservationDto> rAllday = dao.rAlldaySearch(startday ,endday);
+		
+		model.addAttribute("reAlldto", reservationDto);//검색 결과값을 반환
+		model.addAttribute("reAllCount", reservationDto.size());//검색 결과 예약 개수 반환
+		
+		return "reservationAll";
 	}
 }

@@ -14,7 +14,7 @@
 	<center>
 		<tr>
 			<td class="titlebox">
-				<span class="title01">회원 페이지</span>
+				<span class="title01">관리자 페이지</span>
 			</td>
 		</tr>
 		<tr>
@@ -25,19 +25,19 @@
 						<td rowspan="3" class="picbox1">
 							<img src="${pageContext.request.contextPath}/resources/img/reservationLogo.png">
 						<br><br>
-						<input type="button" value="나의예약확인" onclick="script:window.location='myreservation?rid=${memberId }'"></td>
+						<input type="button" value="전체예약확인" onclick="script:window.location='reservationAll'"></td>
 					</tr>
 					<tr>
 						<td rowspan="3" class="picbox1">
 							<img src="${pageContext.request.contextPath}/resources/img/modifyLogo.png">
 						<br><br>
-						<input type="button" value="정보수정" onclick="script:window.location='memberModify'"></td>
+						<input type="button" value="회원관리" onclick="script:window.location='memberModify'"></td>
 					</tr>
 					<tr>
 						<td rowspan="3" class="picbox1">
 							<img src="${pageContext.request.contextPath}/resources/img/questionLogo.png">
 						<br><br>
-						<input type="button" value="나의문의확인" onclick="script:window.location='myquestionlist?qid=${memberId }'"></td>
+						<input type="button" value="전체문의확인" onclick="script:window.location='list'"></td>
 					</tr>
 				</table>
 				</center>

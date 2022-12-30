@@ -52,6 +52,10 @@
 			%>
 				<a href="join">JOIN</a>
 			<%
+				} else if (sessionId.equals("ADMIN")){
+			%>
+				<a href="adminpage">ADMINPAGE</a>
+			<%
 				} else {
 			%>
 				<a href="mypage">MYPAGE</a>
@@ -59,19 +63,47 @@
 				}
 			%>
 			</td>
-			<td width="7%" class="menu01"><a href="list">QUESTION</a></td>
 			<%
-				if(sessionId != null){
-					
+				if (sessionId == null){
 			%>
-				<td width="7%" class="menu01"><a href="reservationlist">RESERVATION</a></td>
+				<td width="7%" class="menu01"><a href="list">QUESTION</a></td>
+			<%
+				} else if (sessionId.equals("ADMIN")){
+			%>
 			<%
 				} else {
 			%>
+				<td width="7%" class="menu01"><a href="list">QUESTION</a></td>
 			<%
 				}
 			%>
+			<%
+				if(sessionId == null){
+			%>
+			<%
+				} else if (sessionId.equals("ADMIN")){
+			%>
+			<%
+				} else if (sessionId != null){
+			%>
+				<td width="7%" class="menu01"><a href="reservationlist">RESERVATION</a></td>
+			<%
+				}
+			%>
+			<%
+				if(sessionId == null){
+			%>
 			<td width="6%" class="menu01"><a href="contact">CONTACT</a></td>
+			<%
+				} else if (sessionId.equals("ADMIN")){
+			%>
+			<%
+				} else if (sessionId != null){
+			%>
+				<td width="6%" class="menu01"><a href="contact">CONTACT</a></td>
+			<%
+				}
+			%>
 			<td width="2%">&nbsp;</td>
 		</tr>
 		<tr class="headline02">

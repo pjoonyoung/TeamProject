@@ -25,7 +25,7 @@
 	</select>
 	
 	<update id="memberModify">
-		UPDATE profile_member SET mpw = #{param2}, mname = #{param3}, memail = #{param4} WHERE mid = #{param1}
+		UPDATE profile_member SET mpw = #{param2}, mname = #{param3}, mphone = #{param4}, memail = #{param5} WHERE mid = #{param1}
 	</update>
 	
 	<!-- 질문게시판관련 SQL -->
@@ -131,6 +131,10 @@
 			 	(reservation_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8})
 	</insert>
 	
+	<select id="reservationAll" resultType="com.joonyoung.home.dto.ReservationDto">
+		SELECT * FROM profile_reservation ORDER BY rday ASC
+	</select>
+	
 	<select id="getReservation" resultType="com.joonyoung.home.dto.ReservationDto">
 		SELECT * FROM profile_reservation where rnum = #{param1}
 	</select>
@@ -144,29 +148,45 @@
 	</select>
  	-->
 	<select id="reservationList" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation WHERE rid = #{param} ORDER BY rnum DESC
+		SELECT * FROM profile_reservation WHERE rid = #{param} ORDER BY rday ASC
 	</select>
 	
 	<select id="reservationCount" resultType="int">
-		SELECT COUNT(*) FROM profile_reservation WHERE rid = #{param1} ORDER BY rnum ASC
+		SELECT COUNT(*) FROM profile_reservation WHERE rid = #{param1}
+	</select>
+	
+	<select id="reAllCount" resultType="int">
+		SELECT COUNT(*) FROM profile_reservation
 	</select>
 	
 	<select id="reservationView" resultType="com.joonyoung.home.dto.ReservationDto">
 		SELECT * FROM profile_reservation where rnum = #{param1}
 	</select>
 	
-	<update id="reserveModify">
-		UPDATE profile_reservation SET rid = #{param2}, rname = #{param3}, rphone = #{param4}, ranimal = #{param5}, rlist = #{param6}, rcontent = #{param7}, rday = #{param8}, rtime = #{param9} WHERE qnum = #{param1}
+	<update id="reserveModifyOk">
+		UPDATE profile_reservation SET rid = #{param2}, rname = #{param3}, rphone = #{param4}, ranimal = #{param5}, rlist = #{param6}, rcontent = #{param7}, rday = #{param8}, rtime = #{param9} WHERE rnum = #{param1}
 	</update>
+	
+	<delete id="reserveDelete">
+		DELETE FROM profile_reservation WHERE rnum = #{param1}
+	</delete>
 	
 	<!-- 예약검색 sql -->
 	
 	<select id="rSearchList" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation where rid = #{param1} and rlist = #{param2} ORDER BY rnum DESC	
+		SELECT * FROM profile_reservation where rid = #{param1} and rlist = #{param2} ORDER BY rday ASC	
 	</select>
 	
 	<select id="rAllSearchList" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation where rid = #{param1} ORDER BY rnum DESC	
+		SELECT * FROM profile_reservation where rid = #{param1} ORDER BY rday ASC	
+	</select>
+	
+	<select id="adSearchList" resultType="com.joonyoung.home.dto.ReservationDto">
+		SELECT * FROM profile_reservation where rlist = #{param1} ORDER BY rday ASC	
+	</select>
+	
+	<select id="rAlldaySearch" resultType="com.joonyoung.home.dto.ReservationDto">
+		selectSELECT * FROM profile_reservation WHERE rday = #{param1} BETWEEN TO_DATE(#{param2}, 'YYYY-MM-DD') AND TO_DATE(#{param3}) ORDER BY rday ASC
 	</select>
 	
 </mapper>

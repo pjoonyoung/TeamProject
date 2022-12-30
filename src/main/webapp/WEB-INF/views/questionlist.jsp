@@ -34,7 +34,7 @@
 							<center>
 							<table width="80%" border="0" cellspacing="0" cellpadding="10">
 								<tr>
-									<td colspan="7" align="left">▷ 총 ${qproboardCount }개의 게시물이 있습니다.
+									<td colspan="7" align="left">▷ 총 ${qproboardCount }개의 문의글이 있습니다.
 										<form action="search_list">
 											<select name="searchOption" >
 								                <option value="title">제목</option>
@@ -53,6 +53,7 @@
 									<th class="board_title">NAME</th>
 									<th class="board_title">DATE</th>
 									<th class="board_title">HIT</th>
+									<th class="board_title">RESULT</th>
 								</tr>
 								<c:forEach items="${qdtos }" var="list">	
 								<tr>
@@ -78,11 +79,19 @@
 										<c:out value="${fn:substring(list.qdate ,0,10) }"></c:out>
 									</td>
 									<td class="board_content01">${list.qhit }</td>
+									<c:choose>
+										<c:when test="${list.qanswercount != 0 }">
+											<td class="board_content01">답변완료</td>
+										</c:when>
+										<c:otherwise>
+											<td class="board_content01">준비중</td>
+										</c:otherwise>
+									</c:choose>
 								</tr>
 								</c:forEach>
 								<tr>
 								<%
-									String boardId = (String) request.getAttribute("qid");
+									//String boardId = (String) request.getAttribute("qid");
 									
 									if(sessionId == null) {
 								%>
@@ -97,7 +106,7 @@
 								<%
 									} else {
 								%>
-									<td colspan="6" align="right">
+									<td colspan="7" align="right">
 										<input type="button" value="문의하기" class="button_type01" onclick="script:window.location='question'">
 									</td>
 								<%

@@ -21,12 +21,7 @@
 	<table width="75%" border="0" cellspacing="0" cellpadding="20">
 		<tr>
 			<td class="titlebox">
-				<span class="title01">나의 예약확인</span>
-			</td>
-		</tr>
-		<tr>
-			<td class="titlebox">
-				<span class="title02"></span>
+				<span class="title01">전체 예약확인</span>
 			</td>
 		</tr>
 		<tr>
@@ -38,18 +33,24 @@
 							<center>
 							<table width="80%" border="0" cellspacing="0" cellpadding="10">
 								<tr>
-									<td colspan="7" align="left">▷ 총 ${reservationCount }개의 예약건이 있습니다.
-										<form action="rsearch_list">
-										<input type="hidden" value="${memberId }" name="rid">
-											<select name="searchOption" >
-												<option value="전체">전체</option>
-								                <option value="진료">진료</option>
-								                <option value="예방접종">예방접종</option>
-								                <option value="미용">미용</option>
-								            </select>
-								            <input type="submit" value="검색">
-										</form>
-									</td>
+									<td colspan="6" align="left">▷ 총 ${reAllCount }개의 ${relistDto} 예약건이 있습니다.
+											<form action="adsearch_list">
+												<select name="searchOption">
+													<option value="전체">전체</option>
+									                <option value="진료">진료</option>
+									                <option value="예방접종">예방접종</option>
+									                <option value="미용">미용</option>
+									            </select>
+									            <input type="submit" value="검색">
+											</form>
+											
+											<form action="day_search">
+												<input type="date" name="startday" value="stday">&nbsp;~&nbsp;
+												<input type="date" name="endday" value="enday">
+												<input type="submit" value="검색">
+											</form>
+										</td>
+									</tr>
 								</tr>
 								<tr>
 									<th class="board_title">NO</th>
@@ -59,7 +60,7 @@
 									<th class="board_title">DATE</th>
 									<th class="board_title">STATE</th>
 								</tr>
-								<c:forEach items="${rlistDto }" var="list">	
+								<c:forEach items="${reAlldto }" var="list">	
 								<tr>
 									<td class="board_content01">${list.rnum }</td>
 									<td class="board_content01">${list.rid }</td>
@@ -94,7 +95,6 @@
 							<br>
 						</td>
 					</tr>
-					
 				</table>
 				</center>
 			</td>
