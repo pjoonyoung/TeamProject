@@ -14,6 +14,8 @@ public interface IDao {
 	public int checkId(String mid);//아이디 존재여부 확인 select
 	public int checkIdAndPw(String mid, String mpw);//아이디와 비밀번호의 존재 및 일치 여부 select
 	public MemberDto getMemberInfo(String mid);//아이디로 조회하여 회원정보 가져오기 select
+	public ArrayList<MemberDto> memberAll();//전체 회원정보 가져오기 select
+	public ArrayList<MemberDto> adMsearchList(String searchKey);//전체 회원정보 이름으로 검색 
 	public void memberModify(String mid, String mpw, String mname, String mphone, String memail);//회원정보 수정 update
 	public void memberDelete(String mid, String mpw);//회원 탈퇴 delete
 	

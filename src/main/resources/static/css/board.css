@@ -27,6 +27,15 @@ td.board_content02 {
 	text-align: left;
 }
 
+td.board_content03 {
+	background-color: #ffa6a6;
+	border: 1px solid #462600;
+	font-size: 18px;
+	color: #535353;
+	font-family: malgun;
+	text-align: center;
+}
+
 hr.line {
 	border: 1px solid #ff8040;
 }

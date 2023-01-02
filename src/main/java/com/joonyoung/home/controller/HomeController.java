@@ -287,6 +287,20 @@ public class HomeController {
 		return "memberModify";
 	}
 	
+	@RequestMapping("memberSelectOk")
+	public String memberSelectOk(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String mid = request.getParameter("mid");
+		
+		MemberDto memberdto = dao.getMemberInfo(mid);
+		
+		model.addAttribute("memberdto", memberdto);
+		
+		return "memberModify";
+	}
+	
 	@RequestMapping("memberModifyOk")
 	public String memberModifyOk(HttpServletRequest request, Model model) {
 		
@@ -816,5 +830,40 @@ public class HomeController {
 		model.addAttribute("reAllCount", reservationDto.size());//검색 결과 예약 개수 반환
 		
 		return "reservationAll";
+	}
+	
+	@RequestMapping(value = "/admemberList")
+	public String admemberList(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<MemberDto> mAlldtos = dao.memberAll();
+		
+		model.addAttribute("mAlldtos", mAlldtos);//회원 전체 정보값을 반환
+		model.addAttribute("mAllcount",mAlldtos.size());//등록된 회원 수를 반환
+		
+		return "admemberList";
+	}
+	
+	@RequestMapping(value = "adMsearch_list")
+	public String adMsearch_list(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<MemberDto> reservationDto = null;
+		
+		String searchOption = request.getParameter("searchOption");
+		String searchKey = request.getParameter("searchKey");
+		
+		if(searchOption.equals("전체")) {
+			reservationDto = dao.memberAll();
+		} else if(searchOption.equals("이름")) {
+			reservationDto = dao.adMsearchList(searchKey);
+		} 
+		
+		model.addAttribute("mAlldtos", reservationDto);//회원 전체 정보값을 반환
+		model.addAttribute("mAllcount", reservationDto.size());//등록된 회원 수를 반환
+		
+		return "admemberList";
 	}
 }

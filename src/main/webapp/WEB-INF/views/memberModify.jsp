@@ -60,11 +60,27 @@
 										<td><input class="input_type01" type="text" name="memail" value="${memberdto.memail }"></td>
 									</tr>
 									<tr>
+										<%
+											if(sessionId == null) {
+										%>
+										<%
+											} else if(sessionId.equals("ADMIN")) {
+										%>
+										<td colspan="2">
+											<input class="button_type01" type="button" value="수정완료" onclick="joinCheck()">&nbsp;&nbsp;
+											<input class="button_type01" type="button" value="수정취소" onclick="script:window.location='admemberList'">
+										</td>
+										<%
+											} else if(sessionId != null) {
+										%>
 										<td colspan="2">
 											<input class="button_type01" type="button" value="수정완료" onclick="joinCheck()">&nbsp;&nbsp;
 											<input class="button_type01" type="button" value="수정취소" onclick="script:window.location='mypage'">
 											<input class="button_type02" type="button" value="탈퇴" onclick="script:window.location='mPwCheck'">
 										</td>
+										<%
+											}
+										%>
 									</tr>
 								</form>
 							</table>
