@@ -8,16 +8,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
 </head>
 <body>
-	<table width="100%" class="footer" border="0" cellspacing="0" cellpadding="0">
-		<tr class="footerline01">
-			<td>&nbsp;</td>
-		</tr>
-		<tr class="footerline02">
-			<td class="footerbox01">연락처: 000-000-0000</td>
-		</tr>
-		<tr class="footerline02">
-			<td class="footerbox02">병원 주소: OO시 OO구 000-000번지 OO건물 O층 / E-Mail:ooHospital@abc.com</td>
-		</tr>
-	</table>
+
+	<nav class="navbar" style="background-color: #e3f2fd;">
+		<div class="container-fluid" align="center">
+    		<span class="navbar-text">연락처: 000-000-0000<br>
+    		병원 주소: OO시 OO구 000-000번지 OO건물 O층 / E-Mail:ooHospital@abc.com</span>
+  		</div>
+	</nav>
+	
 </body>
 </html>
