@@ -29,7 +29,7 @@
 						<td class="content">
 							<u>${mname }님</u> 회원가입을 축하드립니다!<br>
 							가입하신 아이디는 <u>${mid }</u> 입니다.<br><br>
-						<input class="button_type01" type="button" value="확인" onclick="script:window.location='login'"></td>
+						<input class="button_type01" type="button" value="확인" onclick="script:window.location='index'"></td>
 					</tr>
 				</table>
 				</center>

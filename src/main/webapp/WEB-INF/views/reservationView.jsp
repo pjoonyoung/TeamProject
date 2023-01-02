@@ -122,6 +122,31 @@
 										%>
 										</tr>	
 										</c:when>
+										<c:when test="${today gt reday}">
+											<td class="board_content01">처리완료</td>
+										<tr>
+										<%
+											if(sessionId.equals("ADMIN")) {
+										%>
+											<td colspan="2" align="center">
+												<input class="button_type01" type="button" value="예약삭제" onclick="script:window.location='adrDelete?rnum=${reservationDto.rnum }'">
+												<input class="button_type01" type="button" value="확인" onclick="script:window.location='reservationAll'">
+											</td>
+										<%
+											} else if(sessionId != null) {
+										%>
+											<td colspan="2" align="center">
+												<input class="button_type01" type="button" value="예약삭제" onclick="script:window.location='reserveDelete?rnum=${reservationDto.rnum }'">
+												<input class="button_type01" type="button" value="확인" onclick="script:window.location='myreservation?rid=${memberId}'">
+											</td>
+										<%
+											} else {
+										%>
+										<%
+											}
+										%>
+										</tr>	
+										</c:when>
 										<c:when test="${today ge reday && todaytime gt retime }">
 											<td class="board_content01">처리완료</td>
 										<tr>

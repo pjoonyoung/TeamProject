@@ -78,6 +78,21 @@ public class HomeController {
 		return "reservationlist";
 	}
 	
+	@RequestMapping("/pwCheck")
+	public String pwCheck() {
+		return "pwCheck";
+	}
+	
+	@RequestMapping("/mPwCheck")
+	public String mPwCheck() {
+		return "mPwCheck";
+	}
+	
+	@RequestMapping("/secessionOk")
+	public String secessionOk() {
+		return "secessionOk";
+	}
+	
 	@RequestMapping("/question")
 	public String question(HttpSession session, HttpServletResponse response, Model model) throws IOException {
 		IDao dao = sqlSession.getMapper(IDao.class);
@@ -200,6 +215,64 @@ public class HomeController {
 		}
 	}
 	
+	@RequestMapping("/pwCheckOk")
+	public String pwCheckOk(HttpServletRequest request, HttpServletResponse response,HttpSession session, Model model) throws IOException {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String mid = request.getParameter("mid");
+		String mpw = request.getParameter("mpw");
+
+		int checkIdPwFlag = dao.checkIdAndPw(mid, mpw);
+		//아이디와 비밀번호가 모두 일치하면 1 아니면 0
+		
+		model.addAttribute("checkIdPwFlag", checkIdPwFlag);
+		
+		if (checkIdPwFlag == 0){
+		
+			response.setContentType("text/html; charset=UTF-8");      
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('입력하신 아이디와 비밀번호가 일치하지 않습니다. 다시 확인해주세요.'); history.go(-1);</script>");
+	        out.flush(); 
+			
+	        return "pwCheck";
+	        
+		} else {//정보수정창으로 이동
+			
+			return "redirect:memberModify";
+			
+		}
+	}
+	
+	@RequestMapping("/mPwCheckOk")
+	public String mPwCheckOk(HttpServletRequest request, HttpServletResponse response,HttpSession session, Model model) throws IOException {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String mid = request.getParameter("mid");
+		String mpw = request.getParameter("mpw");
+
+		int checkIdPwFlag = dao.checkIdAndPw(mid, mpw);
+		//아이디와 비밀번호가 모두 일치하면 1 아니면 0
+		
+		model.addAttribute("checkIdPwFlag", checkIdPwFlag);
+		
+		if (checkIdPwFlag == 0){
+		
+			response.setContentType("text/html; charset=UTF-8");      
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('입력하신 아이디와 비밀번호가 일치하지 않습니다. 다시 확인해주세요.'); history.go(-1);</script>");
+	        out.flush(); 
+			
+	        return "mPwCheck";
+	        
+		} else {//회원탈퇴창으로 이동
+			
+			return "mSecession";
+			
+		}
+	}
+	
 	@RequestMapping("memberModify")
 	public String memberModify(HttpSession session, Model model) {
 		
@@ -232,6 +305,46 @@ public class HomeController {
 		model.addAttribute("memberDto", memberdto);
 		
 		return "memberModifyOk";
+	}
+	
+	@RequestMapping ("/mSecessionOk")
+	public String mSecessionOk(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws IOException {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String mid = request.getParameter("mid");
+		String mpw = request.getParameter("mpw");
+		
+		int checkIdPwFlag = dao.checkIdAndPw(mid, mpw);
+		//아이디와 비밀번호가 모두 일치하면 1 아니면 0
+		
+		model.addAttribute("checkIdPwFlag", checkIdPwFlag);
+		
+		if (checkIdPwFlag == 0){
+		
+			response.setContentType("text/html; charset=UTF-8");      
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('입력하신 아이디와 비밀번호가 일치하지 않습니다. 다시 확인해주세요.'); history.go(-1);</script>");
+	        out.flush(); 
+			
+	        return "mSecession";
+	        
+		} else {//회원탈퇴창으로 이동
+			
+			dao.memberDelete(mid, mpw);//회원정보 삭제
+			
+			session.invalidate();//세션값 무효
+			
+			response.setContentType("text/html; charset=UTF-8");      
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('탈퇴가 완료되었습니다. 안녕히 가십시오.');</script>");
+	        out.println("<script>location.href = 'secessionOk';</script>");
+	        out.flush();
+			
+			return "secessionOk";
+		}
+		
+		
 	}
 	
 	@RequestMapping ("/list")
@@ -694,12 +807,10 @@ public class HomeController {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		ArrayList<ReservationDto> reservationDto = null;
-		
 		String startday = request.getParameter("startday");
 		String endday = request.getParameter("endday");
 		
-		ArrayList<ReservationDto> rAllday = dao.rAlldaySearch(startday ,endday);
+		ArrayList<ReservationDto> reservationDto = dao.rAlldaySearch(startday ,endday);
 		
 		model.addAttribute("reAlldto", reservationDto);//검색 결과값을 반환
 		model.addAttribute("reAllCount", reservationDto.size());//검색 결과 예약 개수 반환

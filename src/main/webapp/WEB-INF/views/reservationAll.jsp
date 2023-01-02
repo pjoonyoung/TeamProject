@@ -84,6 +84,9 @@
 										<c:when test="${today le reday && todaytime le retime }">
 											<td class="board_content01">예약중</td>
 										</c:when>
+										<c:when test="${today gt reday}">
+											<td class="board_content01">처리완료</td>
+										</c:when>
 										<c:when test="${today ge reday && todaytime gt retime }">
 											<td class="board_content01">처리완료</td>
 										</c:when>

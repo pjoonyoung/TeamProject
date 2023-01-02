@@ -28,6 +28,10 @@
 		UPDATE profile_member SET mpw = #{param2}, mname = #{param3}, mphone = #{param4}, memail = #{param5} WHERE mid = #{param1}
 	</update>
 	
+	<delete id="memberDelete">
+		DELETE FROM profile_member WHERE mid = #{param1} AND mpw = #{param2}
+	</delete>
+	
 	<!-- 질문게시판관련 SQL -->
 	<insert id="writeQuestion">
 		INSERT INTO 
@@ -186,7 +190,7 @@
 	</select>
 	
 	<select id="rAlldaySearch" resultType="com.joonyoung.home.dto.ReservationDto">
-		selectSELECT * FROM profile_reservation WHERE rday = #{param1} BETWEEN TO_DATE(#{param2}, 'YYYY-MM-DD') AND TO_DATE(#{param3}) ORDER BY rday ASC
+		SELECT * FROM profile_reservation WHERE rday BETWEEN TO_DATE(#{param1}, 'YYYY-MM-DD') AND TO_DATE(#{param2}) ORDER BY rday ASC
 	</select>
 	
 </mapper>

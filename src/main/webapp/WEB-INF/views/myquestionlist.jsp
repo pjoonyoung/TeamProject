@@ -54,6 +54,7 @@
 									<th class="board_title">NAME</th>
 									<th class="board_title">DATE</th>
 									<th class="board_title">HIT</th>
+									<th class="board_title">RESULT</th>
 								</tr>
 								<c:forEach items="${qdtos }" var="list">	
 								<tr>
@@ -79,10 +80,18 @@
 										<c:out value="${fn:substring(list.qdate ,0,10) }"></c:out>
 									</td>
 									<td class="board_content01">${list.qhit }</td>
+									<c:choose>
+										<c:when test="${list.qanswercount != 0 }">
+											<td class="board_content01">답변완료</td>
+										</c:when>
+										<c:otherwise>
+											<td class="board_content01">준비중</td>
+										</c:otherwise>
+									</c:choose>
 								</tr>
 								</c:forEach>
 								<tr>
-									<td colspan="6" align="right">
+									<td colspan="7" align="right">
 										<input type="button" value="문의하기" class="button_type01" onclick="script:window.location='question'">
 									</td>
 								</tr>

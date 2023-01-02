@@ -15,6 +15,7 @@ public interface IDao {
 	public int checkIdAndPw(String mid, String mpw);//아이디와 비밀번호의 존재 및 일치 여부 select
 	public MemberDto getMemberInfo(String mid);//아이디로 조회하여 회원정보 가져오기 select
 	public void memberModify(String mid, String mpw, String mname, String mphone, String memail);//회원정보 수정 update
+	public void memberDelete(String mid, String mpw);//회원 탈퇴 delete
 	
 	//질문 게시판
 	public void writeQuestion(String qid, String qname, String qtitle, String qcontent, String qemail);//질문하기 insert

@@ -15,6 +15,7 @@
 	
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr class="headline01">
+			<td width="58%" class="menu01">&nbsp;</td>
 			<%
 				if(sessionId == null){
 			%>
@@ -29,7 +30,6 @@
 			<%
 				}
 			%>
-			<td width="58%" class="menu01">&nbsp;</td>
 			<td width="5%" class="menu01"><a href="index">HOME</a></td>
 			<td width="5%" class="menu01">
 			<%

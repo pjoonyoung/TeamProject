@@ -62,7 +62,8 @@
 									<tr>
 										<td colspan="2">
 											<input class="button_type01" type="button" value="수정완료" onclick="joinCheck()">&nbsp;&nbsp;
-											<input class="button_type01" type="button" value="수정취소" onclick="script:window.location='index'">
+											<input class="button_type01" type="button" value="수정취소" onclick="script:window.location='mypage'">
+											<input class="button_type02" type="button" value="탈퇴" onclick="script:window.location='mPwCheck'">
 										</td>
 									</tr>
 								</form>

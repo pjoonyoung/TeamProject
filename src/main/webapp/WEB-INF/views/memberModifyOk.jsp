@@ -65,7 +65,7 @@
 									<tr>
 										<td colspan="2">
 											<input class="button_type01" type="button" value="정보수정" onclick="script:window.location='memberModify'">
-											<input class="button_type01" type="button" value="수정취소" onclick="script:window.location='index'">
+											<input class="button_type01" type="button" value="수정취소" onclick="script:window.location='mypage'">
 										</td>
 									</tr>
 							</table>

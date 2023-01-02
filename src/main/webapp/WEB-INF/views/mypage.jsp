@@ -31,7 +31,7 @@
 						<td rowspan="3" class="picbox1">
 							<img src="${pageContext.request.contextPath}/resources/img/modifyLogo.png">
 						<br><br>
-						<input type="button" value="정보수정" onclick="script:window.location='memberModify'"></td>
+						<input type="button" value="정보수정" onclick="script:window.location='pwCheck'"></td>
 					</tr>
 					<tr>
 						<td rowspan="3" class="picbox1">

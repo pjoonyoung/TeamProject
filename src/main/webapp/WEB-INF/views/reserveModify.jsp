@@ -92,11 +92,11 @@
                         <input type="hidden" value="${view.rnum }" name="rnum">
                            <tr>
                               <td><span class="content_text01">MEMBER ID</span></td>
-                              <td><input class="input_type01" type="text" name="rid" value="${memberId}"></td>
+                              <td><input class="input_type01" type="text" name="rid" value="${view.rid }" readonly="readonly"></td>
                            </tr>
                            <tr>
                               <td><span class="content_text01">NAME</span></td>
-                              <td><input class="input_type01" type="text" name="rname" value="${view.rname }"></td>
+                              <td><input class="input_type01" type="text" name="rname" value="${view.rname }" readonly="readonly"></td>
                            </tr>
                            <tr>
                               <td><span class="content_text01">PHONE</span></td>
@@ -127,7 +127,7 @@
                            </tr>
                            <tr>
                               <td><span class="content_text01">LIST</span></td>
-                              <td><input class="input_type01" type="text" name="rlist" value="${view.rlist }"></td>
+                              <td><input class="input_type01" type="text" name="rlist" value="${view.rlist }" readonly="readonly"></td>
                            </tr>
                            <tr>
                               <td><span class="content_text01">CONTENT</span></td>
