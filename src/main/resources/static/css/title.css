@@ -32,10 +32,18 @@ td.skillbox {
 	background-color: #F6EEC9;	
 }
 
-td.picbox {
-	background-color: #330000;
-	align-content: center;
-	text-align: center;
+.picbox {
+	
+	background-color: #ffffff;
+    text-align: center;
+}
+
+.picbox > img {
+	margin-top: 200px;
+}
+
+.clear {
+	clear:both;
 }
 
 td.picbox1 {

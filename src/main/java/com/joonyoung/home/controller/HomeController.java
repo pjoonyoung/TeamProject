@@ -164,7 +164,7 @@ public class HomeController {
 		
 		session.invalidate();
 		
-		return "login";
+		return "index";
 	}
 	
 	@RequestMapping("/loginOk")

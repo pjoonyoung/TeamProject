@@ -7,6 +7,7 @@ th.board_title {
 	color: #f1f1f1;
 	font-family: malgun;
 	font-weight: bold;
+	text-align: center;
 }
 
 td.board_content01 {

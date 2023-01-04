@@ -4,17 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>footer</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
 </head>
-<body>
-
-	<nav class="navbar" style="background-color: #e3f2fd;">
-		<div class="container-fluid" align="center">
-    		<span class="navbar-text">연락처: 000-000-0000<br>
-    		병원 주소: OO시 OO구 000-000번지 OO건물 O층 / E-Mail:ooHospital@abc.com</span>
+<body class="d-flex flex-column h-100">
+	<footer class="footer mt-auto py-3 bg-info">
+		<div class="sticky-lg-bottom">
+    		<p class="text-center text-white">
+    			보시고 계신 페이지는 Spring Boot Framework으로 개발되었습니다.<br>
+    			웹 어플리케이션 개발 관련하여 궁금하신 점은 jypjoon@gmail.com으로 연락부탁드립니다.
+    		</p>
   		</div>
-	</nav>
-	
+	</footer>
 </body>
 </html>

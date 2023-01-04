@@ -15,9 +15,9 @@ td.content {
 
 span.content_text01 {
 	font-family: malgun;
-	font-size: 20px;
+	font-size: 15px;
 	font-weight: bold;
-	color: #8C0000;
+	color: #303030;
 }
 
 input.input_type01 {
@@ -123,5 +123,6 @@ select.select_type01 {
 	font-size: 20px;
 	color: #2A2A2A;
 }
+
 
 

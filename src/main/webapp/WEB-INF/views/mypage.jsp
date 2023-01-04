@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
 </head>
 <body>
+
 <%@ include file="include/header.jsp" %>
 	<center>
 		<tr>

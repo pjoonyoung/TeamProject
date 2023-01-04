@@ -4,26 +4,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>header</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hyperlink.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body class="p-3 m-0 border-0 bd-example">
+<body class="d-flex flex-column h-100">
 	<%
 		String sessionId = (String) session.getAttribute("memberId");
 	%>
 	
-	 <nav class="navbar" style="background-color: #e3f2fd;">
+	 <nav class="navbar navbar-expand-md bg-info fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <a class="navbar-brand" href="index"><img src="${pageContext.request.contextPath}/resources/img/hospitalLogo.png" alt="Logo" width="30" height="34" class="d-inline-block align-text-top"></a>
+        <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
           <ul class="nav justify-content-end">
           	<%
 				if(sessionId == null){
@@ -31,11 +28,11 @@
 			<%
 				} else if ((sessionId != null) && (sessionId.equals("ADMIN"))){
 			%>
-			<span class="navbar-text">관리자님 로그인중...</span>
+			<span class="navbar-text text-dark">관리자님 로그인중...</span>
 			<%
 				} else {
 			%>
-			<span class="navbar-text">${memberId }님 로그인중...</span>
+			<span class="navbar-text text-dark">${memberId }님 로그인중...</span>
 			<%
 				}
 			%>

@@ -1,29 +1,12 @@
 @charset "UTF-8";
 
-body {
-	margin: 0;
-	padding: 0;
+/* 네비게이션 영역 */
+
+.nav > li:hover {
+    color: #52a3a3;
+    background: #B2EBF4;
 }
 
-tr.headline01 {
-	height: 50px;
-	background-color: #621b00;
-}
-
-tr.headline02 {
-	height: 50px;
-}
-
-td.menu01 {
-	font-size: 20px;
-	color: #F6EEC9;
-	font-family: Arial;
-	text-align: center;
-}
-
-td.menu02 {
-	font-size: 15px;
-	color: #F6EEC9;
-	font-family: Arial;
-	text-align: center;
+.navbar {
+	color: white;
 }
