@@ -17,7 +17,12 @@ public interface IDao {
 	public ArrayList<MemberDto> memberAll();//전체 회원정보 가져오기 select
 	public ArrayList<MemberDto> adMsearchList(String searchKey);//전체 회원정보 이름으로 검색 
 	public void memberModify(String mid, String mpw, String mname, String mphone, String memail);//회원정보 수정 update
+	public void pwModify(String mid, String mpw);
 	public void memberDelete(String mid, String mpw);//회원 탈퇴 delete
+	public MemberDto memberIdFind(String mname, String memail, String mphone);//이름,이메일,전번으로 아이디 찾기 select
+	public MemberDto memberPwFind(String mid, String mname, String memail);//아이디,비번,이메일으로 비번 찾기 select
+	public int checkIdFind(String mname, String memail, String mphone);//이름,이메일,전번의 일치 여부 select
+	public int checkPwFind(String mid, String mname, String memail);//아이디,비번,이메일의 일치 여부 select
 	
 	//질문 게시판
 	public void writeQuestion(String qid, String qname, String qtitle, String qcontent, String qemail);//질문하기 insert

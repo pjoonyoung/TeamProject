@@ -34,10 +34,21 @@
 		return;
 	}
 	
+	if(document.join_frm.mgender.value === "선택"){
+		alert("성별체크는 필수 사항입니다. 다시 확인해주세요!");
+		return;
+	}
+	
+	if(document.join_frm.mphone.value.length == 0){
+		alert("전화번호는 필수 입력사항입니다. 다시 확인해주세요!");
+		return;
+	}
+	
 	if(document.join_frm.memail.value.length == 0){
 		alert("이메일은 필수 입력사항입니다. 다시 확인해주세요!");
 		return;
 	}
+	
 	
 	document.join_frm.submit();
 }

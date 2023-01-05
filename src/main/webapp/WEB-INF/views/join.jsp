@@ -4,82 +4,94 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>** 병원예약관리 프로젝트 **</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/title.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/join.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/join.js"></script>
 </head>
 <body>
 <%@ include file="include/header.jsp" %>
-	<center>
-	<table width="75%" border="0" cellspacing="0" cellpadding="20">
-		<tr>
-			<td class="titlebox">
-				<span class="title01">회원 가입</span>
-			</td>
-		</tr>
-		<tr>
-			<td class="titlebox">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<center>
-				<table width="80%" border="0" cellspacing="0" cellpadding="10">
-					<tr class="contentbox">
-						<td class="content">
-							<center>
-							<table border="0" cellspacing="0" cellpadding="10">
-								<form action="joinOk" method="post" name="join_frm">
-									<tr>
-										<td><span class="content_text01">MEMBER ID</span></td>
-										<td><input class="input_type01" type="text" name="mid"></td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">PASSWORD</span></td>
-										<td><input class="input_type01" type="password" name="mpw"></td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">PW CHECK</span></td>
-										<td><input class="input_type01" type="password" name="mpw_check"></td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">NAME</span></td>
-										<td><input class="input_type01" type="text" name="mname"></td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">GENDER</span></td>
-										<td>
-											MAN <input type="checkbox" name="mgender" value="male">&nbsp;
-											WOMAN <input type="checkbox" name="mgender" value="female">
-										</td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">PHONE</span></td>
-										<td><input class="input_type01" type="text" name="mphone" value="- 제외 입력"></td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">E-MAIL</span></td>
-										<td><input class="input_type01" type="text" name="memail"></td>
-									</tr>
-									<tr>
-										<td colspan="2">
-											<input class="button_type01" type="button" value="가입완료" onclick="joinCheck()">&nbsp;&nbsp;
-											<input class="button_type01" type="button" value="로그인" onclick="script:window.location='login'">
-										</td>
-									</tr>
-								</form>
-							</table>
-							</center>
-						</td>
-					</tr>
+	<!--  html 전체 영역을 지정하는 container -->
+	<div id="container">
+		
+		<!-- 회원가입폼 전체영역 -->
+		<div class="joinBox rounded-2">
+			
+			<!-- 회원가입 페이지 타이틀 -->
+			<div id="joinBoxTitle">JoonHospital</div>
+			
+			<!-- 회원가입 내용 박스 -->
+		    <div id="inputBox">
+		    	<form action="joinOk" method="post" name="join_frm">
+		    		
+		    		<div class="row mb-3">
+						<label for="formGroupExampleInput" class="form-label content_text01">아이디</label>
+						<div class="col-sm-15">
+							<input type="text" class="form-control" name="mid">
+						</div>
+					</div>
 					
-				</table>
-				</center>
-			</td>
-		</tr>
-	</table>
-	</center>
+		    		<div class="row mb-3">
+						<label for="inputPassword3" class="form-label content_text01">비밀번호</label>
+						<div class="col-sm-15">
+							<input type="password" class="form-control" name="mpw">
+						</div>
+					</div>
+					
+					<div class="row mb-3">
+						<label for="inputPassword3" class="form-label content_text01">비밀번호체크</label>
+						<div class="col-sm-15">
+							<input type="password" class="form-control" name="mpw_check">
+						</div>
+					</div>
+					
+					<div class="row mb-3">
+						<label for="formGroupExampleInput" class="form-label content_text01">이름</label>
+						<div class="col-sm-15">
+							<input type="text" class="form-control" name="mname">
+						</div>
+					</div>
+					
+					<div class="row mb-3">
+						<label for="formGroupExampleInput" class="form-label content_text01">성별</label>
+				    	<div class="col-sm-15">
+							<select class="form-control multiple" name="mgender" value="선택">
+							    <option selected disabled>선택</option>
+							    <option value="male">남자</option>
+							    <option value="female">여자</option>
+						  	</select>
+						</div>
+					</div>
+					
+					<div class="row mb-3">
+						<label for="formGroupExampleInput" class="form-label content_text01">번호</label>
+						<div class="col-sm-15">
+							<input type="text" class="form-control" placeholder="-제외 입력해주세요" name="mphone">
+						</div>
+					</div>
+		    		
+		    		<div class="row mb-3">
+						<label for="exampleFormControlInput1" class="form-label content_text01">이메일</label>
+						<div class="col-sm-15">
+							<input type="email" class="form-control" name="memail">
+						</div>
+					</div>
+					
+					<div class="button-join-box">
+		    			<input type="button" class="btn btn-primary" style="width:100%" value="가입완료" onclick="joinCheck()"></input>
+					</div>
+					
+		    	</form>
+		    </div>
+			
+		</div>
+	</div>
+	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <%@ include file="include/footer.jsp" %>
 </body>
 </html>

@@ -93,6 +93,16 @@ public class HomeController {
 		return "secessionOk";
 	}
 	
+	@RequestMapping("/pwFind")
+	public String pwFind() {
+		return "pwFind";
+	}
+	
+	@RequestMapping("/idFind")
+	public String idFind() {
+		return "idFind";
+	}
+	
 	@RequestMapping("/question")
 	public String question(HttpSession session, HttpServletResponse response, Model model) throws IOException {
 		IDao dao = sqlSession.getMapper(IDao.class);
@@ -273,6 +283,65 @@ public class HomeController {
 		}
 	}
 	
+	@RequestMapping("/idFindOk")
+	public String idFindOk(HttpServletRequest request, Model model, HttpServletResponse response) throws IOException {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String mname = request.getParameter("mname");
+		String memail = request.getParameter("memail");
+		String mphone = request.getParameter("mphone");
+		
+		int ckIdFindFlag = dao.checkIdFind(mname, memail, mphone);
+		//입력된 정보와 모두 일치하는 아이디가 있으면 1 아니면 0
+		
+		if(ckIdFindFlag == 0) {
+			response.setContentType("text/html; charset=UTF-8");      
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('입력하신 정보가 일치하지 않습니다. 다시 확인해주세요.'); history.go(-1);</script>");
+	        out.flush(); 
+	        
+	        return "idFind";
+	        
+		} else {
+		
+			MemberDto mfindDto = dao.memberIdFind(mname, memail, mphone);
+			model.addAttribute("find", mfindDto);
+			
+			return "idFindOk";
+		}
+		
+	}
+	
+	@RequestMapping("/pwFindOk")
+	public String pwFindOk(HttpServletRequest request, Model model, HttpServletResponse response) throws IOException {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String mid = request.getParameter("mid");
+		String mname = request.getParameter("mname");
+		String memail = request.getParameter("memail");
+		
+		int ckPwFindFlag = dao.checkPwFind(mid, mname, memail);
+		//입력된 정보와 모두 일치하는 아이디가 있으면 1 아니면 0
+		
+		if(ckPwFindFlag == 0) {
+			response.setContentType("text/html; charset=UTF-8");      
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>alert('입력하신 정보가 일치하지 않습니다. 다시 확인해주세요.'); history.go(-1);</script>");
+	        out.flush(); 
+	        
+	        return "pwFind";
+		} else {
+		
+			MemberDto mfindDto = dao.memberPwFind(mid, mname, memail);
+			
+			model.addAttribute("find", mfindDto);
+			
+			return "pwFindOk";
+		}
+	}
+	
 	@RequestMapping("memberModify")
 	public String memberModify(HttpSession session, Model model) {
 		
@@ -285,6 +354,25 @@ public class HomeController {
 		model.addAttribute("memberdto", memberdto);
 		
 		return "memberModify";
+	}
+	
+	@RequestMapping("pwchange")
+	public String memberpwModify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String mid = request.getParameter("mid");
+		String mpw = request.getParameter("mpw");
+		
+		dao.pwModify(mid, mpw);
+		
+		response.setContentType("text/html; charset=UTF-8");      
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('비밀번호가 성공적으로 변경되었습니다.');</script>");
+        out.println("<script>location.href = 'login';</script>");
+        out.flush();
+		
+		return "login";
 	}
 	
 	@RequestMapping("memberSelectOk")

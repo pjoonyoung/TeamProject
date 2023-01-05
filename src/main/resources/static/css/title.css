@@ -32,8 +32,17 @@ td.skillbox {
 	background-color: #F6EEC9;	
 }
 
+td.picbox1 {
+	background-color: #fef5d6;
+	align-content: center;
+	text-align: center;
+}
+
+td.titlebox {
+	text-align: center;
+}
+
 .picbox {
-	
 	background-color: #ffffff;
     text-align: center;
 }
@@ -44,14 +53,4 @@ td.skillbox {
 
 .clear {
 	clear:both;
-}
-
-td.picbox1 {
-	background-color: #fef5d6;
-	align-content: center;
-	text-align: center;
-}
-
-td.titlebox {
-	text-align: center;
 }

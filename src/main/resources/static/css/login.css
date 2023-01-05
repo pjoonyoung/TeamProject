@@ -16,9 +16,9 @@ html, body {
 }
 
 .loginBox {
-  width: 300px;
+  width: 400px;
   text-align: center;
-  background-color: #ffffff;
+  background-color: #ececec;
 }
 .input-form-box {
   border: 0px solid #ff0000;
@@ -53,13 +53,30 @@ html, body {
   padding: 3px 5px;
 }
 
-#find_wrap{
-	list-style:none;
-}
-
 span.content_text01 {
 	font-family: malgun;
 	font-size: 15px;
 	font-weight: bold;
 	color: #303030;
+}
+
+span.content_text02 {
+	font-family: malgun;
+	font-size: 15px;
+	font-weight: bold;
+	color: #303030;
+	width: 250px;
+}
+
+.room {
+	background-color: #ececec;	
+}
+
+.find_wrap {
+	text-align: center;
+}
+
+.find_text {
+	font-size: 13px;
+	font-family: malgum;
 }

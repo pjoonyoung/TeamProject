@@ -32,8 +32,28 @@
 		SELECT * FROM profile_member where mname LIKE '%' || #{param1} || '%' 	
 	</select>
 	
+	<select id="memberIdFind" resultType="com.joonyoung.home.dto.MemberDto">
+		SELECT mid FROM profile_member WHERE mname = #{param1} AND memail = #{param2} AND mphone = #{param3}
+	</select>
+	
+	<select id="memberPwFind" resultType="com.joonyoung.home.dto.MemberDto">
+		SELECT * FROM profile_member WHERE mid = #{param1} AND mname = #{param2} AND memail = #{param3}
+	</select>
+	
+	<select id="checkIdFind" resultType="int">
+		SELECT COUNT(mid) FROM profile_member WHERE mname = #{param1} AND memail = #{param2} AND mphone = #{param3}
+	</select>
+	
+	<select id="checkPwFind" resultType="int">
+		SELECT COUNT(mpw) FROM profile_member WHERE mid = #{param1} AND mname = #{param2} AND memail = #{param3}
+	</select>
+	
 	<update id="memberModify">
 		UPDATE profile_member SET mpw = #{param2}, mname = #{param3}, mphone = #{param4}, memail = #{param5} WHERE mid = #{param1}
+	</update>
+	
+	<update id="pwModify">
+		UPDATE profile_member SET mpw = #{param2} WHERE mid = #{param1}
 	</update>
 	
 	<delete id="memberDelete">
