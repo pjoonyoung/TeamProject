@@ -28,7 +28,7 @@
 					가입하신 아이디는 <u>${mid }</u> 입니다.<br><br>
 				</p>
 				
-				<input class="btn btn-primary" type="button" value="확인" style="width:30%" onclick="script:window.location='index'">
+				<input class="btn btn-dark" type="button" value="확인" style="width:30%" onclick="script:window.location='index'">
 			</div>
 		</div>
 	</div>

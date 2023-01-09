@@ -7,103 +7,91 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>** 병원예약관리 프로젝트 **</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/title.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+<title>** 병원예약관리 프로젝트 **</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <%@ include file="include/header.jsp" %>
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 <fmt:formatDate value="${now}" pattern="HH:mm" var="todaytime" />
-	<center>
-	<table width="75%" border="0" cellspacing="0" cellpadding="20">
-		<tr>
-			<td class="titlebox">
-				<span class="title01">나의 예약확인</span>
-			</td>
-		</tr>
-		<tr>
-			<td class="titlebox">
-				<span class="title02"></span>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<center>
-				<table width="80%" border="0" cellspacing="0" cellpadding="10">
-					<tr class="contentbox">
-						<td class="content">
-							<center>
-							<table width="80%" border="0" cellspacing="0" cellpadding="10">
-								<tr>
-									<td colspan="7" align="left">▷ 총 ${reservationCount }개의 예약건이 있습니다.
-										<form action="rsearch_list">
-										<input type="hidden" value="${memberId }" name="rid">
-											<select name="searchOption" >
-												<option value="전체">전체</option>
-								                <option value="진료">진료</option>
-								                <option value="예방접종">예방접종</option>
-								                <option value="미용">미용</option>
-								            </select>
-								            <input type="submit" value="검색">
-										</form>
-									</td>
-								</tr>
-								<tr>
-									<th class="board_title">NO</th>
-									<th class="board_title">ID</th>
-									<th class="board_title">RECEIPT</th>
-									<th class="board_title">NAME</th>
-									<th class="board_title">DATE</th>
-									<th class="board_title">STATE</th>
-								</tr>
-								<c:forEach items="${rlistDto }" var="list">	
-								<tr>
-									<td class="board_content01">${list.rnum }</td>
-									<td class="board_content01">${list.rid }</td>
-									<td class="board_content01">
-									<a href="reservationView?rnum=${list.rnum }">
-									${list.rlist }
-									</a>
-									</td>
-									<td class="board_content01">${list.rname }</td>
-									<td class="board_content01">
-										${list.rday } ${list.rtime }
-									</td>
-									<fmt:parseDate value="${list.rday }" pattern="yyyy-mm-dd" var="rday" />
-									<fmt:parseDate value="${list.rtime }" pattern="HH:mm" var="rtime" />
-									<fmt:formatDate value="${rday}" pattern="yyyy-MM-dd" var="reday" />
-									<fmt:formatDate value="${rtime}" pattern="HH:mm" var="retime" />
-									<c:choose>
-										<c:when test="${today lt reday}">
-											<td class="board_content01">예약중</td>
-										</c:when>
-										<c:when test="${today le reday && todaytime le retime }">
-											<td class="board_content01">예약중</td>
-										</c:when>
-										<c:when test="${today gt reday}">
-											<td class="board_content01">처리완료</td>
-										</c:when>
-										<c:when test="${today ge reday && todaytime gt retime }">
-											<td class="board_content01">처리완료</td>
-										</c:when>
-									</c:choose>
-								</tr>
-								</c:forEach>
-							</table>
-							</center>
-							<br>
-						</td>
+	<!--  html 전체 영역을 지정하는 container -->
+	<div id="container">
+		
+		<!-- 나의예약확인폼 전체영역 -->
+		<div class="listBox rounded-2">
+			<div>
+				<span align="left" class="title">
+					▷ 총 ${reservationCount }개의 예약건이 있습니다.
+				</span>
+				<span align="left">
+					<form action="rsearch_list">
+					<input type="hidden" value="${memberId }" name="rid">
+						<select name="searchOption" >
+							<option value="전체">전체</option>
+			                <option value="진료">진료</option>
+			                <option value="예방접종">예방접종</option>
+			                <option value="미용">미용</option>
+			            </select>
+			            <input type="submit" class="btn btn-dark" value="검색">
+					</form>
+				</span>
+			</div>
+			<table class="table">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col" class="board_title">NO</th>
+						<th scope="col" class="board_title">ID</th>
+						<th scope="col" class="board_title">RECEIPT</th>
+						<th scope="col" class="board_title">NAME</th>
+						<th scope="col" class="board_title">DATE</th>
+						<th scope="col" class="board_title">STATE</th>
 					</tr>
-					
-				</table>
-				</center>
-			</td>
-		</tr>
-	</table>
-	</center>
+				</thead>
+				<tbody class="table-group-divider">
+				  	<c:forEach items="${rlistDto }" var="list">	
+					<tr>
+						<td class="board_content01">${list.rnum }</td>
+						<td class="board_content01">${list.rid }</td>
+						<td class="board_content01">
+						<a href="reservationView?rnum=${list.rnum }">
+						${list.rlist }
+						</a>
+						</td>
+						<td class="board_content01">${list.rname }</td>
+						<td class="board_content01">
+							${list.rday } ${list.rtime }
+						</td>
+						<fmt:parseDate value="${list.rday }" pattern="yyyy-MM-dd" var="rday" />
+						<fmt:parseDate value="${list.rtime }" pattern="HH:mm" var="rtime" />
+						<fmt:formatDate value="${rday}" pattern="yyyy-MM-dd" var="reday" />
+						<fmt:formatDate value="${rtime}" pattern="HH:mm" var="retime" />
+						<c:choose>
+							<c:when test="${today lt reday}">
+								<td class="board_content01">예약중</td>
+							</c:when>
+							<c:when test="${today le reday && todaytime le retime }">
+								<td class="board_content01">예약중</td>
+							</c:when>
+							<c:when test="${today gt reday}">
+								<td class="board_content01">처리완료</td>
+							</c:when>
+							<c:when test="${today ge reday && todaytime gt retime }">
+								<td class="board_content01">처리완료</td>
+							</c:when>
+						</c:choose>
+					</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		
+	</div>
 <%@ include file="include/footer.jsp" %>
 </body>
 </html>

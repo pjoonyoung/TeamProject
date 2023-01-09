@@ -15,21 +15,13 @@ html, body {
   height: 100%;
 }
 
-/* 네비게이션 영역 */
-
-.nav > li:hover {
-    background: #e4e2e3;
+.pageBox {
+	text-align: center;
+	width: 1000px;
+	padding: 100px 0px 100px 0px;
+	background-color: #c0c0c0;
 }
 
-.nav > li a:hover {
-    color: #000000;
-}
-
-.navbar {
-	color: white;
-}
-
-.navbar-text {
-	margin-right: 3px;
-	padding: 5px;
+.button_box {
+	margin-top: 15px;
 }

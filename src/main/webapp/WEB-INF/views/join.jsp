@@ -17,7 +17,7 @@
 <%@ include file="include/header.jsp" %>
 	<!--  html 전체 영역을 지정하는 container -->
 	<div id="container">
-		
+	
 		<!-- 회원가입폼 전체영역 -->
 		<div class="joinBox rounded-2">
 			
@@ -82,7 +82,7 @@
 					</div>
 					
 					<div class="button-join-box">
-		    			<input type="button" class="btn btn-primary" style="width:100%" value="가입완료" onclick="joinCheck()"></input>
+		    			<input type="button" class="btn btn-dark" style="width:100%" value="가입완료" onclick="joinCheck()"></input>
 					</div>
 					
 		    	</form>

@@ -11,7 +11,7 @@
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
-	<footer class="footer mt-auto py-3 bg-info">
+	<footer class="footer mt-auto py-3 bg-dark">
 		<div class="sticky-lg-bottom">
     		<p class="text-center text-white">
     			보시고 계신 페이지는 Spring Boot Framework으로 개발되었습니다.<br>

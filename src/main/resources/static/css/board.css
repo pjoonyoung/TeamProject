@@ -1,7 +1,20 @@
 @charset "UTF-8";
 
+.listBox {
+	text-align: center;
+	width: 1000px;
+	padding: 100px 10px 100px 10px;
+	background-color: #ffffff;
+}
+
+.qBox {
+	align-items: center;
+	width: 1000px;
+	padding: 80px 10px 80px 10px;
+	background-color: #e4e2e3;
+}
+
 th.board_title {
-	background-color: #FE8761;
 	border: 1px solid #462600;
 	font-size: 20px;
 	color: #f1f1f1;
@@ -11,7 +24,6 @@ th.board_title {
 }
 
 td.board_content01 {
-	background-color: #ffe9e1;
 	border: 1px solid #462600;
 	font-size: 18px;
 	color: #535353;
@@ -20,7 +32,6 @@ td.board_content01 {
 }
 
 td.board_content02 {
-	background-color: #ffe9e1;
 	border: 1px solid #462600;
 	font-size: 18px;
 	color: #535353;
@@ -39,4 +50,20 @@ td.board_content03 {
 
 hr.line {
 	border: 1px solid #ff8040;
+}
+
+.btn {
+	margin: 5px 0 5px 0;
+}
+
+.title {
+	font-size: 30px;
+	font-family: malgun;
+	font-weight: bold;
+}
+
+.title1 {
+	font-size: 30px;
+	font-family: malgun;
+	font-weight: bold;
 }

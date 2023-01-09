@@ -36,7 +36,7 @@
 					<input type="text" name="memail" class="form-control">
 				</div>
 				<div class="button-login-box" >
-					<input type="button" class="btn btn-primary btn-xs" style="width:100%" value="찾기" onclick="pwfindCheck()">
+					<input type="button" class="btn btn-dark btn-xs" style="width:100%" value="찾기" onclick="pwfindCheck()">
 				</div>
 	        </form>
         </div>

@@ -16,7 +16,7 @@
 	<div id="container">
 		<div class="row">
         	<div class="col rounded-2 room">
-				<ul class="nav nav-tabs ">
+				<ul class="nav nav-tabs">
 					<li class="nav-item w-50">
 						<a class="nav-link active" data-toggle="tab" href="#member">회원로그인</a>
 					</li>
@@ -44,7 +44,7 @@
 								<input type="password" name="mpw" class="form-control">
 							</div>
 							<div class="button-login-box" >
-								<input type="button" class="btn btn-primary btn-xs" 
+								<input type="button" class="btn btn-dark btn-xs" 
 								style="width:100%" value="로그인" onclick="loginCheck()">
 							</div>
 				        </form>
@@ -76,7 +76,7 @@
 								<input type="password" name="mpw" class="form-control">
 							</div>
 							<div class="button-login-box" >
-								<input type="submit" class="btn btn-primary btn-xs" style="width:100%" value="로그인">
+								<input type="submit" class="btn btn-dark btn-xs" style="width:100%" value="로그인">
 							</div>
 				        </form>
 			        </div>

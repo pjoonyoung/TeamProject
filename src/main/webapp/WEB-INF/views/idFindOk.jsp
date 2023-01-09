@@ -29,7 +29,7 @@
 		</div>
 		
 		<div class="button-login-box" >
-			<input type="buttom" class="btn btn-primary btn-xs" 
+			<input type="buttom" class="btn btn-dark btn-xs" 
 			style="width:100%" value="로그인" onclick="script:window.location='login'">
 		</div>
         </div>

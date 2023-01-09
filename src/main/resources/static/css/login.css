@@ -18,10 +18,9 @@ html, body {
 .loginBox {
   width: 400px;
   text-align: center;
-  background-color: #ececec;
+  background-color: #e4e2e3;
 }
 .input-form-box {
-  border: 0px solid #ff0000;
   display: flex;
   margin-bottom: 5px;
 }
@@ -69,7 +68,7 @@ span.content_text02 {
 }
 
 .room {
-	background-color: #ececec;	
+	background-color: #e4e2e3;	
 }
 
 .find_wrap {

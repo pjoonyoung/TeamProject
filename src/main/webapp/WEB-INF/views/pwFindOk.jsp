@@ -34,7 +34,7 @@
 	   			<input type="password" name="mpwck" class="form-control">
 			</div>
 			<div class="button-login-box" >
-				<input type="button" class="btn btn-primary btn-xs" 
+				<input type="button" class="btn btn-dark btn-xs" 
 				style="width:100%" value="변경하기" onclick="pwchangeCheck()">
 			</div>
 		</form>

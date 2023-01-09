@@ -1,47 +1,5 @@
 @charset "UTF-8";
 
-span.title01 {
-	font-size: 60px;
-	color: #EF9A53;
-	font-family: Arial;
-	font-weight: bold;
-}
-
-span.title02 {
-	font-size: 20px;
-	color: #FFE15D;
-	font-family: Arial;
-	font-weight: normal;
-}
-
-span.title03 {
-	font-size: 60px;
-	color: #8C0000;
-	font-family: Arial;
-	font-weight: bold;
-}
-
-span.title04 {
-	font-size: 40px;
-	color: #FE8761;
-	font-family: Arial;
-	font-weight: bold;
-}
-
-td.skillbox {
-	background-color: #F6EEC9;	
-}
-
-td.picbox1 {
-	background-color: #fef5d6;
-	align-content: center;
-	text-align: center;
-}
-
-td.titlebox {
-	text-align: center;
-}
-
 .picbox {
 	background-color: #ffffff;
     text-align: center;
@@ -49,8 +7,4 @@ td.titlebox {
 
 .picbox > img {
 	margin-top: 200px;
-}
-
-.clear {
-	clear:both;
 }
