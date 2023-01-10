@@ -41,12 +41,12 @@
 				</div>
 				<div class="form-floating">
 					<textarea class="form-control" placeholder="문의내용을 입력하세요" id="floatingTextarea2" style="height: 200px" name="qcontent"></textarea>
-					<label for="floatingTextarea2" placeholder="문의내용을 입력하세요"></label>
+					<label for="floatingTextarea2">문의내용을 입력하세요</label>
 				</div>
 				
-				<div class="col-12">
-				  <input type="button" class="btn btn-dark" value="문의하기" onclick="boardCheck()">
-				  <input type="button" class="btn btn-dark" value="글목록" onclick="script:window.location='list'">
+				<div class="col-12 btn1">
+				  <input type="button" class="btn btn-dark" style="width:10%" value="등록하기" onclick="boardCheck()">
+				  <input type="button" class="btn btn-dark" style="width:10%" value="글목록" onclick="script:window.location='list'">
 				</div>
 			</form>
 		</div>	

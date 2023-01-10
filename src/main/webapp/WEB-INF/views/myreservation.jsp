@@ -38,7 +38,7 @@
 			                <option value="예방접종">예방접종</option>
 			                <option value="미용">미용</option>
 			            </select>
-			            <input type="submit" class="btn btn-dark" value="검색">
+			            <input type="submit" class="btn btn-dark btnselect" value="검색">
 					</form>
 				</span>
 			</div>

@@ -22,7 +22,7 @@
 		<!-- 문의리스트폼 전체영역 -->
 		<div class="listBox">
 			<div>
-				<span align="left" class="title1">
+				<span align="left" class="title">
 					▷ 총 ${qproboardCount }개의 문의글이 있습니다.<br>
 				</span>
 				<span align="left">
@@ -33,7 +33,7 @@
 			                <option value="writer">글쓴이</option>
 			            </select>
 			            <input class="input_type03" type="text" name="searchKey">
-			            <input type="submit" class="btn btn-dark" value="검색">
+			            <input type="submit" class="btn btn-dark btnselect" value="검색">
 					</form>
 				</span>
 			</div>
@@ -103,9 +103,9 @@
 					<%
 						} else {
 					%>
-						<td colspan="7" align="center">
-							<input type="button" value="문의하기" class="btn btn-dark" style="width:30%" onclick="script:window.location='question'">
-						</td>
+						<div class="btn1">
+							<input type="button" value="문의하기" class="btn btn-dark" style="width:15%" onclick="script:window.location='question'">
+						</div>
 					<%
 						}
 					%>

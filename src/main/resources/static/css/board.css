@@ -8,16 +8,32 @@
 }
 
 .qBox {
+	margin: 100px 0 50px 0;
 	align-items: center;
 	width: 1000px;
-	padding: 80px 10px 80px 10px;
+	padding: 30px 10px 30px 10px;
 	background-color: #e4e2e3;
+}
+
+p.content_text01{
+	font-family: malgun;
+	font-size: 15px;
+	font-weight: bold;
+	color: #303030;
 }
 
 th.board_title {
 	border: 1px solid #462600;
 	font-size: 20px;
 	color: #f1f1f1;
+	font-family: malgun;
+	font-weight: bold;
+	text-align: center;
+}
+
+th.aboard_title {
+	font-size: 20px;
+	color: #000000;
 	font-family: malgun;
 	font-weight: bold;
 	text-align: center;
@@ -49,10 +65,15 @@ td.board_content03 {
 }
 
 hr.line {
-	border: 1px solid #ff8040;
+	border: 1px solid #000000;
 }
 
-.btn {
+div.btn1 {
+	text-align: right;
+	margin-top: 15px;
+}
+
+.btnselect {
 	margin: 5px 0 5px 0;
 }
 
@@ -62,8 +83,9 @@ hr.line {
 	font-weight: bold;
 }
 
-.title1 {
-	font-size: 30px;
+span.achart {
+	color: #000080;
+	font-size: 20px;
 	font-family: malgun;
 	font-weight: bold;
 }
