@@ -15,7 +15,7 @@
 		<div class="sticky-lg-bottom">
     		<p class="text-center text-white">
     			보시고 계신 페이지는 Spring Boot Framework으로 개발되었습니다.<br>
-    			웹 어플리케이션 개발 관련하여 궁금하신 점은 jypjoon@gmail.com으로 연락부탁드립니다.
+    			백 엔드 개발 관련하여 궁금하신 점은 jypjoon@gmail.com으로 연락부탁드립니다.
     		</p>
   		</div>
 	</footer>

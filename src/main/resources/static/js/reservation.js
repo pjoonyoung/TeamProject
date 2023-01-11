@@ -9,6 +9,11 @@
 		return;
 	}
 	
+	if(document.reservation_frm.rday.value.length == 0){
+		alert("예약일자는는 필수 입력사항입니다. 다시 확인해주세요!");
+		return;
+	}
+	
 	if(document.reservation_frm.ranimal.value.length == 0){
 		alert("동물종류는 필수 입력사항입니다. 다시 확인해주세요!");
 		return;

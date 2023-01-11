@@ -6,9 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>** 병원예약관리 프로젝트 **</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/title.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reservation.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/reservation.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
@@ -73,100 +76,90 @@
 </head>
 <body>
 <%@ include file="include/header.jsp" %>
-   <center>
-   <table width="75%" border="0" cellspacing="0" cellpadding="20">
-      <tr>
-         <td class="titlebox">
-            <span class="title01">예약 수정페이지</span>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <center>
-            <table width="80%" border="0" cellspacing="0" cellpadding="10">
-               <tr class="contentbox">
-                  <td class="content">
-                     <center>
-                     <table border="0" cellspacing="0" cellpadding="10">
-                        <form action="reserveModifyOk" method="post" name="reservation_frm">
-                        <input type="hidden" value="${view.rnum }" name="rnum">
-                           <tr>
-                              <td><span class="content_text01">MEMBER ID</span></td>
-                              <td><input class="input_type01" type="text" name="rid" value="${view.rid }" readonly="readonly"></td>
-                           </tr>
-                           <tr>
-                              <td><span class="content_text01">NAME</span></td>
-                              <td><input class="input_type01" type="text" name="rname" value="${view.rname }" readonly="readonly"></td>
-                           </tr>
-                           <tr>
-                              <td><span class="content_text01">PHONE</span></td>
-                              <td><input class="input_type01" type="text" name="rphone" value="${view.rphone }">&nbsp;- 제외 입력</td>
-                           </tr>
-                           <tr>
-                              <td><span class="content_text01">DATE</span></td>
-                              <td>
-                                 <input class="input_type01" id="pickDate" type="text" name="rday" value="${view.rday }">&nbsp;
-                                 <select class="select_type01" name="selectOption">
-                                        <option value="${view.rtime }">${view.rtime }</option>
-                                        <option disabled>---------</option>
-                                        <option value="09:30">09:30</option>
-                                        <option value="10:20">10:20</option>
-                                        <option value="11:10">11:10</option>
-                                        <option value="12:00">12:00</option>
-                                        <option value="14:10">14:10</option>
-                                        <option value="15:00">15:00</option>
-                                        <option value="15:50">15:50</option>
-                                        <option value="16:40">16:40</option>
-                                        <option value="17:30">17:30</option>
-                                    </select>
-                                 </td>
-                           </tr>
-                           <tr>
-                              <td><span class="content_text01">ANIMAL</span></td>
-                              <td><input class="input_type01" type="text" name="ranimal" value="${view.ranimal }"></td>
-                           </tr>
-                           <tr>
-                              <td><span class="content_text01">LIST</span></td>
-                              <td><input class="input_type01" type="text" name="rlist" value="${view.rlist }" readonly="readonly"></td>
-                           </tr>
-                           <tr>
-                              <td><span class="content_text01">CONTENT</span></td>
-                              <td colspan="2"><textarea class="textarea_text01" rows="5" cols="30" name="rcontent">${view.rcontent }</textarea></td>
-                           </tr>
-                           <tr>
-                           <%
-								if(sessionId.equals("ADMIN")) {
-							%>
-                           		<td colspan="3" align="center">
-                                	<input class="button_type01" type="button" value="수정완료" onclick="reservationCheck()">&nbsp;&nbsp;
-                                	<input class="button_type01" type="button" value="예약삭제" onclick="script:window.location='adrDelete?rnum=${view.rnum }'">
-                                	<input class="button_type01" type="button" value="수정취소" onclick="script:window.location='reservationAll'">
-                            	</td>
-                            <%
-								} else if (sessionId != null) {    
-                            %>
-                            	<td colspan="3" align="center">
-                            	    <input class="button_type01" type="button" value="수정완료" onclick="reservationCheck()">&nbsp;&nbsp;
-                            	    <input class="button_type01" type="button" value="수정취소" onclick="script:window.location='myreservation?rid=${memberId}'">
-                             	</td>
-                           	<%
-								} else {
-							%>
-							<%
-								}
-							%>
-                           </tr>
-                        </form>
-                     </table>
-                     </center>
-                  </td>
-               </tr>
-            </table>
-            </center>
-         </td>
-      </tr>
-   </table>
-   </center>
+   
+   <!--  html 전체 영역을 지정하는 container -->
+	<div id="container">
+	
+		<!-- 예약폼 전체영역 -->
+		<div class="rBox rounded-2">
+			
+			<!-- 예약하기 페이지 타이틀 -->
+			<div id="rBoxTitle">JoonHospital</div>
+			
+			<!-- 예약하기 내용 박스 -->
+			<form class="row g-3" action="reserveModifyOk" method="post" name="reservation_frm">
+			<input type="hidden" value="${view.rnum }" name="rnum">
+				<div class="col-md-4">
+					<label for="inputId4" class="form-label content_text01">아이디</label>
+					<input type="text" class="form-control" id="inputId4" value="${view.rid }" readonly="readonly" name="rid">
+				</div>
+				<div class="w-100"></div>
+				<div class="col-md-4">
+					<label for="inputName4" class="form-label content_text01">이름</label>
+					<input type="text" class="form-control" id="inputName4" value="${view.rname }" readonly="readonly" name="rname">
+				</div>
+				<div class="col-md-4">
+					<label for="inputPhone4" class="form-label content_text01">전화번호</label>
+					<input type="text" class="form-control" id="inputPhone4" value="${view.rphone }" placeholder="-제외 입력해주세요" name="rphone">
+				</div>
+				<div class="w-100"></div>
+				<div class="row g-3">
+					<div class="col-md-4">
+						<label for="inputDay4" class="form-label content_text01">예약일자</label>
+						<input type="text" style="display:inline-block" class="form-control" id="pickDate" id="inputDay4" value="${view.rday }" name="rday">
+					</div>
+					<div class="col-md-2">
+						<label class="form-label">&nbsp;</label>
+						<select class="form-select" name="selectOption">
+						    <option value="${view.rtime }">${view.rtime }</option>
+							<option disabled>---------</option>
+							<option value="09:30">09:30</option>
+							<option value="10:20">10:20</option>
+							<option value="11:10">11:10</option>
+							<option value="12:00">12:00</option>
+							<option value="14:10">14:10</option>
+							<option value="15:00">15:00</option>
+							<option value="15:50">15:50</option>
+							<option value="16:40">16:40</option>
+							<option value="17:30">17:30</option>
+						</select>
+					</div>
+				</div>
+				<div class="w-100"></div>
+				<div class="col-md-4">
+					<label for="inputAnimal4" class="form-label content_text01">동물종류</label>
+					<input type="text" class="form-control" id="inputAnimal4" value="${view.ranimal }" name="ranimal">
+				</div>
+				<div class="col-md-4">
+					<label for="inputList4" class="form-label content_text01">희망접수</label>
+					<input type="text" class="form-control" id="inputList4" value="${view.rlist }" name="rlist" readonly="readonly">
+				</div>
+				<div class="form-floating">
+					<textarea class="form-control" placeholder="수정하실 증상을 입력하세요" id="floatingTextarea2" style="height: 200px" name="rcontent">${view.rcontent }</textarea>
+					<label for="floatingTextarea2">수정하실 증상을 입력하세요</label>
+				</div>
+				<div class="col-12 btn1">
+				<%
+					if(sessionId.equals("ADMIN")) {
+				%>
+                   	<input class="btn btn-dark" type="button" value="수정완료" onclick="reservationCheck()">&nbsp;&nbsp;
+                   	<input class="btn btn-dark" type="button" value="예약삭제" onclick="script:window.location='adrDelete?rnum=${view.rnum }'">
+                   	<input class="btn btn-dark" type="button" value="돌아가기" onclick="script:window.location='reservationAll'">
+                <%
+					} else if (sessionId != null) {    
+                 %>
+               	    <input class="btn btn-dark" type="button" value="수정완료" onclick="reservationCheck()">&nbsp;&nbsp;
+               	    <input class="btn btn-dark" type="button" value="돌아가기" onclick="script:window.location='myreservation?rid=${memberId}'">
+              	<%
+					} else {
+				%>
+				<%
+					}
+				%>
+                </div>
+			</form>
+		</div>
+	</div>
 <%@ include file="include/footer.jsp" %>
 </body>
 </html>

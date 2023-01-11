@@ -18,13 +18,13 @@
 <body>
 <%@ include file="include/header.jsp" %>
 	<center>
-	<!-- 문의폼 전체영역 -->
+	<!-- 문의확인폼 전체영역 -->
 	<div class="qBox rounded-2">
 	
-		<!-- 문의하기 페이지 타이틀 -->
+		<!-- 문의확인 페이지 타이틀 -->
 		<div id="joinBoxTitle">JoonHospital</div>
 		
-		<!-- 문의하기 내용 박스 -->
+		<!-- 문의확인 내용 박스 -->
 		<form class="row g-3" action="questionModify" method="post">
 		<input type="hidden" value="${view.qnum }" name="qnum">
 			<div class="col-md-3" align="left">
@@ -56,7 +56,7 @@
 			
 			<tr>
 				<td><hr class="line"></td>
-				<span class="achart"> &nbsp;ANSWER LIST</span>
+				<span class="achart" align="left"> &nbsp;댓글 (${view.qanswercount })</span>
 			</tr>
 			<table class="table">
 				<thead>
@@ -112,7 +112,7 @@
 					<input class="btn btn-dark" type="button" value="문의목록" onclick="script:window.location='list'">
 				</div>
 				<%
-					} else {
+					} else if((!sessionId.equals(boardId)) && (!sessionId.equals("ADMIN"))){
 				%>
 				<div class="col-12 btn1">
 					<input class="btn btn-dark" type="button" value="문의목록" onclick="script:window.location='list'">
@@ -157,7 +157,7 @@
 		<div class="sticky-lg-bottom">
     		<p class="text-center text-white">
     			보시고 계신 페이지는 Spring Boot Framework으로 개발되었습니다.<br>
-    			웹 어플리케이션 개발 관련하여 궁금하신 점은 jypjoon@gmail.com으로 연락부탁드립니다.
+    			백 엔드 개발 관련하여 궁금하신 점은 jypjoon@gmail.com으로 연락부탁드립니다.
     		</p>
   		</div>
 	</footer>

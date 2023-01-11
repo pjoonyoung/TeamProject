@@ -4,55 +4,51 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>** 병원예약관리 프로젝트 **</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/title.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css">
 </head>
 <body>
 <%@ include file="include/header.jsp" %>
-	<center>
-	<table width="75%" border="0" cellspacing="0" cellpadding="20">
-		<tr>
-			<td class="titlebox">
-				<span class="title01">회원 탈퇴</span>
-			</td>
-		</tr>
+	<!--  html 전체 영역을 지정하는 container -->
+	<div id="container">
+		<!--  login 폼 영역을 : loginBox -->
+		<div class="rounded-2 loginBox" id="member">
 		
-		<tr>
-			<td>
-				<center>
-				<table width="80%" border="0" cellspacing="0" cellpadding="10">
-					<tr class="contentbox">
-						<td class="content">
-							<center>
-							<table border="0" cellspacing="0" cellpadding="10">
-								<form action="mSecessionOk" method="post">
-									<tr>
-										<td><span class="content_text01">MEMBER ID</span></td>
-										<td><input class="input_type01" type="text" name="mid" value="${memberId}"></td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">PASSWORD</span></td>
-										<td><input class="input_type01" type="password" name="mpw"></td>
-									</tr>
-									<tr>
-										<td colspan="2">
-											<input class="button_type01" type="submit" value="회원탈퇴">&nbsp;&nbsp;
-											<input class="button_type01" type="button" value="돌아가기" onclick="script:window.location='index'">
-										</td>
-									</tr>
-								</form>
-							</table>
-							</center>
-						</td>
-					</tr>
+		<!-- 회원탈퇴 타이틀 -->
+		<div id="loginBoxTitle">회원탈퇴</div>
+		
+	    <!-- 아이디, 비번, 버튼 박스 -->
+	    <div id="inputBox">
+	    	<form action="mSecessionOk" method="post">
+		       	<div class="input-form-box">
+		       		<span class="content_text01">아이디 </span>
+		   			<input type="text" class="form-control" value="${memberId }" name="mid">
+				</div>
+				<div class="input-form-box">
+					<span class="content_text01">비밀번호 </span>
+					<input type="password" name="mpw" class="form-control">
+				</div>
+				<div class="button-login-box" >
+					<input type="submit" class="btn btn-dark btn-xs" 
+					style="width:40%" value="회원탈퇴">
 					
-				</table>
-				</center>
-			</td>
-		</tr>
-	</table>
-	</center>
+					<input type="button" class="btn btn-dark btn-xs" 
+					style="width:40%" value="돌아가기" onclick="script:window.location='index'">
+				</div>
+	        </form>
+        </div>
+		</div>
+		    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	    	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	    	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+			<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/idfind.js"></script>
+		</div>
+	</div>	
+</div>	
 <%@ include file="include/footer.jsp" %>
 </body>
 </html>

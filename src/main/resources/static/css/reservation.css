@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+.rBox {
+	margin: 100px 0 50px 0;
+	align-items: center;
+	width: 700px;
+	padding: 30px 10px 30px 10px;
+	background-color: #e4e2e3;
+}
+
+.rViewBox {
+	margin: 100px 0 50px 0;
+	align-items: center;
+	width: 700px;
+	padding: 10px;
+	background-color: #e4e2e3;
+}
+
+#rBoxTitle {
+	text-align: center;
+	color:#000000;
+	font-weight: bold;
+	font-size: 32px;
+	text-transform: uppercase;
+	padding: 5px;
+	margin-bottom: 20px;
+	background: linear-gradient(to right, #270a09, #8ca6ce);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+label.content_text01 {
+	font-family: malgun;
+	font-size: 15px;
+	font-weight: bold;
+	color: #303030;
+}
+
+span.content_text01 {
+	font-family: malgun;
+	font-size: 18px;
+	font-weight: bold;
+	color: #000080;
+}
+
+td.reserve_content01 {
+	font-family: malgun;
+	font-size: 15px;
+	font-weight: bold;
+	color: #303030;
+}

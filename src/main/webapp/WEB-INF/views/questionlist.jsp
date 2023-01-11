@@ -87,29 +87,29 @@
 				</tbody>
 			</table>
 			<tr>
-					<%
-						//String boardId = (String) request.getAttribute("qid");
-						
-						if(sessionId == null) {
-					%>
-					<script type="text/javascript">
-						alert("로그인이 필요한 기능입니다. 로그인 여부를 확인하여주세요.");
-						history.go(-1);
-					</script>
-					<%
-						} else if (sessionId.equals("ADMIN")) {
-					%>
+				<%
+					//String boardId = (String) request.getAttribute("qid");
 					
-					<%
-						} else {
-					%>
-						<div class="btn1">
-							<input type="button" value="문의하기" class="btn btn-dark" style="width:15%" onclick="script:window.location='question'">
-						</div>
-					<%
-						}
-					%>
-				</tr>
+					if(sessionId == null) {
+				%>
+				<script type="text/javascript">
+					alert("로그인이 필요한 기능입니다. 로그인 여부를 확인하여주세요.");
+					history.go(-1);
+				</script>
+				<%
+					} else if (sessionId.equals("ADMIN")) {
+				%>
+				
+				<%
+					} else {
+				%>
+					<div class="btn1">
+						<input type="button" value="문의하기" class="btn btn-dark" style="width:15%" onclick="script:window.location='question'">
+					</div>
+				<%
+					}
+				%>
+			</tr>
 		</div>
 	</div>
 <%@ include file="include/footer.jsp" %>

@@ -10,7 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
 <title>** 병원예약관리 프로젝트 **</title>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -27,7 +26,7 @@
 		<div class="listBox rounded-2">
 			<div>
 				<span align="left" class="title">
-					▷ 총 ${reservationCount }개의 예약건이 있습니다.
+					▷ 총 ${reservationCount }개의 ${relistDto } 예약건이 있습니다.
 				</span>
 				<span align="left">
 					<form action="rsearch_list">
@@ -90,7 +89,6 @@
 				</tbody>
 			</table>
 		</div>
-		
 	</div>
 <%@ include file="include/footer.jsp" %>
 </body>

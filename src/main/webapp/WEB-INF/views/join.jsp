@@ -61,8 +61,8 @@
 				    	<div class="col-sm-15">
 							<select class="form-control multiple" name="mgender" value="선택">
 							    <option selected disabled>선택</option>
-							    <option value="male">남자</option>
-							    <option value="female">여자</option>
+							    <option value="남자">남자</option>
+							    <option value="여자">여자</option>
 						  	</select>
 						</div>
 					</div>
@@ -84,14 +84,10 @@
 					<div class="button-join-box">
 		    			<input type="button" class="btn btn-dark" style="width:100%" value="가입완료" onclick="joinCheck()"></input>
 					</div>
-					
 		    	</form>
 		    </div>
-			
 		</div>
 	</div>
-	
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <%@ include file="include/footer.jsp" %>
 </body>
 </html>

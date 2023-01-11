@@ -440,12 +440,11 @@ public class HomeController {
 			response.setContentType("text/html; charset=UTF-8");      
 	        PrintWriter out = response.getWriter();
 	        out.println("<script>alert('탈퇴가 완료되었습니다. 안녕히 가십시오.');</script>");
-	        out.println("<script>location.href = 'secessionOk';</script>");
+	        out.println("<script>location.href = 'index';</script>");
 	        out.flush();
 			
-			return "secessionOk";
+			return "index";
 		}
-		
 		
 	}
 	
@@ -744,6 +743,7 @@ public class HomeController {
 		}
 		
 		model.addAttribute("rlistDto", reservationDto);
+		model.addAttribute("relistDto",searchOption);//옵션선택값을 반환
 		model.addAttribute("reservationCount", reservationDto.size());//검색 결과 예약 개수 반환
 		
 		return "myreservation";

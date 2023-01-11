@@ -4,97 +4,94 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>** 병원예약관리 프로젝트 **</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/title.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/join.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reservation.css">
 </head>
 <body>
 <%@ include file="include/header.jsp" %>
-	<center>
-	<table width="75%" border="0" cellspacing="0" cellpadding="20">
-		<tr>
-			<td class="titlebox">
-				<span class="title01">회원정보 수정완료</span>
-			</td>
-		</tr>
-		<tr>
-			<td class="titlebox">
-				<span class="title02"></span>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<center>
-				<table width="80%" border="0" cellspacing="0" cellpadding="10">
-					<tr class="contentbox">
-						<td class="content">
-							<center>
-							<table border="0" cellspacing="0" cellpadding="10">
-									<tr>
-										<td colspan="2" align="center">회원 정보 수정 완료</td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">MEMBER ID</span></td>
-										<td>${memberDto.mid }</td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">PASSWORD</span></td>
-										<td>${memberDto.mpw }</td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">NAME</span></td>
-										<td>${memberDto.mname }</td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">GENDER</span></td>
-										<td>${memberDto.mgender }</td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">PHONE</span></td>
-										<td>${memberDto.mphone }</td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">E-MAIL</span></td>
-										<td>${memberDto.memail }</td>
-									</tr>
-									<tr>
-										<td><span class="content_text01">JOIN-DATE</span></td>
-										<td>${memberDto.mdate }</td>
-									</tr>
-									<tr>
-									<%
-										if(sessionId == null) {
-									%>
-									<%
-										} else if(sessionId.equals("ADMIN")) {
-									%>
-										<td colspan="2">
-											<input class="button_type01" type="button" value="정보수정" onclick="script:window.location='memberModify'">
-											<input class="button_type01" type="button" value="돌아가기" onclick="script:window.location='admemberList'">
-										</td>
-									<%
-										} else if(sessionId != null) {
-									%>
-									<td colspan="2">
-										<input class="button_type01" type="button" value="정보수정" onclick="script:window.location='memberModify'">
-										<input class="button_type01" type="button" value="돌아가기" onclick="script:window.location='mypage'">
-									</td>
-									<%
-										}
-									%>
-									</tr>
-							</table>
-							</center>
-						</td>
+	
+	<!--  html 전체 영역을 지정하는 container -->
+	<div id="container">
+	
+		<!-- 정보수정 확인폼 전체영역 -->
+		<div class="rViewBox rounded-2">
+		
+			<!-- 정보수정 확인 페이지 타이틀 -->
+			<div id="rBoxTitle">JoonHospital</div>
+			
+			<!-- 정보수정 확인 내용 박스 -->
+			<table class="table border-dark">
+				<tbody>
+					<tr>
+						<td><span class="content_text01">회원 아이디 : </span></td>
+						<td class="reserve_content01">${memberDto.mid }</td>
 					</tr>
-					
+				</tbody>
+				<tobody>
+					<tr>
+						<td><span class="content_text01">비밀번호 : </span></td>
+						<td class="reserve_content01">${memberDto.mpw }</td>
+					</tr>
+				</tobody>
+				<tobody>
+					<tr>
+						<td><span class="content_text01">이름 : </span></td>
+						<td class="reserve_content01">${memberDto.mname }</td>
+					</tr>
+				</tobody>
+				<tobody>
+					<tr>
+						<td><span class="content_text01">성별 : </span></td>
+						<td class="reserve_content01">${memberDto.mgender }</td>
+					</tr>
+				</tobody>
+				<tobody>
+					<tr>
+						<td><span class="content_text01">전화번호 : </span></td>
+						<td class="reserve_content01">${memberDto.mphone }</td>
+					</tr>
+				</tobody>
+				<tobody>
+					<tr>
+						<td><span class="content_text01">E-MAIL : </span></td>
+						<td class="reserve_content01">${memberDto.memail }</td>
+					</tr>
+				</tobody>
+				<tobody>
+					<tr>
+						<td><span class="content_text01">가입 일자 : </span></td>
+						<td class="reserve_content01">${memberDto.mdate }</td>
+					</tr>
+				</tobody>
 				</table>
-				</center>
-			</td>
-		</tr>
-	</table>
-	</center>
+					<tr>
+						<%
+							if(sessionId == null) {
+						%>
+						<%
+							} else if(sessionId.equals("ADMIN")) {
+						%>
+							<div class="btn1">
+								<input class="btn btn-dark" type="button" value="돌아가기" onclick="script:window.location='admemberList'">
+							</div>
+						<%
+							} else if(sessionId != null) {
+						%>
+						<div class="btn1">
+							<input class="btn btn-dark" type="button" value="정보수정" onclick="script:window.location='memberModify'">
+							<input class="btn btn-dark" type="button" value="돌아가기" onclick="script:window.location='mypage'">
+						</div>
+						<%
+							}
+						%>		
+					</tr>
+			</table>
+		</div>
+	</div>
 <%@ include file="include/footer.jsp" %>
 </body>
 </html>

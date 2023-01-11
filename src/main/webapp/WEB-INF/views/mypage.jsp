@@ -16,6 +16,7 @@
 <%@ include file="include/header.jsp" %>
 	<!--  html 전체 영역을 지정하는 container -->
 	<div id="container">
+	
 		<!-- 나의 페이지폼 전체영역 -->
 		<div class="pageBox rounded-2">
 			<div class="row row-cols-1 row-cols-md-3 g-4">

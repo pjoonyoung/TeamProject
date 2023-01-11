@@ -6,107 +6,114 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>** 병원예약관리 프로젝트 **</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/title.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+<title>** 병원예약관리 프로젝트 **</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <%@ include file="include/header.jsp" %>
-	<center>
-	<table width="75%" border="0" cellspacing="0" cellpadding="20">
-		<tr>
-			<td class="titlebox">
-				<span class="title01">나의 문의내역</span>
-			</td>
-		</tr>
-		<tr>
-			<td class="titlebox">
-				<span class="title02"></span>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<center>
-				<table width="80%" border="0" cellspacing="0" cellpadding="10">
-					<tr class="contentbox">
-						<td class="content">
-							<center>
-							<table width="80%" border="0" cellspacing="0" cellpadding="10">
-								<tr>
-									<td colspan="7" align="left">▷ ${memberId } 님 총 ${qproboardMyCount }개의 문의가 있습니다.
-										<form action="mysearch_list">
-										<input type="hidden" value="${memberId }" name="qid">
-											<select name="searchOption" >
-								                <option value="title">제목</option>
-								                <option value="content">내용</option>
-								                <option value="writer">글쓴이</option>
-								            </select>
-								            <input class="input_type03" type="text" name="searchKey">
-								            <input type="submit" value="검색">
-										</form>
-									</td>
-								</tr>
-								<tr>
-									<th class="board_title">NO</th>
-									<th class="board_title">ID</th>
-									<th class="board_title" width="50%">TITLE</th>
-									<th class="board_title">NAME</th>
-									<th class="board_title">DATE</th>
-									<th class="board_title">HIT</th>
-									<th class="board_title">RESULT</th>
-								</tr>
-								<c:forEach items="${qdtos }" var="list">	
-								<tr>
-									<td class="board_content01">${list.qnum }</td>
-									<td class="board_content01">${list.qid }</td>
-									<td class="board_content02">
-									<a href="questionView?qnum=${list.qnum }">
-									<c:choose>
-										<c:when test="${fn:length(list.qtitle) > 23 }">
-											<c:out value="${fn:substring(list.qtitle,0,22) }">sss</c:out>...
-										</c:when>
-										<c:otherwise>
-											<c:out value="${list.qtitle }"></c:out>
-										</c:otherwise>
-									</c:choose>
-									<c:if test="${list.qanswercount != 0 }">              
-             		 				&nbsp;&nbsp;[${list.qanswercount }]
-              						</c:if>
-									</a>
-									</td>
-									<td class="board_content01">${list.qname }</td>
-									<td class="board_content01">
-										<c:out value="${fn:substring(list.qdate ,0,10) }"></c:out>
-									</td>
-									<td class="board_content01">${list.qhit }</td>
-									<c:choose>
-										<c:when test="${list.qanswercount != 0 }">
-											<td class="board_content01">답변완료</td>
-										</c:when>
-										<c:otherwise>
-											<td class="board_content01">준비중</td>
-										</c:otherwise>
-									</c:choose>
-								</tr>
-								</c:forEach>
-								<tr>
-									<td colspan="7" align="right">
-										<input type="button" value="문의하기" class="button_type01" onclick="script:window.location='question'">
-									</td>
-								</tr>
-							</table>
-							</center>
-							<br>
-						</td>
+
+	<!--  html 전체 영역을 지정하는 container -->
+	<div id="container">
+	
+		<!-- 나의 문의리스트 폼 전체영역 -->
+		<div class="listBox">
+			<div>
+				<span align="left" class="title">
+					▷ ${memberId } 님 총 ${qproboardMyCount }개의 문의가 있습니다.
+				</span>
+				<span align="left">
+					<form action="mysearch_list" method="post">
+					<input type="hidden" value="${memberId }" name="qid">
+						<select name="searchOption" >
+			                <option value="title">제목</option>
+			                <option value="content">내용</option>
+			                <option value="writer">글쓴이</option>
+			            </select>
+			            <input class="input_type03" type="text" name="searchKey">
+			            <input type="submit" class="btn btn-dark btnselect" value="검색">
+					</form>
+				</span>
+			</div>
+			<table class="table">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col" class="board_title">NO</th>
+						<th scope="col" class="board_title">ID</th>
+						<th scope="col" class="board_title" width="50%">TITLE</th>
+						<th scope="col" class="board_title">NAME</th>
+						<th scope="col" class="board_title">DATE</th>
+						<th scope="col" class="board_title">HIT</th>
+						<th scope="col" class="board_title">RESULT</th>
 					</tr>
+				</thead>
+				<tbody class="table-group-divider">
+				  	<c:forEach items="${qdtos }" var="list">	
+					<tr>
+						<td class="board_content01">${list.qnum }</td>
+						<td class="board_content01">${list.qid }</td>
+						<td class="board_content02">
+						<a href="questionView?qnum=${list.qnum }">
+						<c:choose>
+							<c:when test="${fn:length(list.qtitle) > 23 }">
+								<c:out value="${fn:substring(list.qtitle,0,22) }"></c:out>...
+							</c:when>
+							<c:otherwise>
+								<c:out value="${list.qtitle }"></c:out>
+							</c:otherwise>
+						</c:choose>
+						<c:if test="${list.qanswercount != 0 }">              
+          		 				&nbsp;&nbsp;[${list.qanswercount }]
+           						</c:if>
+						</a>
+						</td>
+						<td class="board_content01">${list.qname }</td>
+						<td class="board_content01">
+							<c:out value="${fn:substring(list.qdate ,0,10) }"></c:out>
+						</td>
+						<td class="board_content01">${list.qhit }</td>
+						<c:choose>
+							<c:when test="${list.qanswercount != 0 }">
+								<td class="board_content01">답변완료</td>
+							</c:when>
+							<c:otherwise>
+								<td class="board_content01">준비중</td>
+							</c:otherwise>
+						</c:choose>
+					</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<tr>
+				<%
+					//String boardId = (String) request.getAttribute("qid");
 					
-				</table>
-				</center>
-			</td>
-		</tr>
-	</table>
-	</center>
+					if(sessionId == null) {
+				%>
+				<script type="text/javascript">
+					alert("로그인이 필요한 기능입니다. 로그인 여부를 확인하여주세요.");
+					history.go(-1);
+				</script>
+				<%
+					} else if (sessionId.equals("ADMIN")) {
+				%>
+				
+				<%
+					} else {
+				%>
+					<div class="btn1">
+						<input type="button" value="문의하기" class="btn btn-dark" style="width:15%" onclick="script:window.location='question'">
+					</div>
+				<%
+					}
+				%>
+			</tr>
+		</div>
+	</div>
 <%@ include file="include/footer.jsp" %>
 </body>
 </html>

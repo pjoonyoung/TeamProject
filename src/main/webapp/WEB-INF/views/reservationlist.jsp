@@ -4,48 +4,50 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>** 병원예약관리 프로젝트 **</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/page.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/title.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
 </head>
 <body>
 <%@ include file="include/header.jsp" %>
-	<center>
-		<tr>
-			<td class="titlebox">
-				<span class="title01">예약 페이지</span>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<center>
-				<table width="80%" border="0" cellspacing="0" cellpadding="100">
-					<form action="reservation" method="get">
-					<tr>
-						<td rowspan="3" class="picbox1">
-							<img src="${pageContext.request.contextPath}/resources/img/clinicLogo.png">
-						<br><br>
-						<input type="submit" value="진료" name="check"></td>
-					</tr>
-					<tr> 
-						<td rowspan="3" class="picbox1">
-							<img src="${pageContext.request.contextPath}/resources/img/inoculationLogo.png">
-						<br><br>
-						<input type="submit" value="예방접종" name="check"></td>
-					</tr>
-					<tr>
-						<td rowspan="3" class="picbox1">
-							<img src="${pageContext.request.contextPath}/resources/img/beautyLogo.png">
-						<br><br>
-						<input type="submit" value="미용" name="check"></td>
-					</tr>
-					</form>
-				</table>
-				</center>
-			</td>
-		</tr>
-	</center>
+	
+	<!--  html 전체 영역을 지정하는 container -->
+	<div id="container">
+	
+		<!-- 예약 선택폼 전체영역 -->
+		<div class="pageBox rounded-2">
+		<form action="reservation" method="get">
+			<div class="row row-cols-1 row-cols-md-3 g-4">
+				<div class="col">
+					<div class="h-100">
+					<img src="${pageContext.request.contextPath}/resources/img/clinicLogo.png">
+						<div class="button_box">
+							<input type="submit" class="btn btn-dark" class="button" value="진료" name="check">
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="h-100">
+					<img src="${pageContext.request.contextPath}/resources/img/inoculationLogo.png">
+						<div class="button_box">
+							<input type="submit" class="btn btn-dark" value="예방접종" name="check">
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="h-100">
+					<img src="${pageContext.request.contextPath}/resources/img/beautyLogo.png">
+						<div class="button_box">
+							<input type="submit" class="btn btn-dark" value="미용" name="check">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 <%@ include file="include/footer.jsp" %>
 </body>
 </html>

@@ -43,7 +43,12 @@ html, body {
   padding: 3px 5px;
 }
 
+#input button > .sebtn {
+	text-align: center;
+}
+
 .joinBox {
+	margin-top: 50px;
 	align-items: center;
 	width: 350px;
 	padding: 10px;
