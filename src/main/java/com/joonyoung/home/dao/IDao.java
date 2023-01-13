@@ -8,6 +8,7 @@ import com.joonyoung.home.dto.MemberDto;
 import com.joonyoung.home.dto.QBoardDto;
 import com.joonyoung.home.dto.ReservationDto;
 import com.joonyoung.home.paging.Criteria;
+import com.joonyoung.home.paging.Criteria2;
 
 public interface IDao {
 	//회원관리
@@ -35,7 +36,7 @@ public interface IDao {
 	public void questionModify(String qnum, String qname, String qtitle, String qcontent, String qemail);//해당 글 번호로 조회하여 질문수정 update
 	public void questionDelete(String qnum);//해당 글 번호로 조회하여 글 삭제 delete
 	public void qhit(String qnum);//조회수
-	public List<QBoardDto> myquestionList(String qid);//질문게시판 리스트 가져오기 select
+	public List<QBoardDto> myquestionList(Criteria2 cri2);//질문게시판에서 나의문의 리스트 가져오기 select
 	
 	//댓글
 	public void writeAnswer(String acontent, String aid, String aqid);//댓글작성 insert
@@ -45,28 +46,36 @@ public interface IDao {
 	public void answerDelete(String anum);//댓글삭제
 	
 	//게시판 검색 관련
-	public ArrayList<QBoardDto> proSearchTitleList(String searchKey, Criteria cri);//전체 게시글 제목으로검색
-	public ArrayList<QBoardDto> proSearchContentList(String searchKey, Criteria cri);//전체 게시글 내용으로검색
-	public ArrayList<QBoardDto> proSearchWriterList(String searchKey, Criteria cri);//전체 게시글 아이디(글쓴이)로검색
+	public ArrayList<QBoardDto> proSearchTitleList(Criteria2 cri2);//전체 게시글 제목으로검색
+	public ArrayList<QBoardDto> proSearchContentList(Criteria2 cri2);//전체 게시글 내용으로검색
+	public ArrayList<QBoardDto> proSearchWriterList(Criteria2 cri2);//전체 게시글 아이디(글쓴이)로검색
 	
-	public ArrayList<QBoardDto> mySearchTitleList(String qid, String searchKey);//나의 게시글 제목으로검색
-	public ArrayList<QBoardDto> mySearchContentList(String qid, String searchKey);//나의 게시글 내용으로검색
-	public ArrayList<QBoardDto> mySearchWriterList(String qid, String searchKey);//나의 게시글 아이디(글쓴이)로검색
+	public ArrayList<QBoardDto> mySearchTitleList(Criteria2 cri2);//나의 게시글 제목으로검색
+	public ArrayList<QBoardDto> mySearchContentList(Criteria2 cri2);//나의 게시글 내용으로검색
+	public ArrayList<QBoardDto> mySearchWriterList(Criteria2 cri2);//나의 게시글 아이디(글쓴이)로검색
 	
+    public int searchTitleListCount(String title);//제목으로 찾은 모든 개수
+    public int searchContentListCount(String content);//내용로 찾은 모든 개수
+    public int searchWriterListCount(String writer);//글쓴이으로 찾은 모든 개수
+    
+    public int mySearchTitleCount(String qid, String title);//회원 아이디와 제목으로 찾은 모든 개수
+    public int mySearchContentCount(String qid, String content);//회원 아이디와 내용로 찾은 모든 개수
+    public int mySearchWriterCount(String qid, String writer);//회원 아이디와 글쓴이으로 찾은 모든 개수
+    
 	//예약관련
 	public void reservation(String rid, String rname, String rphone, String ranimal, String rlist, String rcontent, String rday, String rtime);//예약 insert
-	public ArrayList<ReservationDto> reservationAll();//모든 예약정보 가져오기 select
+	public ArrayList<ReservationDto> reservationAll(Criteria2 cri2);//모든 예약정보 가져오기 select
 	public ReservationDto getReservation(String rnum);//예약정보가져오기 select
 	public int checkTime(String rday, String rtime);//예약날짜, 시간 중복체크 select
 	//public int checkList(String rid, String rlist);//동일예약자의 중복접수체크 select
-	public ArrayList<ReservationDto> reservationList(String rid);//본인 예약정보 리스트 select
+	public ArrayList<ReservationDto> reservationList(Criteria2 cri2);//본인 예약정보 리스트 select
 	public ReservationDto reservationView(String rnum);//선택한 예약 번호의 정보 가져오기 select
 	public int reservationCount(String rid);//나의 예약 개수 가져오기 select
 	public int reAllCount();//전체 예약 개수 가져오기 select
 	public void reserveModifyOk(String rnum, String rid, String rname, String rphone, String ranimal, String rlist, String rcontent, String rday, String rtime);//해당 예약 번호로 조회하여 예약수정 update
-	public ArrayList<ReservationDto> rSearchList(String rid, String searchOption);//나의 예약 접수항목별 검색 select
-	public ArrayList<ReservationDto> rAllSearchList(String rid);//나의 전체예약 검색 select
-	public ArrayList<ReservationDto> adSearchList(String rlist);//전체예약 리스트별 검색 select
+	public ArrayList<ReservationDto> rSearchList(Criteria2 cri2);//나의 예약 접수항목별 검색 select
+	public ArrayList<ReservationDto> rAllSearchList(Criteria2 cri2);//나의 전체예약 검색 select
+	public ArrayList<ReservationDto> adSearchList(Criteria2 cri2);//전체예약 리스트별 검색 select
 	public ArrayList<ReservationDto> rAlldaySearch(String startday, String endday);//예약 날짜별 검색 select
 	public void reserveDelete(String rnum);//해당 예약 번호로 조회하여 예약내역 삭제 delete
 }

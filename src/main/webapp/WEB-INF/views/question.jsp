@@ -46,7 +46,7 @@
 				
 				<div class="col-12 btn1">
 				  <input type="button" class="btn btn-dark" style="width:10%" value="등록하기" onclick="boardCheck()">
-				  <input type="button" class="btn btn-dark" style="width:10%" value="글목록" onclick="script:window.location='list'">
+				  <input type="button" class="btn btn-dark" style="width:10%" value="문의목록" onclick="script:window.location='list'">
 				</div>
 			</form>
 		</div>	

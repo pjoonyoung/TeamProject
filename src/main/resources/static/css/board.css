@@ -77,10 +77,11 @@ div.btn1 {
 	margin: 5px 0 5px 0;
 }
 
-.title {
+span.title {
 	font-size: 30px;
 	font-family: malgun;
 	font-weight: bold;
+	text-align: center;
 }
 
 span.achart {

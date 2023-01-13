@@ -89,7 +89,11 @@
 	</select>
 	
 	<select id="myquestionList" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board WHERE qid = #{param1} ORDER BY qnum DESC
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_board WHERE qid = #{searchid} ORDER BY qnum DESC)A) 
+		WHERE PAGE= #{pageNum}
 	</select>
 	
 	<select id="questionView" resultType="com.joonyoung.home.dto.QBoardDto">
@@ -134,7 +138,7 @@
 	
 	<!-- 게시판 검색 SQL -->
 	<!-- 전체게시판 -->
-	<select id="proSearchTitleList" parameterType="com.joonyoung.home.paging.Criteria" resultType="com.joonyoung.home.dto.QBoardDto">
+	<select id="proSearchTitleList" parameterType="com.joonyoung.home.paging.Criteria2" resultType="com.joonyoung.home.dto.QBoardDto">
 		SELECT * FROM
 			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
 			FROM
@@ -142,7 +146,7 @@
 		WHERE PAGE= #{pageNum}
 	</select>
 	
-	<select id="proSearchContentList" parameterType="com.joonyoung.home.paging.Criteria" resultType="com.joonyoung.home.dto.QBoardDto">
+	<select id="proSearchContentList" parameterType="com.joonyoung.home.paging.Criteria2" resultType="com.joonyoung.home.dto.QBoardDto">
 		SELECT * FROM
 			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
 			FROM
@@ -150,7 +154,7 @@
 		WHERE PAGE= #{pageNum}
 	</select>
 	
-	<select id="proSearchWriterList" parameterType="com.joonyoung.home.paging.Criteria" resultType="com.joonyoung.home.dto.QBoardDto">
+	<select id="proSearchWriterList" parameterType="com.joonyoung.home.paging.Criteria2" resultType="com.joonyoung.home.dto.QBoardDto">
 		SELECT * FROM
 			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
 			FROM
@@ -158,17 +162,56 @@
 		WHERE PAGE= #{pageNum}
 	</select>
 	
+	<!-- 검색된 리스트 총개수 불러오기 -->
+   <select id="searchTitleListCount" resultType="int">
+         SELECT COUNT(*) FROM profile_board WHERE qtitle LIKE '%' || #{param1} || '%'
+   </select>
+   
+   <select id="searchContentListCount" resultType="int">
+         SELECT COUNT(*) FROM profile_board WHERE qcontent LIKE '%' || #{param1} || '%'
+   </select>
+   
+   <select id="searchWriterListCount" resultType="int">
+         SELECT COUNT(*) FROM profile_board WHERE qname LIKE '%' || #{param1} || '%'
+   </select>
+   
+   <!-- 검색된 나의 리스트 총개수 불러오기 -->
+   
+   <select id="mySearchTitleCount" resultType="int">
+         SELECT COUNT(*) FROM profile_board WHERE qid = #{param1} and qtitle LIKE '%' || #{param2} || '%'
+   </select>
+   
+   <select id="mySearchContentCount" resultType="int">
+         SELECT COUNT(*) FROM profile_board WHERE qid = #{param1} and qcontent LIKE '%' || #{param2} || '%'
+   </select>
+   
+   <select id="mySearchWriterCount" resultType="int">
+         SELECT COUNT(*) FROM profile_board WHERE qid = #{param1} and qname LIKE '%' || #{param2} || '%'
+   </select>
+	
 	<!-- 개인게시판 -->
-	<select id="mySearchTitleList" parameterType="com.joonyoung.home.paging.Criteria" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board where qid = #{param1} and qtitle LIKE '%' || #{param2} || '%' ORDER BY qnum DESC	
+	<select id="mySearchTitleList" parameterType="com.joonyoung.home.paging.Criteria2" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_board where qid = #{searchid} and qtitle LIKE '%' || #{searchKey} || '%' ORDER BY qnum DESC)A) 
+		WHERE PAGE= #{pageNum}
 	</select>
 	
-	<select id="mySearchContentList" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board where qid = #{param1} and qcontent LIKE '%' || #{param2} || '%' ORDER BY qnum DESC	
+	<select id="mySearchContentList" parameterType="com.joonyoung.home.paging.Criteria2" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_board where qid = #{searchid} and qcontent LIKE '%' || #{searchKey} || '%' ORDER BY qnum DESC)A) 
+		WHERE PAGE= #{pageNum}
 	</select>
 	
-	<select id="mySearchWriterList" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board where qid = #{param1} and qname LIKE '%' || #{param2} || '%' ORDER BY qnum DESC	
+	<select id="mySearchWriterList" parameterType="com.joonyoung.home.paging.Criteria2" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_board where qid = #{searchid} and qname LIKE '%' || #{searchKey} || '%' ORDER BY qnum DESC)A) 
+		WHERE PAGE= #{pageNum}
 	</select>
 	
 	<!-- 예약 SQL -->

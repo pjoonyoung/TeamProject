@@ -30,17 +30,17 @@
 				</div>
 				<div class="col">
 					<div class="h-100">
-					<img src="${pageContext.request.contextPath}/resources/img/modifyLogo.png">
+					<img src="${pageContext.request.contextPath}/resources/img/questionLogo.png">
 						<div class="button_box">
-						<input type="button" class="btn btn-dark" value="정보 수정" onclick="script:window.location='pwCheck'">
+						<input type="button" class="btn btn-dark" value="나의문의확인" onclick="script:window.location='myquestionlist?qid=${memberId }'">
 						</div>
 					</div>
 				</div>
 				<div class="col">
 					<div class="h-100">
-					<img src="${pageContext.request.contextPath}/resources/img/questionLogo.png">
+					<img src="${pageContext.request.contextPath}/resources/img/modifyLogo.png">
 						<div class="button_box">
-						<input type="button" class="btn btn-dark" value="나의문의확인" onclick="script:window.location='myquestionlist?qid=${memberId }'">
+						<input type="button" class="btn btn-dark" value="정보 수정" onclick="script:window.location='pwCheck'">
 						</div>
 					</div>
 				</div>

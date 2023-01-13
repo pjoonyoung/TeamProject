@@ -26,7 +26,7 @@
 					▷ 총 ${qproboardCount }개의 문의글이 있습니다.<br>
 				</span>
 				<span align="left">
-					<form action="search_list" method="get">
+					<form action="list" method="get">
 						<select name="searchOption" >
 			                <option value="title">제목</option>
 			                <option value="content">내용</option>
@@ -98,7 +98,7 @@
 						<u>${num}</u>&nbsp;&nbsp;&nbsp;
 						</c:when>
 						<c:otherwise>
-						<a href="list?pageNum=${num}">${num}</a>&nbsp;&nbsp;&nbsp;
+						<a href="list?pageNum=${num}&searchOption=${searchOption}&searchKey=${searchKey}">${num}</a>&nbsp;&nbsp;&nbsp;
 						</c:otherwise>
 						</c:choose>																					
 					</c:forEach>
