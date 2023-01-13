@@ -81,7 +81,11 @@
 	</select>	
 	
 	<select id="questionList" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board ORDER BY qnum DESC
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_board ORDER BY qnum DESC)A) 
+		WHERE PAGE= #{pageNum}
 	</select>
 	
 	<select id="myquestionList" resultType="com.joonyoung.home.dto.QBoardDto">
@@ -130,20 +134,32 @@
 	
 	<!-- 게시판 검색 SQL -->
 	<!-- 전체게시판 -->
-	<select id="proSearchTitleList" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board where qtitle LIKE '%' || #{param1} || '%' ORDER BY qnum DESC	
+	<select id="proSearchTitleList" parameterType="com.joonyoung.home.paging.Criteria" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_board where qtitle LIKE '%' || #{searchKey} || '%' ORDER BY qnum DESC)A) 
+		WHERE PAGE= #{pageNum}
 	</select>
 	
-	<select id="proSearchContentList" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board where qcontent LIKE '%' || #{param1} || '%' ORDER BY qnum DESC	
+	<select id="proSearchContentList" parameterType="com.joonyoung.home.paging.Criteria" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_board where qcontent LIKE '%' || #{searchKey} || '%' ORDER BY qnum DESC)A) 
+		WHERE PAGE= #{pageNum}
 	</select>
 	
-	<select id="proSearchWriterList" resultType="com.joonyoung.home.dto.QBoardDto">
-		SELECT * FROM profile_board where qname LIKE '%' || #{param1} || '%' ORDER BY qnum DESC	
+	<select id="proSearchWriterList" parameterType="com.joonyoung.home.paging.Criteria" resultType="com.joonyoung.home.dto.QBoardDto">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_board where qname LIKE '%' || #{searchKey} || '%' ORDER BY qnum DESC)A) 
+		WHERE PAGE= #{pageNum}
 	</select>
 	
 	<!-- 개인게시판 -->
-	<select id="mySearchTitleList" resultType="com.joonyoung.home.dto.QBoardDto">
+	<select id="mySearchTitleList" parameterType="com.joonyoung.home.paging.Criteria" resultType="com.joonyoung.home.dto.QBoardDto">
 		SELECT * FROM profile_board where qid = #{param1} and qtitle LIKE '%' || #{param2} || '%' ORDER BY qnum DESC	
 	</select>
 	

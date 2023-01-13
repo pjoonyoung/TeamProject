@@ -21,6 +21,8 @@ import com.joonyoung.home.dto.AnswerDto;
 import com.joonyoung.home.dto.MemberDto;
 import com.joonyoung.home.dto.QBoardDto;
 import com.joonyoung.home.dto.ReservationDto;
+import com.joonyoung.home.paging.Criteria;
+import com.joonyoung.home.paging.PageDto;
 
 @Controller
 public class HomeController {
@@ -139,6 +141,7 @@ public class HomeController {
 		
 		return "redirect:list";
 	}
+	
 	
 	@RequestMapping("joinOk")
 	public String joinOk(HttpServletRequest request, HttpSession session, Model model) {
@@ -449,15 +452,30 @@ public class HomeController {
 	}
 	
 	@RequestMapping ("/list")
-	public String list(HttpServletRequest request, Model model) {
+	public String list(HttpServletRequest request, Model model, Criteria cri) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
+		int pageNumInt = 0;
+		if(request.getParameter("pageNum") == null) {
+			pageNumInt = 1;
+			cri.setPageNum(pageNumInt);
+			
+		} else {
+			pageNumInt = Integer.parseInt(request.getParameter("pageNum"));
+			cri.setPageNum(pageNumInt);
+		}
 		
-		List<QBoardDto> qboardDto = dao.questionList();
 		int qproboardCount = dao.proboardAllCount();
 		
-		model.addAttribute("qdtos", qboardDto);
+		cri.setStartNum(cri.getPageNum()-1 * cri.getAmount());//해당 페이지의 시작번호를 설정
+		
+		PageDto pageDto = new PageDto(cri, qproboardCount);
+		
+		List<QBoardDto> qboardDtos = dao.questionList(cri);
+		
+		model.addAttribute("pageMaker", pageDto);
+		model.addAttribute("qdtos", qboardDtos);
 		model.addAttribute("qproboardCount", qproboardCount);
 		
 		return "questionlist";
@@ -577,25 +595,43 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "search_list")
-	public String search_list(HttpServletRequest request, Model model) {
+	public String search_list(HttpServletRequest request, Model model, Criteria cri) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		ArrayList<QBoardDto> qboardDto = null;
+		int pageNumInt = 0;
+		if(request.getParameter("pageNum") == null) {
+			pageNumInt = 1;
+			cri.setPageNum(pageNumInt);
+			
+		} else {
+			pageNumInt = Integer.parseInt(request.getParameter("pageNum"));
+			cri.setPageNum(pageNumInt);
+		}
+		
+		int qproboardCount = dao.proboardAllCount();
+		
+		cri.setStartNum(cri.getPageNum()-1 * cri.getAmount());//해당 페이지의 시작번호를 설정
+		
+		PageDto pageDto = new PageDto(cri, qproboardCount);
+		
+		ArrayList<QBoardDto> qboardDtos = null;
 		
 		String searchOption = request.getParameter("searchOption");
 		String searchKey = request.getParameter("searchKey");
 		
 		if(searchOption.equals("title")) {
-			qboardDto = dao.proSearchTitleList(searchKey);
+			qboardDtos = dao.proSearchTitleList(searchKey, cri);
 		} else if(searchOption.equals("content")) {
-			qboardDto = dao.proSearchContentList(searchKey);
+			qboardDtos = dao.proSearchContentList(searchKey, cri);
 		} else if(searchOption.equals("writer")) {
-			qboardDto = dao.proSearchWriterList(searchKey);
+			qboardDtos = dao.proSearchWriterList(searchKey, cri);
 		}
 		
-		model.addAttribute("qdtos", qboardDto);
-		model.addAttribute("qproboardCount", qboardDto.size());//검색 결과 게시물의 개수 반환
+		model.addAttribute("pageMaker", pageDto);
+		model.addAttribute("currPage", pageNumInt);
+		model.addAttribute("qdtos", qboardDtos);
+		model.addAttribute("qproboardCount", qboardDtos.size());//검색 결과 게시물의 개수 반환
 		
 		return "questionlist";
 	}

@@ -7,6 +7,7 @@ import com.joonyoung.home.dto.AnswerDto;
 import com.joonyoung.home.dto.MemberDto;
 import com.joonyoung.home.dto.QBoardDto;
 import com.joonyoung.home.dto.ReservationDto;
+import com.joonyoung.home.paging.Criteria;
 
 public interface IDao {
 	//회원관리
@@ -27,7 +28,7 @@ public interface IDao {
 	//질문 게시판
 	public void writeQuestion(String qid, String qname, String qtitle, String qcontent, String qemail);//질문하기 insert
 	public MemberDto question(String mid);//질문작성시 아이디, 이름, 이메일 정보 가져오기 select
-	public List<QBoardDto> questionList();//질문게시판 리스트 가져오기 select
+	public List<QBoardDto> questionList(Criteria cri);//질문게시판 리스트 가져오기 select
 	public int proboardAllCount();//게시글 전체개수 가져오기 select
 	public int proboardMyCount(String qid);//게시글중 내가남긴 게시글의개수 가져오기 select
 	public QBoardDto questionView(String qnum);//선택한 글 번호의 정보 가져오기 select
@@ -44,9 +45,9 @@ public interface IDao {
 	public void answerDelete(String anum);//댓글삭제
 	
 	//게시판 검색 관련
-	public ArrayList<QBoardDto> proSearchTitleList(String searchKey);//전체 게시글 제목으로검색
-	public ArrayList<QBoardDto> proSearchContentList(String searchKey);//전체 게시글 내용으로검색
-	public ArrayList<QBoardDto> proSearchWriterList(String searchKey);//전체 게시글 아이디(글쓴이)로검색
+	public ArrayList<QBoardDto> proSearchTitleList(String searchKey, Criteria cri);//전체 게시글 제목으로검색
+	public ArrayList<QBoardDto> proSearchContentList(String searchKey, Criteria cri);//전체 게시글 내용으로검색
+	public ArrayList<QBoardDto> proSearchWriterList(String searchKey, Criteria cri);//전체 게시글 아이디(글쓴이)로검색
 	
 	public ArrayList<QBoardDto> mySearchTitleList(String qid, String searchKey);//나의 게시글 제목으로검색
 	public ArrayList<QBoardDto> mySearchContentList(String qid, String searchKey);//나의 게시글 내용으로검색

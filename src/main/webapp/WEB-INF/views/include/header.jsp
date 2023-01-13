@@ -29,11 +29,11 @@
 			<%
 				} else if ((sessionId != null) && (sessionId.equals("ADMIN"))){
 			%>
-			<span class="navbar-text border rounded-2 text-light">관리자님 로그인중...</span>
+			<span class="navbar-text border rounded-2 text-light">관리자님 로그인중</span>
 			<%
 				} else {
 			%>
-			<span class="navbar-text border rounded-2 text-light">${memberId }님 로그인중...</span>
+			<span class="navbar-text border rounded-2 text-light">${memberId }님 로그인중</span>
 			<%
 				}
 			%>

@@ -26,7 +26,7 @@
 					▷ 총 ${qproboardCount }개의 문의글이 있습니다.<br>
 				</span>
 				<span align="left">
-					<form action="search_list" method="post">
+					<form action="search_list" method="get">
 						<select name="searchOption" >
 			                <option value="title">제목</option>
 			                <option value="content">내용</option>
@@ -86,6 +86,28 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			
+			<tr>
+				<td colspan="5" align="center">
+					<c:if test="${pageMaker.prev }">
+						<a href="list?pageNum=${pageMaker.startPage-5 }">Prev</a>&nbsp;&nbsp;&nbsp;
+					</c:if>										
+					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="num">
+						<c:choose>
+						<c:when test="${currPage == num}">
+						<u>${num}</u>&nbsp;&nbsp;&nbsp;
+						</c:when>
+						<c:otherwise>
+						<a href="list?pageNum=${num}">${num}</a>&nbsp;&nbsp;&nbsp;
+						</c:otherwise>
+						</c:choose>																					
+					</c:forEach>
+					<c:if test="${pageMaker.next }">
+						<a href="list?pageNum=${pageMaker.startPage+5 }">Next</a>
+					</c:if>	
+				</td>
+			</tr>
+			
 			<tr>
 				<%
 					//String boardId = (String) request.getAttribute("qid");
