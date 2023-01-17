@@ -40,21 +40,7 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="index">Home</a>
             </li>
-            <li class="nav-item">
-            <%
-				if(sessionId == null){
-					
-			%>
-				<a class="nav-link" href="login">Login</a>
-			<%
-				} else {
-			%>
-				<a class="nav-link" href="logout">LogOut</a>
-			<%
-				}
-			%>
-            </li>
-            <li class="nav-item">
+			<li class="nav-item">
             <%
 				if(sessionId == null){
 					
@@ -72,39 +58,20 @@
 				}
 			%>
             </li>
+            <li class="nav-item">
             <%
-				if (sessionId == null){
+				if(sessionId == null){
+					
 			%>
-				<li class="nav-item">
-					<a class="nav-link" href="list">Question</a>
-	            </li>
-			<%
-				} else if (sessionId.equals("ADMIN")){
-			%>
+				<a class="nav-link" href="login">Login</a>
 			<%
 				} else {
 			%>
-				<li class="nav-item">
-					<a class="nav-link" href="list">Question</a>
-	            </li>
+				<a class="nav-link" href="logout">LogOut</a>
 			<%
 				}
 			%>
-			<%
-				if(sessionId == null){
-			%>
-			<%
-				} else if (sessionId.equals("ADMIN")){
-			%>
-			<%
-				} else if (sessionId != null){
-			%>
-				<li class="nav-item">
-					<a class="nav-link" href="reservationlist">Reservaion</a>
-				</li>
-			<%
-				}
-			%>
+            </li>
 			<%
 				if(sessionId == null){
 			%>

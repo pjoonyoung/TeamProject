@@ -30,7 +30,7 @@
 					▷ 총 ${reAllCount }개의 ${relistDto } 예약건이 있습니다.
 				</span>
 				<span align="left">
-					<form action="adsearch_list">
+					<form action="reservationAll">
 						<select name="searchOption" >
 							<option value="전체">전체</option>
 			                <option value="진료">진료</option>
@@ -94,6 +94,27 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			
+			<tr>
+				<td colspan="5" align="center">
+					<c:if test="${pageMaker.prev }">
+						<a href="reservationAll?pageNum=${pageMaker.startPage-5 }">Prev</a>&nbsp;&nbsp;&nbsp;
+					</c:if>										
+					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="num">
+						<c:choose>
+						<c:when test="${currPage == num}">
+						<u>${num}</u>&nbsp;&nbsp;&nbsp;
+						</c:when>
+						<c:otherwise>
+						<a href="reservationAll?pageNum=${num}&searchOption=${searchOption}">${num}</a>&nbsp;&nbsp;&nbsp;
+						</c:otherwise>
+						</c:choose>																					
+					</c:forEach>
+					<c:if test="${pageMaker.next }">
+						<a href="reservationAll?pageNum=${pageMaker.startPage+5 }">Next</a>
+					</c:if>	
+				</td>
+			</tr>
 		</div>
 	</div>
 <%@ include file="include/footer.jsp" %>

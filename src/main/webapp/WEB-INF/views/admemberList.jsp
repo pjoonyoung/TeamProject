@@ -26,10 +26,10 @@
 					▷ 총 ${mAllcount }명의 회원이 가입되어 있습니다.
 				</span>
 				<span align="left">
-					<form action="adMsearch_list" method="post">
+					<form action="admemberList">
 						<select name="searchOption" >
-			                <option value="전체">전체</option>
 			                <option value="이름">이름</option>
+			                <option value="아이디">아이디</option>
 			            </select>
 			            <input class="input_type03" type="text" name="searchKey">
 			            <input type="submit" class="btn btn-dark btnselect" value="검색">
@@ -80,6 +80,27 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			
+			<tr>
+				<td colspan="5" align="center">
+					<c:if test="${pageMaker.prev }">
+						<a href="admemberList?pageNum=${pageMaker.startPage-5 }">Prev</a>&nbsp;&nbsp;&nbsp;
+					</c:if>										
+					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="num">
+						<c:choose>
+						<c:when test="${currPage == num}">
+						<u>${num}</u>&nbsp;&nbsp;&nbsp;
+						</c:when>
+						<c:otherwise>
+						<a href="admemberList?pageNum=${num}&searchOption=${searchOption}&searchKey=${searchKey}">${num}</a>&nbsp;&nbsp;&nbsp;
+						</c:otherwise>
+						</c:choose>																					
+					</c:forEach>
+					<c:if test="${pageMaker.next }">
+						<a href="list?pageNum=${pageMaker.startPage+5 }">Next</a>
+					</c:if>	
+				</td>
+			</tr>
 		</div>
 	</div>
 <%@ include file="include/footer.jsp" %>

@@ -23,8 +23,10 @@ import com.joonyoung.home.dto.QBoardDto;
 import com.joonyoung.home.dto.ReservationDto;
 import com.joonyoung.home.paging.Criteria;
 import com.joonyoung.home.paging.Criteria2;
+import com.joonyoung.home.paging.Criteria3;
 import com.joonyoung.home.paging.PageDto;
 import com.joonyoung.home.paging.PageDto2;
+import com.joonyoung.home.paging.PageDto3;
 
 @Controller
 public class HomeController {
@@ -829,6 +831,12 @@ public class HomeController {
 			
 			dao.reservation(rid, rname, rphone, ranimal, rlist, rcontent, rday, rtime);//예약정보 insert
 			
+			response.setContentType("text/html; charset=UTF-8");      
+			PrintWriter out = response.getWriter();
+	        out.println("<script>alert('예약이 완료되었습니다.');</script>");
+	        out.println("<script>location.href = 'mypage';</script>");
+	        out.flush(); 
+			
 			return "redirect:mypage";
 		}
 	}
@@ -837,20 +845,21 @@ public class HomeController {
 	public String myreservation(HttpServletRequest request, Model model, Criteria cri, Criteria2 cri2) {
 		
 		String searchOption = request.getParameter("searchOption");
-		String searchid = request.getParameter("qid");
-	    cri2.setSearchid(searchid);
+		String searchid = request.getParameter("rid");
+	    
+		cri2.setSearchid(searchid);
 
 	    if(searchOption != null && searchOption.length() != 0) {
-	          
+	        
 	        cri2.setSearchOption(searchOption);
 	         
 	        IDao dao = sqlSession.getMapper(IDao.class);
 	         
-	        ArrayList<QBoardDto> qboardDtos = null;
+	        ArrayList<ReservationDto> rlistDto = null;
 	         
 	        int pageNumInt=1;
 	         
-	        int qproboardMyCount = 0;
+	        int reservationCount = 0;
 	         
 	        PageDto2 pageDto = null;
 	         
@@ -865,42 +874,53 @@ public class HomeController {
 			    cri2.setPageNum(pageNumInt);
 			}
 	    
-			if(searchOption.equals("title")) {
+			if(searchOption.equals("전체")) {
 	               
 		           cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());
 		           
-		           qboardDtos = dao.mySearchTitleList(cri2);
+		           rlistDto = dao.rAllSearchList(cri2);
 		           
-		           qproboardMyCount = dao.mySearchTitleCount(searchid, searchKey);//총 게시글수
+		           reservationCount = dao.reservationCount(searchid);//나의 총 예약개수
 		           
-		           pageDto = new PageDto2(cri2, qproboardMyCount); 
+		           pageDto = new PageDto2(cri2, reservationCount); 
 		           
-		      } else if(searchOption.equals("content")) {
+		      } else if(searchOption.equals("진료")) {
 		            
 		            cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());
 		            
-		            qboardDtos = dao.mySearchContentList(cri2);
+		            rlistDto = dao.rSearchList(cri2);
 		            
-		            qproboardMyCount = dao.mySearchContentCount(searchid, searchKey);
+		            reservationCount = dao.reserveListCount(searchid, searchOption);
 		            
-		            pageDto = new PageDto2(cri2, qproboardMyCount);
+		            pageDto = new PageDto2(cri2, reservationCount);
 		      
-		      } else if(searchOption.equals("writer")) {
+		      } else if(searchOption.equals("예방접종")) {
 		            
 		            cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());
 		            
-		            qboardDtos = dao.mySearchWriterList(cri2);
+		            rlistDto = dao.rSearchList(cri2);
 		            
-		            qproboardMyCount = dao.mySearchWriterCount(searchid, searchKey);
+		            reservationCount = dao.reserveListCount(searchid, searchOption);
 		            
-		            pageDto = new PageDto2(cri2, qproboardMyCount);
+		            pageDto = new PageDto2(cri2, reservationCount);
+		            
+		       } else if(searchOption.equals("미용")) {
+		            
+		            cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());
+		            
+		            rlistDto = dao.rSearchList(cri2);
+		            
+		            reservationCount = dao.reserveListCount(searchid, searchOption);
+		            
+		            pageDto = new PageDto2(cri2, reservationCount);
 		        }
 		      
-		      model.addAttribute("pageMaker", pageDto);//pageMaker = pageDto
-		        model.addAttribute("qdtos", qboardDtos);
-		        model.addAttribute("qproboardMyCount", qproboardMyCount);      
+		      	model.addAttribute("pageMaker", pageDto);//pageMaker = pageDto
+		        model.addAttribute("rlistDto", rlistDto);
+		        model.addAttribute("relistDto",searchOption);//옵션선택값을 반환
+		        model.addAttribute("reservationCount", reservationCount);      
 		        model.addAttribute("currPage", pageNumInt );
-
+		        
 		      } else {
 		            
 		         int pageNumInt = 1;
@@ -915,61 +935,23 @@ public class HomeController {
 		         
 		         IDao dao = sqlSession.getMapper(IDao.class);
 		         
-		         int qproboardMyCount = dao.proboardMyCount(searchid);
+		         int reservationCount = dao.reservationCount(searchid);
 		         
 		         cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());//해당 페이지의 시작번호를 설정
 		         
-		         PageDto2 pageDto2 = new PageDto2(cri2, qproboardMyCount);
+		         PageDto2 pageDto2 = new PageDto2(cri2, reservationCount);
 		         
-		         List<QBoardDto> qboardDtos = dao.myquestionList(cri2);
+		         List<ReservationDto> rlistDto = dao.rAllSearchList(cri2);
 		         
 		         model.addAttribute("pageMaker", pageDto2);
-		         model.addAttribute("qdtos", qboardDtos);
+		         model.addAttribute("rlistDto", rlistDto);
+		         model.addAttribute("relistDto",searchOption);//옵션선택값을 반환
 		         model.addAttribute("currPage", pageNumInt );
-		         model.addAttribute("qproboardMyCount", qproboardMyCount);
+		         model.addAttribute("reservationCount", reservationCount);
 		         
 		      }
-		      
-		      return "myquestionlist";
 			
-		IDao dao = sqlSession.getMapper(IDao.class);
-		
-		String rid = request.getParameter("rid");
-		
-		ArrayList<ReservationDto> rlistDto = dao.reservationList(rid);
-		int reservationCount = dao.reservationCount(rid);
-		
-		model.addAttribute("rlistDto", rlistDto);
-		model.addAttribute("reservationCount", reservationCount);
-		
 		return "myreservation";
-	}
-	
-	
-	@RequestMapping(value = "adsearch_list")
-	public String adsearch_list(HttpServletRequest request, Model model) {
-		
-		IDao dao = sqlSession.getMapper(IDao.class);
-		
-		ArrayList<ReservationDto> reservationDto = null;
-		
-		String searchOption = request.getParameter("searchOption");
-		
-		if(searchOption.equals("진료")) {
-			reservationDto = dao.adSearchList(searchOption);
-		} else if(searchOption.equals("예방접종")) {
-			reservationDto = dao.adSearchList(searchOption);
-		} else if(searchOption.equals("미용")) {
-			reservationDto = dao.adSearchList(searchOption);
-		} else if (searchOption.equals("전체")) {
-			reservationDto = dao.reservationAll();
-		}
-		
-		model.addAttribute("reAlldto", reservationDto);//검색 결과값을 반환
-		model.addAttribute("relistDto",searchOption);//옵션선택값을 반환
-		model.addAttribute("reAllCount", reservationDto.size());//검색 결과 예약 개수 반환
-		
-		return "reservationAll";
 	}
 	
 	@RequestMapping("/reservationView")
@@ -1052,7 +1034,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/reserveDelete")
-	public String reserveDelete(HttpServletRequest request,HttpSession session, Model model) {
+	public String reserveDelete(HttpServletRequest request,HttpSession session, Model model, Criteria cri, Criteria2 cri2) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
@@ -1060,95 +1042,304 @@ public class HomeController {
 		dao.reserveDelete(rnum);//예약 삭제하기
 		
 		String sessionId = (String) session.getAttribute("memberId");//세션에 저장된 아이디값 가져오기
+		cri2.setSearchid(sessionId);
 		
-		ArrayList<ReservationDto> rlistDto = dao.reservationList(sessionId);
-		int reservationCount = dao.reservationCount(sessionId);
+		int pageNumInt = 1;
 		
-		model.addAttribute("rlistDto", rlistDto);
-		model.addAttribute("reservationCount", reservationCount);
+        if(request.getParameter("pageNum") == null) {
+           pageNumInt = 1;
+           cri2.setPageNum(pageNumInt);
+           
+        } else {
+           pageNumInt = Integer.parseInt(request.getParameter("pageNum"));
+           cri2.setPageNum(pageNumInt);
+        }
+        
+        int reservationCount = dao.reservationCount(sessionId);
+        
+        cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());//해당 페이지의 시작번호를 설정
+        
+        PageDto2 pageDto2 = new PageDto2(cri2, reservationCount);
+        
+        List<ReservationDto> rlistDto = dao.rAllSearchList(cri2);
+        
+        model.addAttribute("pageMaker", pageDto2);
+        model.addAttribute("rlistDto", rlistDto);
+        model.addAttribute("currPage", pageNumInt );
+        model.addAttribute("reservationCount", reservationCount);
+        
+        return "myreservation";
 		
-		return "myreservation";
 	}
 	
 	@RequestMapping("/reservationAll")
-	public String reservationAll(Model model) {
+	public String reservationAll(HttpServletRequest request, Model model, Criteria cri, Criteria2 cri2) {
 		
-		IDao dao = sqlSession.getMapper(IDao.class);
-		
-		ArrayList<ReservationDto> reAlldto = dao.reservationAll();
-		int reAllCount = dao.reAllCount();// 전체 예약개수 가져오기
-		
-		model.addAttribute("reAlldto", reAlldto);
-		model.addAttribute("reAllCount", reAllCount);
-		
+		String searchOption = request.getParameter("searchOption");
+	    
+	    if(searchOption != null && searchOption.length() != 0) {
+	        
+	        cri2.setSearchOption(searchOption);
+	         
+	        IDao dao = sqlSession.getMapper(IDao.class);
+	         
+	        ArrayList<ReservationDto> reAlldto = null;
+	         
+	        int pageNumInt=1;
+	         
+	        int reAllCount = 0;
+	         
+	        PageDto2 pageDto = null;
+	         
+			model.addAttribute("searchOption", searchOption);
+			
+			if(request.getParameter("pageNum") == null) {
+				pageNumInt =1;//1페이지부터 시작
+			    cri2.setPageNum(pageNumInt);
+			} else {
+			    pageNumInt =Integer.parseInt(request.getParameter("pageNum"));
+			    cri2.setPageNum(pageNumInt);
+			}
+	    
+			if(searchOption.equals("전체")) {
+	               
+		           cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());
+		           
+		           reAlldto = dao.reservationAll(cri);
+		           
+		           reAllCount = dao.reAllCount();//나의 총 예야개수
+		           
+		           pageDto = new PageDto2(cri2, reAllCount); 
+		           
+		      } else if(searchOption.equals("진료")) {
+		            
+		            cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());
+		            
+		            reAlldto = dao.adSearchList(cri2);
+		            
+		            reAllCount = dao.reListAllCount(searchOption);
+		            
+		            pageDto = new PageDto2(cri2, reAllCount);
+		      
+		      } else if(searchOption.equals("예방접종")) {
+		            
+		            cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());
+		            
+		            reAlldto = dao.adSearchList(cri2);
+		            
+		            reAllCount = dao.reListAllCount(searchOption);
+		            
+		            pageDto = new PageDto2(cri2, reAllCount);
+		            
+		       } else if(searchOption.equals("미용")) {
+		            
+		            cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());
+		            
+		            reAlldto = dao.adSearchList(cri2);
+		            
+		            reAllCount = dao.reListAllCount(searchOption);
+		            
+		            pageDto = new PageDto2(cri2, reAllCount);
+		        }
+		      
+		      	model.addAttribute("pageMaker", pageDto);//pageMaker = pageDto
+		        model.addAttribute("reAlldto", reAlldto);
+		        model.addAttribute("relistDto",searchOption);//옵션선택값을 반환
+		        model.addAttribute("reAllCount", reAllCount);      
+		        model.addAttribute("currPage", pageNumInt );
+		        
+		      } else {
+		            
+		         int pageNumInt = 1;
+		         if(request.getParameter("pageNum") == null) {
+		            pageNumInt = 1;
+		            cri2.setPageNum(pageNumInt);
+		            
+		         } else {
+		            pageNumInt = Integer.parseInt(request.getParameter("pageNum"));
+		            cri2.setPageNum(pageNumInt);
+		         }
+		         
+		         IDao dao = sqlSession.getMapper(IDao.class);
+		         
+		         int reAllCount = dao.reAllCount();
+		         
+		         cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());//해당 페이지의 시작번호를 설정
+		         
+		         PageDto2 pageDto2 = new PageDto2(cri2, reAllCount);
+		         
+		         List<ReservationDto> reAlldto = dao.reservationAll(cri);
+		         
+		         model.addAttribute("pageMaker", pageDto2);
+		         model.addAttribute("reAlldto", reAlldto);
+		         model.addAttribute("relistDto",searchOption);//옵션선택값을 반환
+		         model.addAttribute("currPage", pageNumInt );
+		         model.addAttribute("reAllCount", reAllCount);
+		         
+		      }
+			
 		return "reservationAll";
 	}
 	
 	@RequestMapping("/adrDelete")
-	public String adrDelete(HttpServletRequest request,HttpSession session, Model model) {
+	public String adrDelete(HttpServletRequest request,HttpSession session, Model model, Criteria cri, Criteria2 cri2) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		String rnum = request.getParameter("rnum");
 		dao.reserveDelete(rnum);//예약 삭제하기
 		
-		ArrayList<ReservationDto> reAlldto = dao.reservationAll();
-		int reAllCount = dao.reAllCount();// 전체 예약개수 가져오기
+		int pageNumInt = 1;
+        if(request.getParameter("pageNum") == null) {
+           pageNumInt = 1;
+           cri2.setPageNum(pageNumInt);
+           
+        } else {
+           pageNumInt = Integer.parseInt(request.getParameter("pageNum"));
+           cri2.setPageNum(pageNumInt);
+        }
+        
+        int reAllCount = dao.reAllCount();// 전체 예약개수 가져오기
+        
+        cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());//해당 페이지의 시작번호를 설정
+        
+        PageDto2 pageDto2 = new PageDto2(cri2, reAllCount);
+        
+        List<ReservationDto> reAlldto = dao.reservationAll(cri);
+        
+        model.addAttribute("pageMaker", pageDto2);
+        model.addAttribute("reAlldto", reAlldto);
+        model.addAttribute("currPage", pageNumInt );
+        model.addAttribute("reAllCount", reAllCount);
+        
+        return "reservationAll";
 		
-		model.addAttribute("reAlldto", reAlldto);
-		model.addAttribute("reAllCount", reAllCount);
-		
-		return "reservationAll";
 	}
 	
 	@RequestMapping(value = "day_search")
-	public String day_search(HttpServletRequest request, Model model) {
-		
-		IDao dao = sqlSession.getMapper(IDao.class);
+	public String day_search(HttpServletRequest request, Model model , Criteria cri, Criteria3 cri3) {
 		
 		String startday = request.getParameter("startday");
 		String endday = request.getParameter("endday");
 		
-		ArrayList<ReservationDto> reservationDto = dao.rAlldaySearch(startday ,endday);
+		cri3.setStartday(startday);
+		cri3.setEndday(endday);
 		
-		model.addAttribute("reAlldto", reservationDto);//검색 결과값을 반환
-		model.addAttribute("reAllCount", reservationDto.size());//검색 결과 예약 개수 반환
+		int pageNumInt = 0;
+		if(request.getParameter("pageNum") == null) {
+			pageNumInt = 1;
+			cri.setPageNum(pageNumInt);
+			
+		} else {
+			pageNumInt = Integer.parseInt(request.getParameter("pageNum"));
+			cri.setPageNum(pageNumInt);
+		}
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		List<ReservationDto> reAlldto = dao.rAlldaySearch(cri3);
+		
+		int reAllCount = dao.rAlldayCount(cri3);
+		
+		cri3.setStartNum(cri.getPageNum()-1 * cri.getAmount());//해당 페이지의 시작번호를 설정
+		
+		PageDto3 pageDto3 = new PageDto3(cri3, reAllCount);
+		
+		model.addAttribute("pageMaker", pageDto3);
+        model.addAttribute("reAlldto", reAlldto);
+        model.addAttribute("currPage", pageNumInt );
+        model.addAttribute("reAllCount", reAllCount);
 		
 		return "reservationAll";
 	}
 	
 	@RequestMapping(value = "/admemberList")
-	public String admemberList(HttpServletRequest request, Model model) {
+	public String admemberList(HttpServletRequest request, Model model, Criteria cri, Criteria2 cri2) {
 		
-		IDao dao = sqlSession.getMapper(IDao.class);
+		String searchKey = request.getParameter("searchKey");
+        
+		if(searchKey != null && searchKey.length() != 0) {
+		    
+			cri2.setSearchKey(searchKey);
+			    
+			String searchOption = request.getParameter("searchOption");      
+			
+			IDao dao = sqlSession.getMapper(IDao.class);
+			
+			ArrayList<MemberDto> mAlldtos = null;
+			
+			int pageNumInt=1;
+			
+			int mAllcount = 0;
+			
+			PageDto2 pageDto = null;
+			
+			model.addAttribute("searchKey", searchKey);
+            model.addAttribute("searchOption", searchOption);
+            
+            if(request.getParameter("pageNum") == null) {
+                pageNumInt =1;//1페이지부터 시작
+               cri2.setPageNum(pageNumInt);
+            } else {
+                pageNumInt =Integer.parseInt(request.getParameter("pageNum"));
+                cri2.setPageNum(pageNumInt);
+            }
+
+		if(searchOption.equals("이름")) {
+               
+           cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());
+           
+           mAlldtos = dao.adMsearchList(cri2);
+           
+           mAllcount = dao.memberNamecount(searchKey);
+           
+           pageDto = new PageDto2(cri2, mAllcount); 
+           
+		}  else if(searchOption.equals("아이디")) {
+            
+            cri2.setStartNum(cri.getPageNum()-1 * cri.getAmount());
+            
+            mAlldtos = dao.adMsearchIdList(cri2);
+            
+            mAllcount = dao.memberIdcount(searchKey);
+            
+            pageDto = new PageDto2(cri2, mAllcount);
+        }
 		
-		ArrayList<MemberDto> mAlldtos = dao.memberAll();
-		
-		model.addAttribute("mAlldtos", mAlldtos);//회원 전체 정보값을 반환
-		model.addAttribute("mAllcount",mAlldtos.size());//등록된 회원 수를 반환
-		
+		model.addAttribute("pageMaker", pageDto);//pageMaker = pageDto
+        model.addAttribute("mAlldtos", mAlldtos);
+        model.addAttribute("mAllcount", mAllcount);      
+        model.addAttribute("currPage", pageNumInt );
+
+		} else {
+	         
+			int pageNumInt = 1;
+			if(request.getParameter("pageNum") == null) {
+				pageNumInt = 1;
+				cri.setPageNum(pageNumInt);
+				
+			} else {
+				pageNumInt = Integer.parseInt(request.getParameter("pageNum"));
+				cri.setPageNum(pageNumInt);
+			}
+			
+			IDao dao = sqlSession.getMapper(IDao.class);
+			
+			int mAllcount = dao.memberAllcount();
+			
+			cri.setStartNum(cri.getPageNum()-1 * cri.getAmount());//해당 페이지의 시작번호를 설정
+			
+			PageDto pageDto = new PageDto(cri, mAllcount);
+			
+			List<MemberDto> mAlldtos = dao.memberAll(cri);
+			
+			model.addAttribute("pageMaker", pageDto);
+			model.addAttribute("mAlldtos", mAlldtos);
+			model.addAttribute("currPage", pageNumInt );
+			model.addAttribute("mAllcount", mAllcount);
+			
+		}
 		return "admemberList";
 	}
 	
-	@RequestMapping(value = "adMsearch_list")
-	public String adMsearch_list(HttpServletRequest request, Model model) {
-		
-		IDao dao = sqlSession.getMapper(IDao.class);
-		
-		ArrayList<MemberDto> reservationDto = null;
-		
-		String searchOption = request.getParameter("searchOption");
-		String searchKey = request.getParameter("searchKey");
-		
-		if(searchOption.equals("전체")) {
-			reservationDto = dao.memberAll();
-		} else if(searchOption.equals("이름")) {
-			reservationDto = dao.adMsearchList(searchKey);
-		} 
-		
-		model.addAttribute("mAlldtos", reservationDto);//회원 전체 정보값을 반환
-		model.addAttribute("mAllcount", reservationDto.size());//등록된 회원 수를 반환
-		
-		return "admemberList";
-	}
 }

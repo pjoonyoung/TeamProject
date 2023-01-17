@@ -26,7 +26,7 @@
 		<div class="listBox rounded-2">
 			<div>
 				<span align="left" class="title">
-					▷ 총 ${reservationCount }개의 ${relistDto } 예약건이 있습니다.
+					▷ ${memberId }님 총 ${reservationCount }개의 ${relistDto } 예약건이 있습니다.
 				</span>
 				<span align="left">
 					<form action="myreservation">
@@ -92,7 +92,7 @@
 			<tr>
 				<td colspan="5" align="center">
 					<c:if test="${pageMaker.prev }">
-						<a href="list?pageNum=${pageMaker.startPage-5 }">Prev</a>&nbsp;&nbsp;&nbsp;
+						<a href="myreservation?pageNum=${pageMaker.startPage-5 }">Prev</a>&nbsp;&nbsp;&nbsp;
 					</c:if>										
 					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="num">
 						<c:choose>
@@ -100,12 +100,12 @@
 						<u>${num}</u>&nbsp;&nbsp;&nbsp;
 						</c:when>
 						<c:otherwise>
-						<a href="list?pageNum=${num}&searchOption=${searchOption}">${num}</a>&nbsp;&nbsp;&nbsp;
+						<a href="myreservation?pageNum=${num}&rid=${memberId }&searchOption=${searchOption}">${num}</a>&nbsp;&nbsp;&nbsp;
 						</c:otherwise>
 						</c:choose>																					
 					</c:forEach>
 					<c:if test="${pageMaker.next }">
-						<a href="list?pageNum=${pageMaker.startPage+5 }">Next</a>
+						<a href="myreservation?pageNum=${pageMaker.startPage+5 }">Next</a>
 					</c:if>	
 				</td>
 			</tr>

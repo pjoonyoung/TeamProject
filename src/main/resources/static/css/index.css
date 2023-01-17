@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.picbox {
+	text-align: center;
+    padding-top: 30px;
+}
+
+#indexBoxTitle {
+	text-align: center;
+	color:#000000;
+	font-weight: bold;
+	font-size: 100px;
+	text-transform: uppercase;
+	padding: 5px;
+	margin-bottom: 20px;
+	background: linear-gradient(to right, #270a09, #8ca6ce);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.btn0 {
+	padding: 10px;
+	margin-top:10px;
+	text-align: center;
+}
+
+div.btn0 > .btn{
+	margin-top:10px;
+	padding: 10px;
+} 

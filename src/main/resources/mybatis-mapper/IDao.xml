@@ -25,12 +25,44 @@
 	</select>
 	
 	<select id="memberAll" resultType="com.joonyoung.home.dto.MemberDto">
-		SELECT * FROM profile_member
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_member)A) 
+		WHERE PAGE= #{pageNum}
 	</select>
 	
 	<select id="adMsearchList" resultType="com.joonyoung.home.dto.MemberDto">
-		SELECT * FROM profile_member where mname LIKE '%' || #{param1} || '%' 	
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_member where mname LIKE '%' || #{searchKey} || '%')A) 
+		WHERE PAGE= #{pageNum}
 	</select>
+	
+	<select id="adMsearchIdList" resultType="com.joonyoung.home.dto.MemberDto">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_member where mid LIKE '%' || #{searchKey} || '%')A) 
+		WHERE PAGE= #{pageNum}
+	</select>
+	
+	<!-- 회원명수검색 sql -->
+	
+	<select id="memberAllcount" resultType="int">
+		SELECT COUNT(*) FROM profile_member
+	</select>
+	
+	<select id="memberNamecount" resultType="int">
+		SELECT COUNT(*) FROM profile_member where mname LIKE '%' || #{param1} || '%'
+	</select>
+	
+	<select id="memberIdcount" resultType="int">
+		SELECT COUNT(*) FROM profile_member where mid LIKE '%' || #{param1} || '%'
+	</select>
+	
+	<!-- 회원명수검색 sql 끝 -->
 	
 	<select id="memberIdFind" resultType="com.joonyoung.home.dto.MemberDto">
 		SELECT mid FROM profile_member WHERE mname = #{param1} AND memail = #{param2} AND mphone = #{param3}
@@ -115,7 +147,7 @@
 	<!-- 댓글관련 SQL -->
 	<insert id="writeAnswer">
 		INSERT INTO 
-				profile_answer (anum, acontent, aid, aqid) 
+				profile_answer (anum, acontent, aid, aqid)
 			VALUES
 			 	(answer_seq.nextval, #{param1}, #{param2}, #{param3})
 	</insert>
@@ -223,7 +255,11 @@
 	</insert>
 	
 	<select id="reservationAll" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation ORDER BY rday ASC
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_reservation ORDER BY rday DESC)A)
+		WHERE PAGE= #{pageNum}
 	</select>
 	
 	<select id="getReservation" resultType="com.joonyoung.home.dto.ReservationDto">
@@ -238,16 +274,28 @@
 		SELECT COUNT(*) FROM profile_reservation WHERE rid = #{param1} and rlist = #{param2}
 	</select>
  	-->
-	<select id="reservationList" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation WHERE rid = #{param} ORDER BY rday ASC
+	<select id="reservationList" parameterType="com.joonyoung.home.paging.Criteria2" resultType="com.joonyoung.home.dto.ReservationDto">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+			(SELECT * FROM profile_reservation WHERE rid = #{searchid} ORDER BY rday ASC)A)
+		WHERE PAGE= #{pageNum}
 	</select>
 	
 	<select id="reservationCount" resultType="int">
 		SELECT COUNT(*) FROM profile_reservation WHERE rid = #{param1}
 	</select>
 	
+	<select id="reserveListCount" resultType="int">
+		SELECT COUNT(*) FROM profile_reservation WHERE rid = #{param1} AND rlist = #{param2}
+	</select>
+	
 	<select id="reAllCount" resultType="int">
 		SELECT COUNT(*) FROM profile_reservation
+	</select>
+	
+	<select id="reListAllCount" resultType="int">
+		SELECT COUNT(*) FROM profile_reservation WHERE rlist = #{param1}
 	</select>
 	
 	<select id="reservationView" resultType="com.joonyoung.home.dto.ReservationDto">
@@ -264,20 +312,44 @@
 	
 	<!-- 예약검색 sql -->
 	
-	<select id="rSearchList" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation where rid = #{param1} and rlist = #{param2} ORDER BY rday ASC	
+	<select id="rSearchList" parameterType="com.joonyoung.home.paging.Criteria2" resultType="com.joonyoung.home.dto.ReservationDto">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+		(SELECT * FROM profile_reservation where rid = #{searchid} and rlist = #{searchOption} ORDER BY rday ASC)A)
+		WHERE PAGE= #{pageNum}
 	</select>
 	
-	<select id="rAllSearchList" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation where rid = #{param1} ORDER BY rday ASC	
+	<select id="rAllSearchList" parameterType="com.joonyoung.home.paging.Criteria2" resultType="com.joonyoung.home.dto.ReservationDto">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+		(SELECT * FROM profile_reservation where rid = #{searchid} ORDER BY rday DESC)A)
+		WHERE PAGE= #{pageNum}
 	</select>
 	
 	<select id="adSearchList" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation where rlist = #{param1} ORDER BY rday ASC	
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+		(SELECT * FROM profile_reservation where rlist = #{searchOption} ORDER BY rday ASC)A)
+		WHERE PAGE= #{pageNum}
 	</select>
 	
 	<select id="rAlldaySearch" resultType="com.joonyoung.home.dto.ReservationDto">
-		SELECT * FROM profile_reservation WHERE rday BETWEEN TO_DATE(#{param1}, 'YYYY-MM-DD') AND TO_DATE(#{param2}) ORDER BY rday ASC
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+		(SELECT * FROM profile_reservation WHERE rday BETWEEN TO_DATE(#{startday}, 'YYYY-MM-DD') AND TO_DATE(#{endday}) ORDER BY rday DESC)A)
+		WHERE PAGE= #{pageNum}
+	</select>
+	
+	<select id="rAlldayCount" resultType="int">
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM
+			FROM
+		(SELECT COUNT(*) FROM profile_reservation WHERE rday BETWEEN TO_DATE(#{startday}, 'YYYY-MM-DD') AND TO_DATE(#{endday}) ORDER BY rday DESC)A)
+		WHERE PAGE= #{pageNum}
 	</select>
 	
 </mapper>

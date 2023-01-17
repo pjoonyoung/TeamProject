@@ -48,7 +48,7 @@
 								style="width:100%" value="로그인" onclick="loginCheck()">
 							</div>
 				        </form>
-			        </div >
+			        </div>
 		        	<div class="find_wrap font-monospace">
 						<a target="_blank" href="idFind"
 						       class="find_text">아이디 찾기</a> | 
